@@ -10,6 +10,7 @@ import {
 defineProps<{
     status?: string;
     canResetPassword: boolean;
+    canRegister: boolean;
 }>();
 
 const form = useForm({
@@ -64,7 +65,7 @@ const submit = () => {
                 <Button type="submit" label="Log in" :loading="form.processing" />
             </div>
 
-            <div class="text-center text-sm text-muted-foreground">
+            <div class="text-center text-sm text-muted-foreground" v-if="canRegister">
                 Don't have an account?
                 <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
             </div>
