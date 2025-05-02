@@ -56,27 +56,11 @@ export interface User {
     email: string;
     avatar?: string;
     email_verified_at: string | null;
-    role: 'admin' | 'user';
     created_at: string;
     updated_at: string;
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
-
-// DON'T MOVE OR CHANGE THIS FEATURE TYPE MANUALLY
-export interface Feature {
-    [FeatureEnum.MaxDeviceLogin]: number;
-}
-
-export interface PricingPlan {
-    id: string;
-    title: string;
-    description: string|null;
-    price: number;
-    features: Feature;
-    created_at: Date;
-    updated_at: Date;
-}
 
 export interface Session {
     id: string;
@@ -91,31 +75,4 @@ export interface ParsedUserAgent {
     browser: string;
     version: string;
     deviceType: 'Desktop' | 'Mobile' | 'Tablet' | 'Unknown';
-}
-
-export interface Subscription {
-    id: string;
-    user_id: number;
-    pricing_plan_id: string;
-    status: 'pending' | 'active' | 'expired' | 'cancelled';
-    metadata: object;
-    started_at: Date;
-    expires_at: Date;
-    canceled_at: Date | null;
-    created_at: Date;
-    updated_at: Date;
-}
-
-export interface Invoice {
-    id: string;
-    subscription_id: string;
-    user_id: number;
-    invoice_number: string;
-    amount: number;
-    status: 'unpaid' | 'paid' | 'failed' | 'refunded';
-    metadata: object;
-    file_url: string | null;
-    paid_at: Date | null;
-    created_at: Date;
-    updated_at: Date;
 }

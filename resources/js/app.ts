@@ -42,6 +42,8 @@ createInertiaApp({
     progress: {
         color: '#4B5563',
     },
+}).then(() => {
+    console.log("Don't look at this log!");
 });
 
 // This will set light / dark mode on page load...
