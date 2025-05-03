@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Enum\Permission;
+use App\Helpers\GeminiHelper;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -53,6 +54,7 @@ class HandleInertiaRequests extends Middleware
                 'success' => $request->session()->get('success', null),
                 'error' => $request->session()->get('error', null),
             ],
+            'assistantAIAvailability' => GeminiHelper::isAvailable(),
         ];
     }
 }

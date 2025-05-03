@@ -53,6 +53,7 @@ export interface SharedData extends PageProps {
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
     flash: { success: string|null; error: string|null; };
+    assistantAIAvailability: boolean;
 }
 
 export interface Link {

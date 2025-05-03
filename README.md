@@ -199,6 +199,7 @@ php artisan key:generate
 DB_DATABASE=your_db
 DB_USERNAME=your_user
 DB_PASSWORD=your_password
+GEMINI_API_KEY=
 ```
 
 ### ▶️ Finishing
