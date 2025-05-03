@@ -2,22 +2,20 @@
 
 namespace App\Models;
 
-use App\Enum\Role;
-use App\Enum\SubscriptionStatus;
 use App\Traits\Models\Filterable;
 use App\Traits\Models\Paginate;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
     use Filterable, Paginate;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -51,5 +49,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected $appends = [
+        'avatar',
+    ];
+
+    public function getAvatarAttribute(): string
+    {
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF&background=EBF4FF';
     }
 }

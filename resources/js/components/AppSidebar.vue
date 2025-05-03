@@ -6,7 +6,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import {
-    Folder, LayoutGrid,
+    Folder, LayoutGrid, Users2Icon, Briefcase,
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
@@ -19,6 +19,20 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
         isAvailable: true,
         isActive: route().current('dashboard')
+    },
+    {
+        title: 'User',
+        href: route('user.index'),
+        icon: Users2Icon,
+        isAvailable: page.props.auth.allow.view_user,
+        isActive: route().current('user.*')
+    },
+    {
+        title: 'Role',
+        href: route('role.index'),
+        icon: Briefcase,
+        isAvailable: page.props.auth.allow.view_role,
+        isActive: route().current('role.*')
     },
 ];
 

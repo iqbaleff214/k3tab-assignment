@@ -1,10 +1,37 @@
 import type { PageProps } from '@inertiajs/core';
 import type { LucideIcon } from 'lucide-vue-next';
 import type { Config } from 'ziggy-js';
-import { Feature as FeatureEnum } from '@/types/enum';
 
 export interface Auth {
     user: User;
+    allow: Allow;
+}
+
+export interface Allow {
+    view_user: boolean;
+    add_user: boolean;
+    edit_user: boolean;
+    delete_user: boolean;
+    view_role: boolean;
+    add_role: boolean;
+    edit_role: boolean;
+    delete_role: boolean;
+    view_incoming_letter: boolean;
+    add_incoming_letter: boolean;
+    edit_incoming_letter: boolean;
+    delete_incoming_letter: boolean;
+    view_outgoing_letter: boolean;
+    add_outgoing_letter: boolean;
+    edit_outgoing_letter: boolean;
+    delete_outgoing_letter: boolean;
+    view_letter_category: boolean;
+    add_letter_category: boolean;
+    edit_letter_category: boolean;
+    delete_letter_category: boolean;
+    view_disposition: boolean;
+    add_disposition: boolean;
+    edit_disposition: boolean;
+    delete_disposition: boolean;
 }
 
 export interface BreadcrumbItem {
@@ -75,4 +102,19 @@ export interface ParsedUserAgent {
     browser: string;
     version: string;
     deviceType: 'Desktop' | 'Mobile' | 'Tablet' | 'Unknown';
+}
+
+export interface Role {
+    id: number;
+    name: string;
+    guard_name: 'web';
+    created_at: Date;
+    updated_at: Date;
+}
+
+export interface Permission {
+    id: number;
+    name: string;
+    created_at: Date;
+    updated_at: Date;
 }

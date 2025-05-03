@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enum\Permission;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -41,6 +42,7 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
+                'allow' => Permission::allows(),
             ],
             'ziggy' => [
                 ...(new Ziggy)->toArray(),
