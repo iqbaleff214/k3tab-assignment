@@ -77,7 +77,7 @@ const destroy = (event: MouseEvent, item: Session | null) => {
                                 </div>
                             </template>
                             <template #subtitle>
-                                <small>{{ $t('label.last_active') }}: {{ dateHumanFormatWithTime(item.last_active) }}</small>
+                                <small>{{ $t('label.last_active') }}: {{ dateHumanFormatWithTime(item.last_active, 0, $page.props.auth.user.locale) }}</small>
                             </template>
                             <template #content>
                                 <div class="flex flex-col gap-y-2 my-4">

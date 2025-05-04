@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\SessionController;
@@ -20,4 +21,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('settings/session', [SessionController::class, 'index'])->name('session.index');
     Route::delete('settings/session', [SessionController::class, 'destroy'])->name('session.destroy');
+
+    Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activity-log.index');
 });

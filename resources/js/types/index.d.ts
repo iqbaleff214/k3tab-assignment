@@ -136,3 +136,17 @@ export interface IncomingLetter {
     created_at: Date;
     updated_at: Date;
 }
+
+export interface ActivityLog {
+    id: int;
+    log_name: string;
+    description: string;
+    subject_id: string | number;
+    subject_type: string;
+    causer_id: number;
+    causer_type: string;
+    module: string;
+    properties: object;
+    created_at: Date;
+    updated_at: Date;
+}

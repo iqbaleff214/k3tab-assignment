@@ -52,7 +52,7 @@ class UserController extends Controller
             Mail::to($user->email)
                 ->queue(new AccountCreatedMail($user, $password));
 
-            return back()->with('success', 'User created');
+            return back()->with('success', __('action.created', ['menu' => __('menu.user')]));
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
 
@@ -81,7 +81,7 @@ class UserController extends Controller
             ]);
             $user->syncRoles($input['roles']);
 
-            return back()->with('success', 'User updated');
+            return back()->with('success', __('action.updated', ['menu' => __('menu.user')]));
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
 
@@ -97,7 +97,7 @@ class UserController extends Controller
         try {
             $user->delete();
 
-            return back()->with('success', 'User deleted');
+            return back()->with('success', __('action.deleted', ['menu' => __('menu.user')]));
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
 
@@ -117,7 +117,7 @@ class UserController extends Controller
                 ->whereIn('id', $ids)
                 ->delete();
 
-            return back()->with('success', 'User deleted');
+            return back()->with('success', __('action.deleted', ['menu' => __('menu.user')]));
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
 

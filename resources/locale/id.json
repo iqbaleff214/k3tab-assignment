@@ -16,7 +16,8 @@
         "session": "Sesi",
         "appearance": "Tampilan",
         "delete_account": "Hapus Akun",
-        "logout": "Keluar"
+        "logout": "Keluar",
+        "activity_log": "Log"
     },
     "label": {
         "new": "Baru",
@@ -39,7 +40,9 @@
         "delete_account_are_you_sure": "Apakah Anda yakin ingin menghapus akun Anda?",
         "delete_account_term": "Setelah akun Anda dihapus, semua sumber daya dan data miliknya juga akan dihapus secara permanen. Masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda ingin menghapus akun secara permanen.",
         "last_active": "Terakhir aktif",
-        "current": "Sedang Aktif"
+        "current": "Sedang Aktif",
+        "success": "Berhasil",
+        "fail": "Gagal"
     },
     "action": {
         "submit": "Simpan",
@@ -60,6 +63,10 @@
         "password_confirmation": "Konfirmasi Sandi",
         "role": "Jabatan",
         "current_password": "Kata Sandi Sekarang",
-        "new_password": "Kata Sandi Baru"
+        "new_password": "Kata Sandi Baru",
+        "description": "Deskripsi",
+        "module": "Modul",
+        "created_at": "Waktu Dibuat",
+        "updated_at": "Waktu Diperbarui"
     }
 }

@@ -7,7 +7,9 @@ use App\Http\Requests\Settings\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -35,9 +37,16 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        if ($request->user()->isDirty('locale')) {
+            Session::put('locale', $request->user()->locale);
+        }
+
         $request->user()->save();
 
-        return to_route('profile.edit')->with('success', 'Profile updated successfully.');
+        App::setLocale($request->user()->locale);
+
+        return to_route('profile.edit')
+            ->with('success', __('action.updated', ['menu' => __('menu.profile')]));
     }
 
     /**

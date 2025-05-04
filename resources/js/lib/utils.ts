@@ -26,38 +26,38 @@ export const estimatedFormatBytes = (bytes: number): string => {
     return `${size} ${sizes[i]}`;
 };
 
-export const dateMonthYear = (value: Date | string | null): string => {
+export const dateMonthYear = (value: Date | string | null, locale: string = 'en-GB'): string => {
     if (!value)
         return '-';
 
     const date = new Date(value);
 
-    return date.toLocaleDateString('en-GB', {
+    return date.toLocaleDateString(locale, {
         month: 'short', year: 'numeric',
     });
 };
 
-export const dateHumanFormat = (value: Date | string | null, addHour: number = 0): string => {
+export const dateHumanFormat = (value: Date | string | null, addHour: number = 0, locale: string = 'en-GB'): string => {
     if (!value)
         return '-';
 
     const date = new Date(value);
     const finalDate = new Date(date.getTime() + addHour * 60 * 60 * 1000);
 
-    return finalDate.toLocaleDateString('en-GB', {
+    return finalDate.toLocaleDateString(locale, {
         weekday: 'short', day: '2-digit',
         month: 'short', year: 'numeric',
     });
 };
 
-export const dateHumanFormatWithTime = (value: Date | string | null, addHour: number = 0) => {
+export const dateHumanFormatWithTime = (value: Date | string | null, addHour: number = 0, locale: string = 'en-GB') => {
     if (!value)
         return '-';
 
     const date = new Date(value);
     const finalDate = new Date(date.getTime() + addHour * 60 * 60 * 1000);
 
-    return finalDate.toLocaleDateString('en-GB', {
+    return finalDate.toLocaleDateString(locale, {
         weekday: 'short',
         day: '2-digit',
         month: 'short',

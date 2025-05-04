@@ -16,7 +16,8 @@
         "session": "الجلسة",
         "appearance": "المظهر",
         "delete_account": "حذف الحساب",
-        "logout": "تسجيل الخروج"
+        "logout": "تسجيل الخروج",
+        "activity_log": "سجل الأنشطة"
     },
     "label": {
         "new": "جديد",
@@ -39,7 +40,9 @@
         "delete_account_are_you_sure": "هل أنت متأكد أنك تريد حذف حسابك؟",
         "delete_account_term": "بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل دائم. يرجى إدخال كلمة المرور الخاصة بك لتأكيد أنك تريد حذف الحساب بشكل دائم.",
         "last_active": "آخر نشاط",
-        "current": "نشط حالياً"
+        "current": "نشط حالياً",
+        "success": "نجاح",
+        "fail": "فشل"
     },
     "action": {
         "submit": "إرسال",
@@ -60,6 +63,10 @@
         "password_confirmation": "تأكيد كلمة المرور",
         "role": "الدور",
         "current_password": "كلمة المرور الحالية",
-        "new_password": "كلمة المرور الجديدة"
+        "new_password": "كلمة المرور الجديدة",
+        "description": "الوصف",
+        "module": "الوحدة",
+        "created_at": "تاريخ الإنشاء",
+        "updated_at": "تاريخ التحديث"
     }
 }

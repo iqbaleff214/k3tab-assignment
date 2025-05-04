@@ -16,7 +16,8 @@
         "session": "セッション",
         "appearance": "外観",
         "delete_account": "アカウントを削除",
-        "logout": "ログアウト"
+        "logout": "ログアウト",
+        "activity_log": "アクティビティログ"
     },
     "label": {
         "new": "新規",
@@ -39,7 +40,9 @@
         "delete_account_are_you_sure": "本当にアカウントを削除しますか？",
         "delete_account_term": "アカウントが削除されると、すべてのリソースとデータも完全に削除されます。アカウントを完全に削除するには、パスワードを入力してください。",
         "last_active": "最終アクティブ",
-        "current": "現在"
+        "current": "現在",
+        "success": "成功",
+        "fail": "失敗"
     },
     "action": {
         "submit": "送信",
@@ -60,6 +63,10 @@
         "password_confirmation": "パスワード確認",
         "role": "役割",
         "current_password": "現在のパスワード",
-        "new_password": "新しいパスワード"
+        "new_password": "新しいパスワード",
+        "description": "説明",
+        "module": "モジュール",
+        "created_at": "作成日時",
+        "updated_at": "更新日時"
     }
 }

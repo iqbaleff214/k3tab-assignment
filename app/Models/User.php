@@ -8,6 +8,8 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -15,7 +17,7 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
     use Filterable, Paginate;
-    use HasRoles;
+    use HasRoles, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -59,5 +61,30 @@ class User extends Authenticatable
     public function getAvatarAttribute(): string
     {
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF&background=EBF4FF';
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName(self::class)
+            ->logOnly(['name', 'email'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(fn(string $eventName) => match ($eventName) {
+                'created' => __('activity.created', [
+                    'menu' => __('menu.user'),
+                    'identifier' => $this->name,
+                    'link' => '#',
+                ]),
+                'updated' => __('activity.updated', [
+                    'menu' => __('menu.user'),
+                    'identifier' => $this->name,
+                    'link' => '#',
+                ]),
+                'deleted' => __('activity.deleted', [
+                    'menu' => __('menu.user'),
+                    'identifier' => $this->name,
+                ]),
+            });
     }
 }

@@ -16,7 +16,8 @@
         "session": "Session",
         "appearance": "Appearance",
         "delete_account": "Delete Account",
-        "logout": "Logout"
+        "logout": "Logout",
+        "activity_log": "Activity Log"
     },
     "label": {
         "new": "New",
@@ -39,7 +40,9 @@
         "delete_account_are_you_sure": "Are you sure you want to delete your account?",
         "delete_account_term": "Once your account is deleted, all of its resources and data will be permanently removed. Please enter your password to confirm you want to permanently delete your account.",
         "last_active": "Last active",
-        "current": "Current"
+        "current": "Current",
+        "success": "Success",
+        "fail": "Fail"
     },
     "action": {
         "submit": "Submit",
@@ -60,6 +63,10 @@
         "password_confirmation": "Confirm Password",
         "role": "Role",
         "current_password": "Current Password",
-        "new_password": "New Password"
+        "new_password": "New Password",
+        "description": "Description",
+        "module": "Module",
+        "created_at": "Created At",
+        "updated_at": "Updated At"
     }
 }

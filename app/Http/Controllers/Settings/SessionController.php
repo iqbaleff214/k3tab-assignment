@@ -47,7 +47,8 @@ class SessionController extends Controller
                     ->delete();
             }
 
-            return back()->with('success', 'Session deleted.');
+            return back()
+                ->with('success', __('action.deleted', ['menu' => __('menu.session')]));
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
 

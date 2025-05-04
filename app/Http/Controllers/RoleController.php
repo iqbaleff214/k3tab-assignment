@@ -38,7 +38,7 @@ class RoleController extends Controller
             $role = Role::query()->create($request->only('name'));
             $role->givePermissionTo($input['permissions']);
 
-            return back()->with('success', 'Role created');
+            return back()->with('success', __('action.created', ['menu' => __('menu.role')]));
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
 
@@ -56,7 +56,7 @@ class RoleController extends Controller
             $role->update($request->only(['name']));
             $role->syncPermissions($input['permissions']);
 
-            return back()->with('success', 'Role updated');
+            return back()->with('success', __('action.updated', ['menu' => __('menu.role')]));
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
 
@@ -72,7 +72,7 @@ class RoleController extends Controller
         try {
             $role->delete();
 
-            return back()->with('success', 'Role deleted');
+            return back()->with('success', __('action.updated', ['menu' => __('menu.role')]));
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
 
@@ -92,7 +92,7 @@ class RoleController extends Controller
                 ->whereIn('id', $ids)
                 ->delete();
 
-            return back()->with('success', 'Role deleted');
+            return back()->with('success', __('action.updated', ['menu' => __('menu.role')]));
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
 

@@ -16,7 +16,8 @@
         "session": "会话",
         "appearance": "外观",
         "delete_account": "删除账户",
-        "logout": "登出"
+        "logout": "登出",
+        "activity_log": "活动日志"
     },
     "label": {
         "new": "新增",
@@ -39,7 +40,9 @@
         "delete_account_are_you_sure": "您确定要删除您的账户吗？",
         "delete_account_term": "账户删除后，所有资源和数据都将被永久删除。请输入您的密码以确认永久删除账户。",
         "last_active": "最后活动时间",
-        "current": "当前活跃"
+        "current": "当前活跃",
+        "success": "成功",
+        "fail": "失败"
     },
     "action": {
         "submit": "提交",
@@ -60,6 +63,10 @@
         "password_confirmation": "确认密码",
         "role": "角色",
         "current_password": "当前密码",
-        "new_password": "新密码"
+        "new_password": "新密码",
+        "description": "描述",
+        "module": "模块",
+        "created_at": "创建时间",
+        "updated_at": "更新时间"
     }
 }

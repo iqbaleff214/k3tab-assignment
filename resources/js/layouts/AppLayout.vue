@@ -18,7 +18,7 @@ const page = usePage<SharedData>();
 const toast = useToast();
 
 const timeOutRef = ref<number|null>(null);
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 
 watchEffect( () => {
     const flash = page.props.flash;
@@ -26,14 +26,14 @@ watchEffect( () => {
         if (flash?.success) {
             toast.add({
                 severity: 'success',
-                summary: 'Success',
+                summary: t('label.success'),
                 detail: flash?.success,
                 life: 3000,
             });
         } else if (flash?.error) {
             toast.add({
                 severity: 'error',
-                summary: 'Fail',
+                summary: t('label.fail'),
                 detail: flash?.error,
                 life: 3000,
             });
