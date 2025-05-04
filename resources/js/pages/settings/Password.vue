@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import InputError from '@/components/InputError.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 import HeadingSmall from '@/components/HeadingSmall.vue';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { type BreadcrumbItem } from '@/types';
+import {
+    FloatLabel, Message, Password,
+    Button,
+} from 'primevue';
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
-        title: 'Password settings',
+        title: 'menu.password',
         href: '/settings/password',
     },
 ];
@@ -52,65 +52,49 @@ const updatePassword = () => {
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Password settings" />
+        <Head :title="$t('menu.password')" />
 
         <SettingsLayout>
             <div class="space-y-6">
-                <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
+                <HeadingSmall
+                    :title="$t('menu.password')"
+                    :description="$t('label.password_subtitle')" />
 
                 <form @submit.prevent="updatePassword" class="space-y-6">
-                    <div class="grid gap-2">
-                        <Label for="current_password">Current password</Label>
-                        <Input
-                            id="current_password"
-                            ref="currentPasswordInput"
-                            v-model="form.current_password"
-                            type="password"
-                            class="mt-1 block w-full"
-                            autocomplete="current-password"
-                            placeholder="Current password"
-                        />
-                        <InputError :message="form.errors.current_password" />
+                    <div class="grid">
+                        <FloatLabel variant="on">
+                            <Password v-model="form.current_password" :autofocus="true" inputId="current_password" :fluid="true" :feedback="false" toggleMask required />
+                            <label class="text-sm" for="current_password">{{ $t('field.current_password') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.current_password" severity="error" size="small" variant="simple">{{ form.errors.current_password }}</Message>
                     </div>
 
-                    <div class="grid gap-2">
-                        <Label for="password">New password</Label>
-                        <Input
-                            id="password"
-                            ref="passwordInput"
-                            v-model="form.password"
-                            type="password"
-                            class="mt-1 block w-full"
-                            autocomplete="new-password"
-                            placeholder="New password"
-                        />
-                        <InputError :message="form.errors.password" />
+                    <div class="grid">
+                        <FloatLabel variant="on">
+                            <Password v-model="form.password" inputId="password" :fluid="true" toggleMask required />
+                            <label class="text-sm" for="password">{{ $t('field.new_password') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.password" severity="error" size="small" variant="simple">{{ form.errors.password }}</Message>
                     </div>
 
-                    <div class="grid gap-2">
-                        <Label for="password_confirmation">Confirm password</Label>
-                        <Input
-                            id="password_confirmation"
-                            v-model="form.password_confirmation"
-                            type="password"
-                            class="mt-1 block w-full"
-                            autocomplete="new-password"
-                            placeholder="Confirm password"
-                        />
-                        <InputError :message="form.errors.password_confirmation" />
+                    <div class="grid">
+                        <FloatLabel variant="on">
+                            <Password
+                                :invalid="form.password !== form.password_confirmation"
+                                v-model="form.password_confirmation"
+                                inputId="password_confirmation" :fluid="true"
+                                :feedback="false" toggleMask required />
+                            <label class="text-sm" for="password_confirmation">{{ $t('field.password_confirmation') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.password_confirmation" severity="error" size="small" variant="simple">{{ form.errors.password_confirmation }}</Message>
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <Button :disabled="form.processing" :processing="form.processing">Save password</Button>
-
-                        <Transition
-                            enter-active-class="transition ease-in-out"
-                            enter-from-class="opacity-0"
-                            leave-active-class="transition ease-in-out"
-                            leave-to-class="opacity-0"
-                        >
-                            <p v-show="form.recentlySuccessful" class="text-sm text-neutral-600">Saved.</p>
-                        </Transition>
+                        <Button
+                            type="submit" size="small"
+                            :label="$t('action.submit')"
+                            :loading="form.processing"
+                            :disabled="form.processing"></Button>
                     </div>
                 </form>
             </div>

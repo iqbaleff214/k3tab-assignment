@@ -3,9 +3,10 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import Pagination from '@/components/Pagination.vue';
 import FormModal from '@/pages/role/Index/FormModal.vue';
 import type { BreadcrumbItem, Paginate, Role as RoleBase, Permission, SharedData } from '@/types';
-import { Head, router, Link, usePage } from '@inertiajs/vue3';
+import { Head, router, usePage } from '@inertiajs/vue3';
 import { FilterMatchMode } from '@primevue/core/api';
 import { onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import {
     useConfirm, ConfirmPopup, DataTable, Column,
     Button, InputText,
@@ -13,7 +14,7 @@ import {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Role',
+        title: 'menu.role',
         href: route('role.index'),
     },
 ];
@@ -29,6 +30,7 @@ defineProps<{
 }>();
 
 const page = usePage<SharedData>();
+const { t } = useI18n();
 
 const selected = ref<Role[]>([]);
 const filters = ref({});
@@ -38,15 +40,15 @@ const confirm = useConfirm();
 const destroy = (event: MouseEvent, item: Role | null) => {
     confirm.require({
         target: event.currentTarget as HTMLElement,
-        message: 'Are you sure you want to delete?',
+        message: t('label.are_you_sure_delete'),
         icon: 'pi pi-exclamation-triangle',
         rejectProps: {
-            label: 'Cancel',
+            label: t('action.cancel'),
             severity: 'secondary',
             outlined: true
         },
         acceptProps: {
-            label: 'Delete',
+            label: t('action.delete'),
             severity: 'danger',
         },
         accept: () => {
@@ -85,14 +87,14 @@ onMounted(initFilter);
 </script>
 
 <template>
-    <Head title="Role" />
+    <Head :title="$t('menu.role')" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <header class="flex items-center justify-between">
                 <div>
-                    <h3 class="mb-0.5 text-base font-medium">Role</h3>
-                    <p class="text-sm text-muted-foreground">Manage role and permission</p>
+                    <h3 class="mb-0.5 text-base font-medium">{{ $t('menu.role') }}</h3>
+                    <p class="text-sm text-muted-foreground">{{ $t('label.menu_subtitle', { menu: $t('menu.role') }) }}</p>
                 </div>
                 <div class="flex gap-x-2">
                     <template v-if="selected.length > 0">
@@ -100,13 +102,13 @@ onMounted(initFilter);
                             v-if="page.props.auth.allow.delete_role"
                             :disabled="items.total === 1"
                             icon="pi pi-trash" @click="destroy($event, null)"
-                            label="Delete" size="small" severity="danger" />
+                            :label="$t('action.delete')" size="small" severity="danger" />
                     </template>
                     <template v-else>
                         <Button
                             v-if="page.props.auth.allow.add_role"
                             @click="() => modal?.open(null)"
-                            label="New Role" size="small" />
+                            :label="$t('action.new_menu', { menu: $t('menu.role') })" size="small" />
                     </template>
                     <Button
                         @click="router.reload({ only: ['items'], data: { filter: null }, replace: true, onSuccess: initFilter })"
@@ -123,9 +125,9 @@ onMounted(initFilter);
                 filter-display="menu" scrollable
                 lazy striped-rows show-gridlines>
                 <Column selection-mode="multiple" header-style="width: 3rem" />
-                <Column field="name" header="Name">
+                <Column field="name" :header="$t('field.name')">
                     <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by name" />
+                        <InputText v-model="filterModel.value" type="text" :placeholder="$t('label.search_by_field', { field: $t('field.name') })" />
                     </template>
                 </Column>
                 <Column class="w-24 !text-end">
@@ -143,7 +145,7 @@ onMounted(initFilter);
                         </div>
                     </template>
                 </Column>
-                <template #empty>No roles found.</template>
+                <template #empty>{{ $t('label.no_data_available', { data: $t('menu.role') }) }}</template>
             </DataTable>
 
             <Pagination :paginator="items" />

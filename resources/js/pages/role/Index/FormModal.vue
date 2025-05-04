@@ -80,14 +80,14 @@ defineExpose({
 <template>
     <Dialog
         v-model:visible="visible" modal
-        @after-hide="close" header="Role" :style="{ width: '50rem' }">
+        @after-hide="close" :header="$t('menu.role')" :style="{ width: '50rem' }">
         <div class="flex flex-col gap-6 pt-2 pb-8">
             <div class="grid">
                 <FloatLabel variant="on">
                     <InputText
                         :fluid="true" :autofocus="true" id="name"
                         v-model="form.name" type="text" autocomplete="off" />
-                    <label for="name" class="text-sm">Name</label>
+                    <label for="name" class="text-sm">{{ $t('field.name') }}</label>
                 </FloatLabel>
                 <Message v-if="form.errors.name" severity="error" size="small" variant="simple">
                     {{ form.errors.name }}
@@ -96,18 +96,18 @@ defineExpose({
             <DataTable :value="modules" tableStyle="min-width: 50rem">
                 <Column field="pivot" header="">
                     <template #body="{ data }: { data: string }">
-                        {{ data }}
+                        {{ $t(`menu.${data}`) }}
                     </template>
                     <template #header>
                         <Button
                             type="button" size="small" :disabled="form.permissions.length === (props.modules.length * props.actions.length)"
-                            label="Select All" @click="selectAll"></Button>
+                            :label="$t('action.select_all')" @click="selectAll"></Button>
                         <Button
                             type="button" size="small" :disabled="form.permissions.length === 0"
-                            label="Select None" severity="secondary" @click="selectAll"></Button>
+                            :label="$t('action.select_none')" severity="secondary" @click="selectAll"></Button>
                     </template>
                 </Column>
-                <Column v-for="action in actions" :key="action" :header="action" :field="action">
+                <Column v-for="action in actions" :key="action" :header="$t(`action.${action}`)" :field="action">
                     <template #body="{ data }: { data: string }">
                         <Checkbox
                             v-model="form.permissions" :input-id="`${action}_${data}`"
@@ -118,8 +118,8 @@ defineExpose({
         </div>
 
         <div class="flex justify-end gap-2">
-            <Button type="button" size="small" label="Cancel" severity="secondary" @click="close"></Button>
-            <Button type="button" size="small" label="Submit" :loading="form.processing" :disabled="form.processing" @click="submit"></Button>
+            <Button type="button" size="small" :label="$t('action.cancel')" severity="secondary" @click="close"></Button>
+            <Button type="button" size="small" :label="$t('action.submit')" :loading="form.processing" :disabled="form.processing" @click="submit"></Button>
         </div>
     </Dialog>
 </template>

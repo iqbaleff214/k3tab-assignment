@@ -34,7 +34,7 @@ onMounted(() => {
         :totalRecords="paginator.total"
         :rows="paginator.per_page" >
         <template #start>
-            Showing {{ paginator.from }} to {{ paginator.to }} of {{ paginator.total }}
+            {{ $t('label.show_to_of', { from: paginator.from, to: paginator.to, total: paginator.total }) }}
         </template>
     </Paginator>
 </template>

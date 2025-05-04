@@ -1,0 +1,65 @@
+{
+    "message": {
+        "hello": "안녕하세요, 세계"
+    },
+    "menu": {
+        "dashboard": "대시보드",
+        "user": "사용자",
+        "role": "역할",
+        "incoming_letter": "수신 문서",
+        "outgoing_letter": "발신 문서",
+        "disposition": "처리",
+        "letter_category": "문서 분류",
+        "setting": "설정",
+        "profile": "프로필",
+        "password": "비밀번호",
+        "session": "세션",
+        "appearance": "화면",
+        "delete_account": "계정 삭제",
+        "logout": "로그아웃"
+    },
+    "label": {
+        "new": "새로 만들기",
+        "search_by_field": "{field}로 검색",
+        "no_data_available": "{data} 데이터가 없습니다.",
+        "show_to_of": "{from} - {to} / 총 {total}개",
+        "menu_subtitle": "{menu} 관리",
+        "are_you_sure_delete": "정말 삭제하시겠습니까?",
+        "light": "라이트",
+        "dark": "다크",
+        "system": "시스템",
+        "setting_subtitle": "프로필 및 계정 설정 관리",
+        "profile_subtitle": "이름과 이메일 주소 업데이트",
+        "password_subtitle": "계정이 길고 무작위인 비밀번호를 사용하여 안전하게 보호되도록 하세요",
+        "session_subtitle": "로그인 장치 관리",
+        "appearance_subtitle": "계정의 표시 설정 업데이트",
+        "delete_account_subtitle": "계정 및 모든 리소스 삭제",
+        "warning": "경고",
+        "delete_account_warning": "이 작업은 되돌릴 수 없으므로 주의해서 진행하세요.",
+        "delete_account_are_you_sure": "정말로 계정을 삭제하시겠습니까?",
+        "delete_account_term": "계정이 삭제되면 해당 계정의 모든 리소스와 데이터도 영구적으로 삭제됩니다. 계정을 영구적으로 삭제하려면 비밀번호를 입력하세요.",
+        "last_active": "마지막 활동",
+        "current": "현재 활성화됨"
+    },
+    "action": {
+        "submit": "제출",
+        "cancel": "취소",
+        "back": "뒤로",
+        "edit": "편집",
+        "delete": "삭제",
+        "new_menu": "새 {menu}",
+        "view": "보기",
+        "add": "추가",
+        "select_all": "전체 선택",
+        "select_none": "전체 해제"
+    },
+    "field": {
+        "name": "이름",
+        "email": "이메일",
+        "password": "비밀번호",
+        "password_confirmation": "비밀번호 확인",
+        "role": "역할",
+        "current_password": "현재 비밀번호",
+        "new_password": "새 비밀번호"
+    }
+}

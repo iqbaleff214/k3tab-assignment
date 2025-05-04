@@ -20,7 +20,7 @@ const tabs = [
 <template>
     <div :class="['inline-flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800', containerClass]">
         <button
-            v-for="{ value, Icon, label } in tabs"
+            v-for="{ value, Icon } in tabs"
             :key="value"
             @click="updateAppearance(value)"
             :class="[
@@ -31,7 +31,7 @@ const tabs = [
             ]"
         >
             <component :is="Icon" class="-ml-1 h-4 w-4" />
-            <span class="ml-1.5 text-sm">{{ label }}</span>
+            <span class="ml-1.5 text-sm">{{ $t('label.' + value) }}</span>
         </button>
     </div>
 </template>

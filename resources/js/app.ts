@@ -11,6 +11,7 @@ import PrimeVue from 'primevue/config';
 import Theme from '@primeuix/themes/aura';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
+import { createI18n } from 'vue-i18n';
 
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
@@ -25,7 +26,19 @@ declare module 'vite/client' {
     }
 }
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Triton';
+
+import ar from '../locale/ar.json';
+import en from '../locale/en.json';
+import id from '../locale/id.json';
+import ja from '../locale/ja.json';
+import ko from '../locale/ko.json';
+import zhCN from '../locale/zh-cn.json';
+const i18n = createI18n({
+    locale: 'id',
+    fallbackLocale: 'en',
+    messages: { ar, en, id, ja, ko, 'zh-CN': zhCN, }
+});
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -37,6 +50,7 @@ createInertiaApp({
             .use(PrimeVue, { theme: { preset: Theme } })
             .use(ConfirmationService)
             .use(ToastService)
+            .use(i18n)
             .mount(el);
     },
     progress: {

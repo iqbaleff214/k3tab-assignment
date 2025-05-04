@@ -1,0 +1,65 @@
+{
+    "message": {
+        "hello": "こんにちは、世界"
+    },
+    "menu": {
+        "dashboard": "ダッシュボード",
+        "user": "ユーザー",
+        "role": "役割",
+        "incoming_letter": "受信文書",
+        "outgoing_letter": "送信文書",
+        "disposition": "処理",
+        "letter_category": "文書カテゴリ",
+        "setting": "設定",
+        "profile": "プロフィール",
+        "password": "パスワード",
+        "session": "セッション",
+        "appearance": "外観",
+        "delete_account": "アカウントを削除",
+        "logout": "ログアウト"
+    },
+    "label": {
+        "new": "新規",
+        "search_by_field": "{field}で検索",
+        "no_data_available": "{data} が見つかりませんでした。",
+        "show_to_of": "{from} ～ {to} / 全 {total} 件",
+        "menu_subtitle": "{menu} を管理",
+        "are_you_sure_delete": "削除してもよろしいですか？",
+        "light": "ライト",
+        "dark": "ダーク",
+        "system": "システム",
+        "setting_subtitle": "プロフィールとアカウント設定を管理する",
+        "profile_subtitle": "名前とメールアドレスを更新する",
+        "password_subtitle": "アカウントが長くランダムなパスワードを使用して安全であることを確認してください",
+        "session_subtitle": "ログインデバイスを管理する",
+        "appearance_subtitle": "アカウントの外観設定を更新する",
+        "delete_account_subtitle": "アカウントとすべてのリソースを削除する",
+        "warning": "警告",
+        "delete_account_warning": "この操作は元に戻せないため、注意して進めてください。",
+        "delete_account_are_you_sure": "本当にアカウントを削除しますか？",
+        "delete_account_term": "アカウントが削除されると、すべてのリソースとデータも完全に削除されます。アカウントを完全に削除するには、パスワードを入力してください。",
+        "last_active": "最終アクティブ",
+        "current": "現在"
+    },
+    "action": {
+        "submit": "送信",
+        "cancel": "キャンセル",
+        "back": "戻る",
+        "edit": "編集",
+        "delete": "削除",
+        "new_menu": "新しい {menu}",
+        "view": "表示",
+        "add": "追加",
+        "select_all": "すべて選択",
+        "select_none": "すべて解除"
+    },
+    "field": {
+        "name": "名前",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "password_confirmation": "パスワード確認",
+        "role": "役割",
+        "current_password": "現在のパスワード",
+        "new_password": "新しいパスワード"
+    }
+}

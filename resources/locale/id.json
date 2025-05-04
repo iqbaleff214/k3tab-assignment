@@ -1,0 +1,65 @@
+{
+    "message": {
+        "hello": "halo dunia"
+    },
+    "menu": {
+        "dashboard": "Dasbor",
+        "user": "Pengguna",
+        "role": "Jabatan",
+        "incoming_letter": "Surat Masuk",
+        "outgoing_letter": "Surat Keluar",
+        "disposition": "Disposisi",
+        "letter_category": "Kategori Surat",
+        "setting": "Pengaturan",
+        "profile": "Profil",
+        "password": "Kata Sandi",
+        "session": "Sesi",
+        "appearance": "Tampilan",
+        "delete_account": "Hapus Akun",
+        "logout": "Keluar"
+    },
+    "label": {
+        "new": "Baru",
+        "search_by_field": "Cari berdasarkan {field}",
+        "no_data_available": "Data {data} tidak ditemukan.",
+        "show_to_of": "Menampilkan {from} - {to} dari total {total}",
+        "menu_subtitle": "Kelola {menu}",
+        "are_you_sure_delete": "Anda yakin ingin menghapus?",
+        "light": "Terang",
+        "dark": "Gelap",
+        "system": "Sistem",
+        "setting_subtitle": "Kelola profil dan pengaturan akun Anda",
+        "profile_subtitle": "Perbarui nama dan alamat email Anda",
+        "password_subtitle": "Pastikan akun Anda menggunakan kata sandi yang panjang dan acak untuk tetap aman",
+        "session_subtitle": "Kelola perangkat yang digunakan untuk masuk",
+        "appearance_subtitle": "Perbarui pengaturan tampilan akun Anda",
+        "delete_account_subtitle": "Hapus akun Anda beserta seluruh sumber dayanya",
+        "warning": "Peringatan",
+        "delete_account_warning": "Harap lanjutkan dengan hati-hati, tindakan ini tidak dapat dibatalkan.",
+        "delete_account_are_you_sure": "Apakah Anda yakin ingin menghapus akun Anda?",
+        "delete_account_term": "Setelah akun Anda dihapus, semua sumber daya dan data miliknya juga akan dihapus secara permanen. Masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda ingin menghapus akun secara permanen.",
+        "last_active": "Terakhir aktif",
+        "current": "Sedang Aktif"
+    },
+    "action": {
+        "submit": "Simpan",
+        "cancel": "Batal",
+        "back": "Kembali",
+        "edit": "Edit",
+        "delete": "Hapus",
+        "new_menu": "{menu} Baru",
+        "view": "Lihat",
+        "add": "Tambah",
+        "select_all": "Pilih Semua",
+        "select_none": "Hilangkan Semua"
+    },
+    "field": {
+        "name": "Nama",
+        "email": "Surel",
+        "password": "Kata Sandi",
+        "password_confirmation": "Konfirmasi Sandi",
+        "role": "Jabatan",
+        "current_password": "Kata Sandi Sekarang",
+        "new_password": "Kata Sandi Baru"
+    }
+}

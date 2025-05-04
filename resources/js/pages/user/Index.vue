@@ -5,6 +5,7 @@ import type { BreadcrumbItem, Paginate, Role, SharedData, User as UserBase } fro
 import { Head, router, Link, usePage } from '@inertiajs/vue3';
 import { FilterMatchMode } from '@primevue/core/api';
 import { onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import {
     useConfirm, ConfirmPopup, DataTable, Column,
     Button, InputText, Tag, Select,
@@ -13,7 +14,7 @@ import FormModal from '@/pages/user/Index/FormModal.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'User',
+        title: 'menu.user',
         href: route('user.index'),
     },
 ];
@@ -28,6 +29,7 @@ defineProps<{
 }>();
 
 const page = usePage<SharedData>();
+const { t } = useI18n();
 
 const selected = ref<User[]>([]);
 const filters = ref({});
@@ -37,15 +39,15 @@ const confirm = useConfirm();
 const destroy = (event: MouseEvent, item: User | null) => {
     confirm.require({
         target: event.currentTarget as HTMLElement,
-        message: 'Are you sure you want to delete?',
+        message: t('label.are_you_sure_delete'),
         icon: 'pi pi-exclamation-triangle',
         rejectProps: {
-            label: 'Cancel',
+            label: t('action.cancel'),
             severity: 'secondary',
             outlined: true
         },
         acceptProps: {
-            label: 'Delete',
+            label: t('action.delete'),
             severity: 'danger',
         },
         accept: () => {
@@ -85,14 +87,14 @@ onMounted(initFilter);
 </script>
 
 <template>
-    <Head title="User" />
+    <Head :title="$t('menu.user')" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <header class="flex items-center justify-between">
                 <div>
-                    <h3 class="mb-0.5 text-base font-medium">User</h3>
-                    <p class="text-sm text-muted-foreground">Manage user account</p>
+                    <h3 class="mb-0.5 text-base font-medium">{{ $t('menu.user') }}</h3>
+                    <p class="text-sm text-muted-foreground">{{ $t('label.menu_subtitle', { menu: $t('menu.user') }) }}</p>
                 </div>
                 <div class="flex gap-x-2">
                     <template v-if="selected.length > 0">
@@ -100,13 +102,13 @@ onMounted(initFilter);
                             v-if="page.props.auth.allow.delete_user"
                             :disabled="items.total === 1"
                             icon="pi pi-trash" @click="destroy($event, null)"
-                            label="Delete" size="small" severity="danger" />
+                            :label="$t('action.delete')" size="small" severity="danger" />
                     </template>
                     <template v-else>
                         <Button
                             v-if="page.props.auth.allow.add_user"
                             @click="() => modal?.open(null)"
-                            label="New User" size="small" />
+                            :label="$t('action.new_menu', { menu: $t('menu.user') })" size="small" />
                     </template>
                     <Button
                         @click="router.reload({ only: ['items'], data: { filter: null }, replace: true, onSuccess: initFilter })"
@@ -116,37 +118,37 @@ onMounted(initFilter);
 
             <DataTable
                 :value="items.data"
-                :global-filter-fields="['name', 'email']"
+                :global-filter-fields="['name', 'email', 'role']"
                 v-model:selection="selected"
                 v-model:filters="filters"
                 table-style="min-width: 50rem"
                 filter-display="menu" scrollable
                 lazy striped-rows show-gridlines>
                 <Column selection-mode="multiple" header-style="width: 3rem" />
-                <Column field="name" header="Name">
+                <Column field="name" :header="$t('field.name')">
                     <template #body="{ data }: { data: User }">
                         <Link :href="route('user.show', data.id)" class="hover:text-teal-600">{{ data.name }}</Link>
                     </template>
                     <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by name" />
+                        <InputText v-model="filterModel.value" type="text" :placeholder="$t('label.search_by_field', { field: $t('field.name') })" />
                     </template>
                 </Column>
-                <Column field="email" header="Email">
+                <Column field="email" :header="$t('field.email')">
                     <template #body="{ data }: { data: User }">
                         <a :href="`mailto:${data.email}`" class="hover:text-teal-600">{{ data.email }}</a>
                     </template>
                     <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" placeholder="Search by email" />
+                        <InputText v-model="filterModel.value" type="text" :placeholder="$t('label.search_by_field', { field: $t('field.email') })" />
                     </template>
                 </Column>
-                <Column field="roles.name" header="Role">
+                <Column field="roles.name" :header="$t('field.role')">
                     <template #body="{ data }: { data: User }">
                         <Tag
                             v-for="role in data.roles" :key="role.id"
                             :value="role.name" class="me-1" />
                     </template>
                     <template #filter="{ filterModel }">
-                        <Select v-model="filterModel.value" :options="roles" placeholder="Search by role" />
+                        <Select v-model="filterModel.value" :options="roles" :placeholder="$t('label.search_by_field', { field: $t('field.role') })" />
                     </template>
                 </Column>
                 <Column class="w-24 !text-end">
@@ -164,7 +166,7 @@ onMounted(initFilter);
                         </div>
                     </template>
                 </Column>
-                <template #empty>No users found.</template>
+                <template #empty>{{ $t('label.no_data_available', { data: $t('menu.user') }) }}</template>
             </DataTable>
 
             <Pagination :paginator="items" />

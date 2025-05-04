@@ -83,6 +83,7 @@ export interface User {
     name: string;
     email: string;
     avatar?: string;
+    locale: 'id' | 'en' | 'ko' | 'ja' | 'ar' | 'zh-CN';
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
@@ -116,6 +117,22 @@ export interface Role {
 export interface Permission {
     id: number;
     name: string;
+    created_at: Date;
+    updated_at: Date;
+}
+
+export interface IncomingLetter {
+    id: string;
+    letter_number: string | null;
+    letter_date: Date | string | null;
+    sender: string | null;
+    subject: string | null;
+    body: string | null;
+    summary: string | null;
+    is_draft: boolean;
+    file: string;
+    file_url: string;
+    created_by: number | null;
     created_at: Date;
     updated_at: Date;
 }

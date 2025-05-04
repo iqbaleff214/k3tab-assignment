@@ -3,13 +3,14 @@ import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 
 import DeleteUser from '@/components/DeleteUser.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
-import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { type BreadcrumbItem, type SharedData, type User } from '@/types';
+import {
+    SelectButton, Avatar, FloatLabel, Message, InputText,
+    Button,
+} from 'primevue';
+import { useI18n } from 'vue-i18n';
 
 interface Props {
     mustVerifyEmail: boolean;
@@ -20,53 +21,81 @@ defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Profile settings',
+        title: 'menu.profile',
         href: '/settings/profile',
     },
 ];
 
 const page = usePage<SharedData>();
 const user = page.props.auth.user as User;
+const { locale } = useI18n();
 
 const form = useForm({
     name: user.name,
     email: user.email,
+    locale: user.locale,
 });
 
 const submit = () => {
     form.patch(route('profile.update'), {
         preserveScroll: true,
+        onSuccess: () => {
+            locale.value = form.locale;
+        }
     });
 };
+
+type localeType = 'id' | 'en' | 'ko' | 'ja' | 'ar' | 'zh-CN';
+
+interface Locale {
+    code: localeType;
+    name: string;
+    flag: string;
+}
+
+const locales: Locale[] = [
+    { code: 'ar', name: 'اَلْعَرَبِيَّةُ', flag: 'https://flagsapi.com/SA/flat/64.png' },
+    { code: 'en', name: 'English', flag: 'https://flagsapi.com/GB/flat/64.png' },
+    { code: 'id', name: 'Bahasa Indonesia', flag: 'https://flagsapi.com/ID/flat/64.png' },
+    { code: 'ja', name: '日本語', flag: 'https://flagsapi.com/JP/flat/64.png' },
+    { code: 'ko', name: '한국어', flag: 'https://flagsapi.com/KR/flat/64.png' },
+    { code: 'zh-CN', name: '中文', flag: 'https://flagsapi.com/CN/flat/64.png' },
+];
 </script>
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Profile settings" />
+        <Head :title="$t('menu.profile')" />
 
         <SettingsLayout>
             <div class="flex flex-col space-y-6">
-                <HeadingSmall title="Profile information" description="Update your name and email address" />
+                <HeadingSmall
+                    :title="$t('menu.profile')"
+                    :description="$t('label.profile_subtitle')" />
 
                 <form @submit.prevent="submit" class="space-y-6">
-                    <div class="grid gap-2">
-                        <Label for="name">Name</Label>
-                        <Input id="name" class="mt-1 block w-full" v-model="form.name" required autocomplete="name" placeholder="Full name" />
-                        <InputError class="mt-2" :message="form.errors.name" />
+                    <div class="grid">
+                        <FloatLabel variant="on">
+                            <InputText
+                                :fluid="true" :autofocus="true" id="name"
+                                v-model="form.name" type="text" autocomplete="off" />
+                            <label for="name" class="text-sm">{{ $t('field.name') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.name" severity="error" size="small" variant="simple">
+                            {{ form.errors.name }}
+                        </Message>
                     </div>
 
-                    <div class="grid gap-2">
-                        <Label for="email">Email address</Label>
-                        <Input
-                            id="email"
-                            type="email"
-                            class="mt-1 block w-full"
-                            v-model="form.email"
-                            required
-                            autocomplete="username"
-                            placeholder="Email address"
-                        />
-                        <InputError class="mt-2" :message="form.errors.email" />
+                    <div class="grid">
+                        <FloatLabel variant="on">
+                            <InputText
+                                :fluid="true" id="email"
+                                v-model="form.email" type="text" autocomplete="off" />
+                            <label for="email" class="text-sm">{{ $t('field.email') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.email" severity="error" size="small" variant="simple">
+                            {{ form.errors.email }}
+                        </Message>
                     </div>
 
                     <div v-if="mustVerifyEmail && !user.email_verified_at">
@@ -87,17 +116,26 @@ const submit = () => {
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-4">
-                        <Button :disabled="form.processing" :processing="form.processing">Save</Button>
+                    <div>
+                        <SelectButton
+                            size="small" v-model="form.locale" option-value="code"
+                            :options="locales">
+                            <template #option="{ option }: { option: Locale }">
+                                <Avatar
+                                    :image="option.flag"
+                                    shape="circle" class="me-1" />
+                                {{ option.code }}
+                            </template>
+                        </SelectButton>
+                    </div>
 
-                        <Transition
-                            enter-active-class="transition ease-in-out"
-                            enter-from-class="opacity-0"
-                            leave-active-class="transition ease-in-out"
-                            leave-to-class="opacity-0"
-                        >
-                            <p v-show="form.recentlySuccessful" class="text-sm text-neutral-600">Saved.</p>
-                        </Transition>
+                    <div class="flex items-center gap-4">
+                        <Button
+                            type="button" size="small"
+                            :label="$t('action.submit')"
+                            :loading="form.processing"
+                            :disabled="form.processing"
+                            @click="submit"></Button>
                     </div>
                 </form>
             </div>

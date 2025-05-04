@@ -7,6 +7,7 @@ import { type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import {
     Folder, LayoutGrid, Users2Icon, Briefcase,
+    LetterText,
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
@@ -14,21 +15,21 @@ const page = usePage<SharedData>();
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
+        title: 'menu.dashboard',
         href: route('dashboard'),
         icon: LayoutGrid,
         isAvailable: true,
         isActive: route().current('dashboard')
     },
     {
-        title: 'User',
+        title: 'menu.user',
         href: route('user.index'),
         icon: Users2Icon,
         isAvailable: page.props.auth.allow.view_user,
         isActive: route().current('user.*')
     },
     {
-        title: 'Role',
+        title: 'menu.role',
         href: route('role.index'),
         icon: Briefcase,
         isAvailable: page.props.auth.allow.view_role,

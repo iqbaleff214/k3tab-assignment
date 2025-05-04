@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/app/AppSidebarLayout.vue';
 import type { BreadcrumbItemType, SharedData } from '@/types';
-import { onUnmounted, ref, watchEffect } from 'vue';
+import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import { useToast, Toast } from 'primevue';
+import { useI18n } from 'vue-i18n';
 
 interface Props {
     breadcrumbs?: BreadcrumbItemType[];
@@ -17,6 +18,7 @@ const page = usePage<SharedData>();
 const toast = useToast();
 
 const timeOutRef = ref<number|null>(null);
+const { locale } = useI18n();
 
 watchEffect( () => {
     const flash = page.props.flash;
@@ -37,6 +39,10 @@ watchEffect( () => {
             });
         }
     }, 50);
+});
+
+onMounted(() => {
+    locale.value = page.props.auth.user.locale;
 });
 
 onUnmounted(() => {

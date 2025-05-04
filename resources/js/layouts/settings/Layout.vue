@@ -7,25 +7,25 @@ import { Link } from '@inertiajs/vue3';
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'Profile',
+        title: 'menu.profile',
         href: route('profile.edit'),
         isAvailable: true,
         isActive: route().current('profile.*'),
     },
     {
-        title: 'Password',
+        title: 'menu.password',
         href: route('password.edit'),
         isAvailable: true,
         isActive: route().current('password.*'),
     },
     {
-        title: 'Session',
+        title: 'menu.session',
         href: route('session.index'),
         isAvailable: true,
         isActive: route().current('session.*'),
     },
     {
-        title: 'Appearance',
+        title: 'menu.appearance',
         href: route('appearance'),
         isAvailable: true,
         isActive: route().current('appearance'),
@@ -35,7 +35,9 @@ const sidebarNavItems: NavItem[] = [
 
 <template>
     <div class="px-4 py-6">
-        <Heading title="Settings" description="Manage your profile and account settings" />
+        <Heading
+            :title="$t('menu.setting')"
+            :description="$t('label.setting_subtitle')" />
 
         <div class="flex flex-col space-y-8 md:space-y-0 lg:flex-row lg:space-x-12 lg:space-y-0">
             <aside class="w-full max-w-xl lg:w-48">
@@ -48,7 +50,7 @@ const sidebarNavItems: NavItem[] = [
                         as-child
                     >
                         <Link :href="item.href">
-                            {{ item.title }}
+                            {{ $t(item.title) }}
                         </Link>
                     </Button>
                 </nav>

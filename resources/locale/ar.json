@@ -1,0 +1,65 @@
+{
+    "message": {
+        "hello": "مرحباً بالعالم"
+    },
+    "menu": {
+        "dashboard": "لوحة التحكم",
+        "user": "المستخدم",
+        "role": "الدور",
+        "incoming_letter": "الرسائل الواردة",
+        "outgoing_letter": "الرسائل الصادرة",
+        "disposition": "التصرف",
+        "letter_category": "فئة الرسالة",
+        "setting": "الإعدادات",
+        "profile": "الملف الشخصي",
+        "password": "كلمة المرور",
+        "session": "الجلسة",
+        "appearance": "المظهر",
+        "delete_account": "حذف الحساب",
+        "logout": "تسجيل الخروج"
+    },
+    "label": {
+        "new": "جديد",
+        "search_by_field": "البحث حسب {field}",
+        "no_data_available": "لا توجد بيانات {data}.",
+        "show_to_of": "عرض {from} - {to} من إجمالي {total}",
+        "menu_subtitle": "إدارة {menu}",
+        "are_you_sure_delete": "هل أنت متأكد أنك تريد الحذف؟",
+        "light": "فاتح",
+        "dark": "داكن",
+        "system": "النظام",
+        "setting_subtitle": "إدارة ملفك الشخصي وإعدادات الحساب",
+        "profile_subtitle": "تحديث اسمك وعنوان بريدك الإلكتروني",
+        "password_subtitle": "تأكد من أن حسابك يستخدم كلمة مرور طويلة وعشوائية للبقاء آمناً",
+        "session_subtitle": "إدارة أجهزة تسجيل الدخول",
+        "appearance_subtitle": "تحديث إعدادات مظهر حسابك",
+        "delete_account_subtitle": "حذف حسابك وجميع موارده",
+        "warning": "تحذير",
+        "delete_account_warning": "يرجى المتابعة بحذر، لا يمكن التراجع عن هذا الإجراء.",
+        "delete_account_are_you_sure": "هل أنت متأكد أنك تريد حذف حسابك؟",
+        "delete_account_term": "بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل دائم. يرجى إدخال كلمة المرور الخاصة بك لتأكيد أنك تريد حذف الحساب بشكل دائم.",
+        "last_active": "آخر نشاط",
+        "current": "نشط حالياً"
+    },
+    "action": {
+        "submit": "إرسال",
+        "cancel": "إلغاء",
+        "back": "عودة",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "new_menu": "{menu} جديد",
+        "view": "عرض",
+        "add": "إضافة",
+        "select_all": "تحديد الكل",
+        "select_none": "إلغاء التحديد"
+    },
+    "field": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "password_confirmation": "تأكيد كلمة المرور",
+        "role": "الدور",
+        "current_password": "كلمة المرور الحالية",
+        "new_password": "كلمة المرور الجديدة"
+    }
+}

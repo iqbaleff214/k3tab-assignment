@@ -10,7 +10,7 @@ import SettingsLayout from '@/layouts/settings/Layout.vue';
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
-        title: 'Appearance settings',
+        title: 'menu.appearance',
         href: '/settings/appearance',
     },
 ];
@@ -18,11 +18,13 @@ const breadcrumbItems: BreadcrumbItem[] = [
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Appearance settings" />
+        <Head :title="$t('menu.appearance')" />
 
         <SettingsLayout>
             <div class="space-y-6">
-                <HeadingSmall title="Appearance settings" description="Update your account's appearance settings" />
+                <HeadingSmall
+                    :title="$t('menu.appearance')"
+                    :description="$t('label.appearance_subtitle')" />
                 <AppearanceTabs />
             </div>
         </SettingsLayout>
