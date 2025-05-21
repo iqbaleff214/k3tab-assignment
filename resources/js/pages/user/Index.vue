@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import Pagination from '@/components/Pagination.vue';
-import type { BreadcrumbItem, Paginate, Role, SharedData, User as UserBase } from '@/types';
-import { Head, router, Link, usePage } from '@inertiajs/vue3';
-import { FilterMatchMode } from '@primevue/core/api';
-import { onMounted, ref, watch } from 'vue';
+import type {
+    BreadcrumbItem, FilterColumn, Paginate, Role,
+    SharedData, User as UserBase,
+} from '@/types';
+import { Head, router, usePage, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
-    useConfirm, ConfirmPopup, DataTable, Column,
-    Button, InputText, Tag, Select,
+    useConfirm, ConfirmPopup, Button
 } from 'primevue';
 import FormModal from '@/pages/user/Index/FormModal.vue';
+import Filter from '@/components/Filter.vue';
+import DataTable from '@/components/ui/table/DataTable.vue';
+import { dateHumanFormatWithTime } from '@/lib/utils';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -23,18 +27,47 @@ interface User extends UserBase {
     roles: Role[];
 }
 
-defineProps<{
+const props = defineProps<{
     items: Paginate<User>;
     roles: string[];
 }>();
 
 const page = usePage<SharedData>();
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 const selected = ref<User[]>([]);
-const filters = ref({});
 const modal = ref();
 const confirm = useConfirm();
+
+const filterForm = useForm<{ [key: string]: any; filters: Record<string, FilterColumn> }>({
+    filters: {
+        name: {
+            value: null,
+            matchMode: 'contains',
+            label: 'field.name',
+            canChange: true,
+        },
+        email: {
+            value: null,
+            matchMode: 'contains',
+            label: 'field.email',
+            canChange: true,
+        },
+        'roles.name': {
+            value: null,
+            matchMode: 'equals',
+            label: 'field.role',
+            canChange: false,
+            options: props.roles,
+        },
+        created_at: {
+            value: null,
+            matchMode: 'dateBetween',
+            label: 'field.joined_at',
+            canChange: true,
+        },
+    }
+});
 
 const destroy = (event: MouseEvent, item: User | null) => {
     confirm.require({
@@ -67,23 +100,6 @@ const destroy = (event: MouseEvent, item: User | null) => {
         },
     });
 };
-const initFilter = () => {
-    filters.value = {
-        name: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        email: { value: null, matchMode: FilterMatchMode.EQUALS },
-        'roles.name': { value: null, matchMode: FilterMatchMode.EQUALS },
-    };
-};
-
-watch(filters, (newFilters) => {
-    router.reload({
-        only: ['items'],
-        data: { filter: newFilters },
-        replace: true,
-    });
-}, { deep: true });
-
-onMounted(initFilter);
 </script>
 
 <template>
@@ -110,63 +126,53 @@ onMounted(initFilter);
                             @click="() => modal?.open(null)"
                             :label="$t('action.new_menu', { menu: $t('menu.user') })" size="small" />
                     </template>
-                    <Button
-                        @click="router.reload({ only: ['items'], data: { filter: null }, replace: true, onSuccess: initFilter })"
-                        icon="pi pi-filter-slash" severity="secondary" size="small" />
+                    <Filter :form="filterForm" />
                 </div>
             </header>
 
             <DataTable
-                :value="items.data"
-                :global-filter-fields="['name', 'email', 'role']"
-                v-model:selection="selected"
-                v-model:filters="filters"
-                table-style="min-width: 50rem"
-                filter-display="menu" scrollable
-                lazy striped-rows show-gridlines>
-                <Column selection-mode="multiple" header-style="width: 3rem" />
-                <Column field="name" :header="$t('field.name')">
-                    <template #body="{ data }: { data: User }">
-                        <Link :href="route('user.show', data.id)" class="hover:text-teal-600">{{ data.name }}</Link>
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" :placeholder="$t('label.search_by_field', { field: $t('field.name') })" />
+                name="user_table" :selection="true"
+                v-model:selected="selected"
+                :items="items.data">
+                <Column field="name" header="field.name" :sortable="true" />
+                <Column field="email" header="field.email" :sortable="true">
+                    <template #body="{ row }: { row: User }">
+                        <a :href="`mailto:${row.email}`" class="hover:underline hover:text-emerald-500">
+                            {{ row.email }}
+                        </a>
                     </template>
                 </Column>
-                <Column field="email" :header="$t('field.email')">
-                    <template #body="{ data }: { data: User }">
-                        <a :href="`mailto:${data.email}`" class="hover:text-teal-600">{{ data.email }}</a>
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" :placeholder="$t('label.search_by_field', { field: $t('field.email') })" />
-                    </template>
-                </Column>
-                <Column field="roles.name" :header="$t('field.role')">
-                    <template #body="{ data }: { data: User }">
-                        <Tag
-                            v-for="role in data.roles" :key="role.id"
-                            :value="role.name" class="me-1" />
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <Select v-model="filterModel.value" :options="roles" :placeholder="$t('label.search_by_field', { field: $t('field.role') })" />
-                    </template>
-                </Column>
-                <Column class="w-24 !text-end">
-                    <template #body="{ data }: { data: User }">
-                        <div class="flex gap-x-2 items-center justify-center">
-                            <Button
-                                v-if="page.props.auth.allow.edit_user"
-                                icon="pi pi-pencil" size="small" variant="outlined" severity="secondary"
-                                @click="() => modal?.open(data)" rounded></Button>
-                            <Button
-                                v-if="page.props.auth.allow.delete_user"
-                                :disabled="items.total === 1"
-                                icon="pi pi-trash" size="small" variant="outlined" severity="danger"
-                                @click="destroy($event, data)" rounded></Button>
+                <Column field="roles.name" header="field.role">
+                    <template #body="{ row }: { row: User }">
+                        <div class=" flex gap-x-2 items-center justify-start">
+                            <span
+                                v-for="role in row.roles" :key="role.id"
+                                class="inline-block px-2 py-1 text-xs bg-emerald-100 text-emerald-800 rounded">
+                                {{ role.name }}
+                            </span>
                         </div>
                     </template>
                 </Column>
-                <template #empty>{{ $t('label.no_data_available', { data: $t('menu.user') }) }}</template>
+                <Column field="created_at" header="field.joined_at" :sortable="true">
+                    <template #body="{ row }: { row: User }">
+                        {{ dateHumanFormatWithTime(row.created_at, 0, locale) }}
+                    </template>
+                </Column>
+                <template #action="{ item }: { item: User }">
+                    <div class="flex gap-x-1.5">
+                        <Button
+                            v-tooltip.bottom="$t('action.edit')"
+                            v-if="page.props.auth.allow.edit_user"
+                            icon="pi pi-pencil" size="small" variant="text" severity="secondary"
+                            @click="(e) => { e.preventDefault(); modal?.open(item); }" rounded></Button>
+                        <Button
+                            v-tooltip.bottom="$t('action.delete')"
+                            v-if="page.props.auth.allow.delete_user"
+                            :disabled="item.id === page.props.auth.user.id"
+                            icon="pi pi-trash" size="small" variant="text" severity="danger"
+                            @click="destroy($event, item)" rounded></Button>
+                    </div>
+                </template>
             </DataTable>
 
             <Pagination :paginator="items" />

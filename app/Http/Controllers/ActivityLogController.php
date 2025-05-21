@@ -15,6 +15,8 @@ class ActivityLogController extends Controller
             'items' => ActivityLog::with(['causer'])
                 ->where('causer_id', $request->user()->id)
                 ->latest()
+                ->sort($request->query('sorts'))
+                ->filter($request->query('filters'))
                 ->filter($request->query('filter'))
                 ->render($request->query('size')),
         ]);

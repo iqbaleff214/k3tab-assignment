@@ -21,10 +21,14 @@ class RoleController extends Controller
     {
         return Inertia::render('role/Index', [
             'items' => Role::with(['permissions'])
-                ->filter($request->query('filter'))
+                ->sort($request->query('sorts'))
+                ->filter($request->query('filters'))
                 ->render($request->query('size')),
             'modules' => Permission::module(),
             'actions' => Permission::action(),
+            'skips' => Permission::skip(),
+            'permissions' => \App\Models\Permission::query()
+                ->pluck('name'),
         ]);
     }
 
@@ -70,7 +74,7 @@ class RoleController extends Controller
     public function destroy(Role $role): RedirectResponse
     {
         try {
-            $role->delete();
+            $role->deleteQuietly();
 
             return back()->with('success', __('action.updated', ['menu' => __('menu.role')]));
         } catch (\Throwable $exception) {

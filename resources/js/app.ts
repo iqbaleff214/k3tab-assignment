@@ -11,6 +11,7 @@ import PrimeVue from 'primevue/config';
 import Theme from '@primeuix/themes/aura';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
+import Tooltip from 'primevue/tooltip';
 import { createI18n } from 'vue-i18n';
 
 // Extend ImportMeta interface for Vite...
@@ -51,6 +52,7 @@ createInertiaApp({
             .use(ConfirmationService)
             .use(ToastService)
             .use(i18n)
+            .directive('tooltip', Tooltip)
             .mount(el);
     },
     progress: {

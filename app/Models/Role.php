@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Traits\Models\Filterable;
 use App\Traits\Models\Paginate;
+use App\Traits\Models\Sortable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Role extends \Spatie\Permission\Models\Role
 {
-    use Filterable, Paginate;
+    use Filterable, Sortable, Paginate;
     use LogsActivity;
 
     public function getActivitylogOptions(): LogOptions

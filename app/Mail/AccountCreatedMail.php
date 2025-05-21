@@ -10,8 +10,9 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\App;
 
-class AccountCreatedMail extends Mailable implements ShouldQueue
+class AccountCreatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,8 +29,9 @@ class AccountCreatedMail extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
+        App::setLocale($this->user->locale);
         return new Envelope(
-            subject: 'Account Created',
+            subject: __('email.account_created.subject'),
         );
     }
 
@@ -38,6 +40,7 @@ class AccountCreatedMail extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
+        App::setLocale($this->user->locale);
         return new Content(
             markdown: 'emails.account_created',
         );

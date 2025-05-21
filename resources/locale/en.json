@@ -6,10 +6,6 @@
         "dashboard": "Dashboard",
         "user": "User",
         "role": "Role",
-        "incoming_letter": "Incoming Letter",
-        "outgoing_letter": "Outgoing Letter",
-        "disposition": "Disposition",
-        "letter_category": "Letter Category",
         "setting": "Settings",
         "profile": "Profile",
         "password": "Password",
@@ -22,8 +18,8 @@
     "label": {
         "new": "New",
         "search_by_field": "Search by {field}",
-        "no_data_available": "No {data} found.",
-        "show_to_of": "Showing {from} - {to} of {total}",
+        "no_data_available": "No data for {data}.",
+        "show_to_of": "Showing {from} - {to} of total {total}",
         "menu_subtitle": "Manage {menu}",
         "are_you_sure_delete": "Are you sure you want to delete?",
         "light": "Light",
@@ -31,21 +27,26 @@
         "system": "System",
         "setting_subtitle": "Manage your profile and account settings",
         "profile_subtitle": "Update your name and email address",
-        "password_subtitle": "Make sure your account uses a long, random password to stay secure",
-        "session_subtitle": "Manage your login devices",
-        "appearance_subtitle": "Update your account's appearance settings",
-        "delete_account_subtitle": "Delete your account along with all its resources",
+        "password_subtitle": "Ensure your account uses a long, random password to stay secure",
+        "session_subtitle": "Manage the devices you use to log in",
+        "appearance_subtitle": "Update the appearance settings of your account",
+        "delete_account_subtitle": "Delete your account and all of its resources",
         "warning": "Warning",
-        "delete_account_warning": "Please proceed with caution, this action cannot be undone.",
+        "delete_account_warning": "Please proceed with caution, this action is irreversible.",
         "delete_account_are_you_sure": "Are you sure you want to delete your account?",
-        "delete_account_term": "Once your account is deleted, all of its resources and data will be permanently removed. Please enter your password to confirm you want to permanently delete your account.",
-        "last_active": "Last active",
-        "current": "Current",
+        "delete_account_term": "Once your account is deleted, all of its resources and data will be permanently deleted. Enter your password to confirm that you want to permanently delete your account.",
+        "last_active": "Last Active",
+        "current": "Currently Active",
         "success": "Success",
-        "fail": "Fail"
+        "fail": "Failed",
+        "filter": "Filter",
+        "toggle_column": "Toggle Columns",
+        "sort_field_by": "Sort by {field}",
+        "asc": "ascending",
+        "desc": "descending"
     },
     "action": {
-        "submit": "Submit",
+        "submit": "Save",
         "cancel": "Cancel",
         "back": "Back",
         "edit": "Edit",
@@ -54,7 +55,11 @@
         "view": "View",
         "add": "Add",
         "select_all": "Select All",
-        "select_none": "Deselect All"
+        "select_none": "Deselect All",
+        "filter": "Filter",
+        "reset": "Reset",
+        "approve": "Approve",
+        "save": "Save"
     },
     "field": {
         "name": "Name",
@@ -67,6 +72,8 @@
         "description": "Description",
         "module": "Module",
         "created_at": "Created At",
-        "updated_at": "Updated At"
+        "updated_at": "Updated At",
+        "joined_at": "Joined At",
+        "permission": "Permission"
     }
 }

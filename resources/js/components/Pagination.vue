@@ -28,11 +28,9 @@ onMounted(() => {
 
 <template>
     <Paginator
-        @page="pageChange"
-        :first
-        :rowsPerPageOptions="[10, 20, 30, 40, 50]"
-        :totalRecords="paginator.total"
-        :rows="paginator.per_page" >
+        @page="pageChange" v-if="paginator.total > 0"
+        :first :rows-per-page-options="[10, 20, 30, 40, 50]"
+        :total-records="paginator.total" :rows="paginator.per_page" >
         <template #start>
             {{ $t('label.show_to_of', { from: paginator.from, to: paginator.to, total: paginator.total }) }}
         </template>

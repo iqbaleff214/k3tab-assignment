@@ -1,24 +1,24 @@
 @component('mail::message')
-# Welcome to {{ config('app.name') }}
+# {{ __('email.account_created.welcome_heading', ['app' => config('app.name')]) }}
 
-Hello {{ $user->name }},
+{{ __('email.account_created.hello', ['name' => $user->name]) }},
 
-An account has been created for you in **{{ config('app.name') }}**.
+{{ __('email.account_created.account_created', ['app' => config('app.name')])  }}
 
-Here are your login credentials:
+{{ __('email.account_created.credentials') }}
 
-- **Email:** {{ $user->email }}
-- **Password:** {{ $password }}
+- **{{ __('email.account_created.email') }}:** {{ $user->email }}
+- **{{ __('email.account_created.password') }}:** {{ $password }}
 
 @component('mail::button', ['url' => route('login')])
-    Login to {{ config('app.name') }}
+    {{ __('email.account_created.login_button', ['app' => config('app.name')]) }}
 @endcomponent
 
-> For security reasons, please **log in and change your password immediately**.
+> {{ __('email.account_created.security_notice') }}
 
-If you have any questions, feel free to contact your administrator.
+{{ __('email.account_created.contact_admin') }}
 
-Thanks,
+{{ __('email.account_created.thanks') }}
 
 {{ config('app.name') }}
 @endcomponent

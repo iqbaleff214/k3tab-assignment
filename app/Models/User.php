@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\Models\Filterable;
 use App\Traits\Models\Paginate;
+use App\Traits\Models\Sortable;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +17,7 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
-    use Filterable, Paginate;
+    use Filterable, Sortable, Paginate;
     use HasRoles, LogsActivity;
 
     /**

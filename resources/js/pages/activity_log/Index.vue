@@ -2,14 +2,14 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import Pagination from '@/components/Pagination.vue';
 import type {
-    ActivityLog as ActivityLogBase, BreadcrumbItem,
+    ActivityLog as ActivityLogBase, BreadcrumbItem, FilterColumn,
     Paginate, SharedData, User
 } from '@/types';
-import { Head, router, usePage } from '@inertiajs/vue3';
-import { onMounted, ref, watch } from 'vue';
-import { FilterMatchMode } from '@primevue/core/api';
-import { Button, Column, ConfirmPopup, DataTable, InputText } from 'primevue';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { Column, ConfirmPopup } from 'primevue';
 import { dateHumanFormatWithTime } from '@/lib/utils';
+import Filter from '@/components/Filter.vue';
+import DataTable from '@/components/ui/table/DataTable.vue';
 
 interface ActivityLog extends ActivityLogBase {
     causer: User;
@@ -28,23 +28,22 @@ defineProps<{
 
 const page = usePage<SharedData>();
 
-const filters = ref({});
-
-const initFilter = () => {
-    filters.value = {
-        description: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    };
-};
-
-watch(filters, (newFilters) => {
-    router.reload({
-        only: ['items'],
-        data: { filter: newFilters },
-        replace: true,
-    });
-}, { deep: true });
-
-onMounted(initFilter);
+const filterForm = useForm<{ [key: string]: any; filters: Record<string, FilterColumn> }>({
+    filters: {
+        description: {
+            value: null,
+            matchMode: 'contains',
+            label: 'field.description',
+            canChange: true,
+        },
+        created_at: {
+            value: null,
+            matchMode: 'dateBetween',
+            label: 'field.created_at',
+            canChange: true,
+        },
+    }
+});
 
 </script>
 
@@ -59,43 +58,33 @@ onMounted(initFilter);
                     <p class="text-sm text-muted-foreground">{{ $t('label.menu_subtitle', { menu: $t('menu.activity_log') }) }}</p>
                 </div>
                 <div class="flex gap-x-2">
-                    <Button
-                        @click="router.reload({ only: ['items'], data: { filter: null }, replace: true, onSuccess: initFilter })"
-                        icon="pi pi-filter-slash" severity="secondary" size="small" />
+                    <Filter :form="filterForm" />
                 </div>
             </header>
 
             <DataTable
-                :value="items.data"
-                :global-filter-fields="['log_name']"
-                v-model:filters="filters"
-                table-style="min-width: 50rem"
-                filter-display="menu" scrollable
-                lazy striped-rows show-gridlines>
-                <Column field="created_at" :header="$t('field.created_at')">
-                    <template #body="{ data }: { data: ActivityLog }">
-                        {{ dateHumanFormatWithTime(data.created_at, 0, page.props.auth.user.locale) }}
+                name="activity_log_table" :selection="false"
+                :items="items.data">
+                <Column field="created_at" header="field.created_at" :sortable="true">
+                    <template #body="{ row }: { row: ActivityLog }">
+                        {{ dateHumanFormatWithTime(row.created_at, 0, page.props.auth.user.locale) }}
                     </template>
                 </Column>
-                <Column field="description" :header="$t('field.description')">
-                    <template #body="{ data }: { data: ActivityLog }">
-                        <div v-html="data.description"></div>
-                    </template>
-                    <template #filter="{ filterModel }">
-                        <InputText v-model="filterModel.value" type="text" :placeholder="$t('label.search_by_field', { field: $t('field.name') })" />
+                <Column field="description" header="field.description">
+                    <template #body="{ row }: { row: ActivityLog }">
+                        <div v-html="row.description"></div>
                     </template>
                 </Column>
-                <Column field="module" :header="$t('field.module')">
-                    <template #body="{ data }: { data: ActivityLog }">
-                        {{ $t('menu.' + data.module) }}
+                <Column field="module" header="field.module">
+                    <template #body="{ row }: { row: ActivityLog }">
+                        {{ $t('menu.' + row.module) }}
                     </template>
                 </Column>
-                <Column field="causer" :header="$t('menu.user')">
-                    <template #body="{ data }: { data: ActivityLog }">
-                        {{ data.causer.name }}
+                <Column field="causer.name" header="menu.user">
+                    <template #body="{ row }: { row: ActivityLog }">
+                        {{ row.causer.name }}
                     </template>
                 </Column>
-                <template #empty>{{ $t('label.no_data_available', { data: $t('menu.activity_log') }) }}</template>
             </DataTable>
 
             <Pagination :paginator="items" />

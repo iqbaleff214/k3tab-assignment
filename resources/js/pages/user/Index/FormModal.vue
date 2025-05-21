@@ -70,47 +70,49 @@ defineExpose({
     <Dialog
         v-model:visible="visible" modal
         @after-hide="close" :header="$t('menu.user')" :style="{ width: '50rem' }">
-        <div class="flex flex-col gap-6 pt-2 pb-8">
-            <div class="grid lg:grid-cols-2 gap-x-6 w-full">
-                <div class="grid">
-                    <FloatLabel variant="on">
-                        <InputText
-                            :fluid="true" :autofocus="true" id="name"
-                            v-model="form.name" type="text" autocomplete="off" />
-                        <label for="name" class="text-sm">{{ $t('field.name') }}</label>
-                    </FloatLabel>
-                    <Message v-if="form.errors.name" severity="error" size="small" variant="simple">
-                        {{ form.errors.name }}
-                    </Message>
+        <form @submit.prevent="submit">
+            <div class="flex flex-col gap-6 pt-2 pb-8">
+                <div class="grid lg:grid-cols-2 gap-x-6 w-full">
+                    <div class="grid">
+                        <FloatLabel variant="on">
+                            <InputText
+                                :fluid="true" :autofocus="true" id="name"
+                                v-model="form.name" type="text" autocomplete="off" />
+                            <label for="name" class="text-sm">{{ $t('field.name') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.name" severity="error" size="small" variant="simple">
+                            {{ form.errors.name }}
+                        </Message>
+                    </div>
+                    <div class="grid">
+                        <FloatLabel variant="on">
+                            <InputText
+                                :fluid="true" id="email" :disabled="form.id > 0"
+                                v-model="form.email" type="text" autocomplete="off" />
+                            <label for="email" class="text-sm">{{ $t('field.email') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.email" severity="error" size="small" variant="simple">
+                            {{ form.errors.email }}
+                        </Message>
+                    </div>
                 </div>
                 <div class="grid">
                     <FloatLabel variant="on">
-                        <InputText
-                            :fluid="true" id="email" :disabled="form.id > 0"
-                            v-model="form.email" type="text" autocomplete="off" />
-                        <label for="email" class="text-sm">{{ $t('field.email') }}</label>
+                        <MultiSelect
+                            v-model="form.roles" :options="roles" filter input-id="roles" fluid show-clear
+                            :max-selected-labels="3" class="w-full md:w-80" />
+                        <label for="roles" class="text-sm">{{ $t('field.role') }}</label>
                     </FloatLabel>
-                    <Message v-if="form.errors.email" severity="error" size="small" variant="simple">
-                        {{ form.errors.email }}
+                    <Message v-if="form.errors.roles" severity="error" size="small" variant="simple">
+                        {{ form.errors.roles }}
                     </Message>
                 </div>
             </div>
-            <div class="grid">
-                <FloatLabel variant="on">
-                    <MultiSelect
-                        v-model="form.roles" :options="roles" filter input-id="roles" fluid
-                        :max-selected-labels="3" class="w-full md:w-80" />
-                    <label for="roles" class="text-sm">{{ $t('field.role') }}</label>
-                </FloatLabel>
-                <Message v-if="form.errors.roles" severity="error" size="small" variant="simple">
-                    {{ form.errors.roles }}
-                </Message>
-            </div>
-        </div>
 
-        <div class="flex justify-end gap-2">
-            <Button type="button" size="small" :label="$t('action.cancel')" severity="secondary" @click="close"></Button>
-            <Button type="button" size="small" :label="$t('action.submit')" :loading="form.processing" :disabled="form.processing" @click="submit"></Button>
-        </div>
+            <div class="flex justify-end gap-2">
+                <Button type="button" size="small" :label="$t('action.cancel')" severity="secondary" @click="close"></Button>
+                <Button type="submit" size="small" :label="$t('action.submit')" :loading="form.processing" :disabled="form.processing"></Button>
+            </div>
+        </form>
     </Dialog>
 </template>

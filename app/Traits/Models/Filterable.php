@@ -10,6 +10,10 @@ trait Filterable
     {
         $query->when($filters, function (Builder $query) use ($filters) {
             foreach ($filters as $column => $filter) {
+                if (!isset($filter['value'])) {
+                    continue;
+                }
+
                 $value = $filter['value'];
                 if (empty($value)) {
                     continue;
@@ -59,6 +63,14 @@ trait Filterable
             case 'dateIsNot': $query->whereDate($column, '!=', $value); break;
             case 'dateBefore': $query->whereDate($column, '<', $value); break;
             case 'dateAfter': $query->whereDate($column, '>', $value); break;
+            case 'dateBetween':
+                if (is_array($value) && count($value) === 2) {
+                    $query->whereDate('created_at', '>=', $value[0])
+                        ->whereDate('created_at', '<=', $value[1] ?? now());
+                } else if (!empty($value)) {
+                    $query->whereDate('created_at', '=', $value);
+                }
+            break;
         }
     }
 }

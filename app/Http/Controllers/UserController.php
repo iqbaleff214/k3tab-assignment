@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserCreated;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
-use App\Mail\AccountCreatedMail;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -25,7 +24,8 @@ class UserController extends Controller
     {
         return Inertia::render('user/Index', [
             'items' => User::with(['roles'])
-                ->filter($request->query('filter'))
+                ->sort($request->query('sorts'))
+                ->filter($request->query('filters'))
                 ->render($request->query('size')),
             'roles' => Role::query()
                 ->pluck('name'),
@@ -49,8 +49,7 @@ class UserController extends Controller
                 ]);
             $user->assignRole($input['roles']);
 
-            Mail::to($user->email)
-                ->queue(new AccountCreatedMail($user, $password));
+            event(new UserCreated($user, $password));
 
             return back()->with('success', __('action.created', ['menu' => __('menu.user')]));
         } catch (\Throwable $exception) {

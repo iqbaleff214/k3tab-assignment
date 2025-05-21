@@ -4,11 +4,12 @@ namespace App\Models;
 
 use App\Traits\Models\Filterable;
 use App\Traits\Models\Paginate;
+use App\Traits\Models\Sortable;
 use Spatie\Activitylog\Models\Activity;
 
 class ActivityLog extends Activity
 {
-    use Filterable, Paginate;
+    use Filterable, Sortable, Paginate;
 
     protected $casts = [
         'subject_id' => 'string',

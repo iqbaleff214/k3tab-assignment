@@ -1,6 +1,7 @@
 import type { PageProps } from '@inertiajs/core';
 import type { LucideIcon } from 'lucide-vue-next';
 import type { Config } from 'ziggy-js';
+import { ColumnFilterMatchModeOptions } from 'primevue';
 
 export interface Auth {
     user: User;
@@ -16,22 +17,6 @@ export interface Allow {
     add_role: boolean;
     edit_role: boolean;
     delete_role: boolean;
-    view_incoming_letter: boolean;
-    add_incoming_letter: boolean;
-    edit_incoming_letter: boolean;
-    delete_incoming_letter: boolean;
-    view_outgoing_letter: boolean;
-    add_outgoing_letter: boolean;
-    edit_outgoing_letter: boolean;
-    delete_outgoing_letter: boolean;
-    view_letter_category: boolean;
-    add_letter_category: boolean;
-    edit_letter_category: boolean;
-    delete_letter_category: boolean;
-    view_disposition: boolean;
-    add_disposition: boolean;
-    edit_disposition: boolean;
-    delete_disposition: boolean;
 }
 
 export interface BreadcrumbItem {
@@ -89,7 +74,46 @@ export interface User {
     updated_at: string;
 }
 
+export interface TableColumnItem {
+    field: string;
+    header: string;
+    slot: Slots;
+    isVisible: boolean;
+    isSortable: boolean;
+}
+
+export interface TableItem {
+    name: string;
+    items: any[];
+    selection: boolean;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export interface FilterColumn {
+    label: string;
+    value: any;
+    matchMode:
+        | 'equals'
+        | 'startsWith'
+        | 'contains'
+        | 'notContains'
+        | 'endsWith'
+        | 'notEquals'
+        | 'greaterThan'
+        | 'greaterThanOrEqualTo'
+        | 'lessThan'
+        | 'lessThanOrEqualTo'
+        | 'in'
+        | 'between'
+        | 'dateIs'
+        | 'dateIsNot'
+        | 'dateBefore'
+        | 'dateAfter'
+        | 'dateBetween';
+    canChange: boolean;
+    options?: string[] | { code: string; label: string }[];
+}
 
 export interface Session {
     id: string;
@@ -117,22 +141,6 @@ export interface Role {
 export interface Permission {
     id: number;
     name: string;
-    created_at: Date;
-    updated_at: Date;
-}
-
-export interface IncomingLetter {
-    id: string;
-    letter_number: string | null;
-    letter_date: Date | string | null;
-    sender: string | null;
-    subject: string | null;
-    body: string | null;
-    summary: string | null;
-    is_draft: boolean;
-    file: string;
-    file_url: string;
-    created_by: number | null;
     created_at: Date;
     updated_at: Date;
 }

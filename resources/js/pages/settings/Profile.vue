@@ -50,16 +50,15 @@ type localeType = 'id' | 'en' | 'ko' | 'ja' | 'ar' | 'zh-CN';
 interface Locale {
     code: localeType;
     name: string;
-    flag: string;
 }
 
 const locales: Locale[] = [
-    { code: 'ar', name: 'اَلْعَرَبِيَّةُ', flag: 'https://flagsapi.com/SA/flat/64.png' },
-    { code: 'en', name: 'English', flag: 'https://flagsapi.com/GB/flat/64.png' },
-    { code: 'id', name: 'Bahasa Indonesia', flag: 'https://flagsapi.com/ID/flat/64.png' },
-    { code: 'ja', name: '日本語', flag: 'https://flagsapi.com/JP/flat/64.png' },
-    { code: 'ko', name: '한국어', flag: 'https://flagsapi.com/KR/flat/64.png' },
-    { code: 'zh-CN', name: '中文', flag: 'https://flagsapi.com/CN/flat/64.png' },
+    { code: 'ar', name: 'اَلْعَرَبِيَّةُ' },
+    { code: 'en', name: 'English' },
+    { code: 'id', name: 'Bahasa Indonesia' },
+    { code: 'ja', name: '日本語' },
+    { code: 'ko', name: '한국어' },
+    { code: 'zh-CN', name: '中文' },
 ];
 </script>
 
@@ -121,9 +120,10 @@ const locales: Locale[] = [
                             size="small" v-model="form.locale" option-value="code"
                             :options="locales">
                             <template #option="{ option }: { option: Locale }">
-                                <Avatar
-                                    :image="option.flag"
-                                    shape="circle" class="me-1" />
+                                <div class="w-6 h-6 rounded-full overflow-hidden bg-gray-200">
+                                    <img :src="`/assets/flags/${option.code}.gif`" alt="profile"
+                                         class="w-full h-full object-cover" />
+                                </div>
                                 {{ option.code }}
                             </template>
                         </SelectButton>

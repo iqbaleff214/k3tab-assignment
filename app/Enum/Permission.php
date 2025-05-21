@@ -10,26 +10,12 @@ enum Permission: string
     case AddUser = 'add_user';
     case EditUser = 'edit_user';
     case DeleteUser = 'delete_user';
+    case ApproveUser = 'approve_user';
     case ViewRole = 'view_role';
     case AddRole = 'add_role';
     case EditRole = 'edit_role';
     case DeleteRole = 'delete_role';
-    case ViewIncomingLetter = 'view_incoming_letter';
-    case AddIncomingLetter = 'add_incoming_letter';
-    case EditIncomingLetter = 'edit_incoming_letter';
-    case DeleteIncomingLetter = 'delete_incoming_letter';
-    case ViewOutgoingLetter = 'view_outgoing_letter';
-    case AddOutgoingLetter = 'add_outgoing_letter';
-    case EditOutgoingLetter = 'edit_outgoing_letter';
-    case DeleteOutgoingLetter = 'delete_outgoing_letter';
-    case ViewLetterCategory = 'view_letter_category';
-    case AddLetterCategory = 'add_letter_category';
-    case EditLetterCategory = 'edit_letter_category';
-    case DeleteLetterCategory = 'delete_letter_category';
-    case ViewDisposition = 'view_disposition';
-    case AddDisposition = 'add_disposition';
-    case EditDisposition = 'edit_disposition';
-    case DeleteDisposition = 'delete_disposition';
+    case ApproveRole = 'approve_role';
 
     public static function values(): array
     {
@@ -39,14 +25,21 @@ enum Permission: string
     public static function module(): array
     {
         return [
-            'user', 'role', 'incoming_letter', 'outgoing_letter', 'letter_category', 'disposition',
+            'user', 'role',
         ];
     }
 
     public static function action(): array
     {
         return [
-            'view', 'add', 'edit', 'delete',
+            'view', 'add', 'edit', 'delete', 'approve',
+        ];
+    }
+
+    public static function skip(): array
+    {
+        return [
+            'approve_user', 'approve_role',
         ];
     }
 

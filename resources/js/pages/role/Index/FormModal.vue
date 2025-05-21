@@ -80,46 +80,49 @@ defineExpose({
 <template>
     <Dialog
         v-model:visible="visible" modal
-        @after-hide="close" :header="$t('menu.role')" :style="{ width: '50rem' }">
-        <div class="flex flex-col gap-6 pt-2 pb-8">
-            <div class="grid">
-                <FloatLabel variant="on">
-                    <InputText
-                        :fluid="true" :autofocus="true" id="name"
-                        v-model="form.name" type="text" autocomplete="off" />
-                    <label for="name" class="text-sm">{{ $t('field.name') }}</label>
-                </FloatLabel>
-                <Message v-if="form.errors.name" severity="error" size="small" variant="simple">
-                    {{ form.errors.name }}
-                </Message>
+        @after-hide="close" :header="$t('menu.role')" :style="{ width: '65rem' }">
+        <form @submit.prevent="submit">
+            <div class="flex flex-col gap-6 pt-2 pb-8">
+                <div class="grid">
+                    <FloatLabel variant="on">
+                        <InputText
+                            :fluid="true" :autofocus="true" id="name"
+                            v-model="form.name" type="text" autocomplete="off" />
+                        <label for="name" class="text-sm">{{ $t('field.name') }}</label>
+                    </FloatLabel>
+                    <Message v-if="form.errors.name" severity="error" size="small" variant="simple">
+                        {{ form.errors.name }}
+                    </Message>
+                </div>
+                <DataTable :value="modules" tableStyle="min-width: 50rem">
+                    <Column field="pivot" header="">
+                        <template #body="{ data }: { data: string }">
+                            {{ $t(`menu.${data}`) }}
+                        </template>
+                        <template #header>
+                            <Button
+                                type="button" size="small" :disabled="form.permissions.length === (props.modules.length * props.actions.length)"
+                                :label="$t('action.select_all')" @click="selectAll"></Button>
+                            <Button
+                                type="button" size="small" :disabled="form.permissions.length === 0"
+                                :label="$t('action.select_none')" severity="secondary" @click="selectAll"></Button>
+                        </template>
+                    </Column>
+                    <Column v-for="action in actions" :key="action" :header="$t(`action.${action}`)" :field="action">
+                        <template #body="{ data }: { data: string }">
+                            <Checkbox
+                                v-tooltip="`${action}_${data}`"
+                                v-model="form.permissions" :input-id="`${action}_${data}`"
+                                :name="`${action}_${data}`" :value="`${action}_${data}`" />
+                        </template>
+                    </Column>
+                </DataTable>
             </div>
-            <DataTable :value="modules" tableStyle="min-width: 50rem">
-                <Column field="pivot" header="">
-                    <template #body="{ data }: { data: string }">
-                        {{ $t(`menu.${data}`) }}
-                    </template>
-                    <template #header>
-                        <Button
-                            type="button" size="small" :disabled="form.permissions.length === (props.modules.length * props.actions.length)"
-                            :label="$t('action.select_all')" @click="selectAll"></Button>
-                        <Button
-                            type="button" size="small" :disabled="form.permissions.length === 0"
-                            :label="$t('action.select_none')" severity="secondary" @click="selectAll"></Button>
-                    </template>
-                </Column>
-                <Column v-for="action in actions" :key="action" :header="$t(`action.${action}`)" :field="action">
-                    <template #body="{ data }: { data: string }">
-                        <Checkbox
-                            v-model="form.permissions" :input-id="`${action}_${data}`"
-                            :name="`${action}_${data}`" :value="`${action}_${data}`" />
-                    </template>
-                </Column>
-            </DataTable>
-        </div>
 
-        <div class="flex justify-end gap-2">
-            <Button type="button" size="small" :label="$t('action.cancel')" severity="secondary" @click="close"></Button>
-            <Button type="button" size="small" :label="$t('action.submit')" :loading="form.processing" :disabled="form.processing" @click="submit"></Button>
-        </div>
+            <div class="flex justify-end gap-2">
+                <Button type="button" size="small" :label="$t('action.cancel')" severity="secondary" @click="close"></Button>
+                <Button type="submit" size="small" :label="$t('action.submit')" :loading="form.processing" :disabled="form.processing"></Button>
+            </div>
+        </form>
     </Dialog>
 </template>
