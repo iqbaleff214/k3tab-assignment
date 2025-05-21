@@ -43,7 +43,12 @@
         "toggle_column": "Atur Kolom",
         "sort_field_by": "Urutkan berdasarkan {field}",
         "asc": "menaik",
-        "desc": "menurun"
+        "desc": "menurun",
+        "show_of": "{index} dari {total}",
+        "older": "Lebih lama",
+        "newer": "Lebih baru",
+        "joined_date": "Bergabung pada {date}",
+        "platform": "Platform"
     },
     "action": {
         "submit": "Simpan",

@@ -10,6 +10,7 @@ import { Column, ConfirmPopup } from 'primevue';
 import { dateHumanFormatWithTime } from '@/lib/utils';
 import Filter from '@/components/Filter.vue';
 import DataTable from '@/components/ui/table/DataTable.vue';
+import { useI18n } from 'vue-i18n';
 
 interface ActivityLog extends ActivityLogBase {
     causer: User;
@@ -22,11 +23,13 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-defineProps<{
+const props = defineProps<{
     items: Paginate<ActivityLog>;
+    modules: string[];
 }>();
 
 const page = usePage<SharedData>();
+const { t } = useI18n();
 
 const filterForm = useForm<{ [key: string]: any; filters: Record<string, FilterColumn> }>({
     filters: {
@@ -35,6 +38,18 @@ const filterForm = useForm<{ [key: string]: any; filters: Record<string, FilterC
             matchMode: 'contains',
             label: 'field.description',
             canChange: true,
+        },
+        log_name: {
+            value: null,
+            matchMode: 'equals',
+            label: 'field.module',
+            canChange: true,
+            options: props.modules.map(module => ({
+                label: t(`menu.${module}`),
+                code: 'App\\Models\\' + module.split('_')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(''),
+            })),
         },
         created_at: {
             value: null,

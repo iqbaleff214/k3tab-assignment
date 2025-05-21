@@ -43,7 +43,12 @@
         "toggle_column": "تبديل الأعمدة",
         "sort_field_by": "ترتيب حسب {field}",
         "asc": "تصاعدي",
-        "desc": "تنازلي"
+        "desc": "تنازلي",
+        "show_of": "{index} من {total}",
+        "older": "أقدم",
+        "newer": "أحدث",
+        "joined_date": "انضم في {date}",
+        "platform": "المنصة"
     },
     "action": {
         "submit": "حفظ",

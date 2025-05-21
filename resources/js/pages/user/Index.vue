@@ -5,7 +5,7 @@ import type {
     BreadcrumbItem, FilterColumn, Paginate, Role,
     SharedData, User as UserBase,
 } from '@/types';
-import { Head, router, usePage, useForm } from '@inertiajs/vue3';
+import { Head, router, usePage, useForm, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
@@ -134,7 +134,13 @@ const destroy = (event: MouseEvent, item: User | null) => {
                 name="user_table" :selection="true"
                 v-model:selected="selected"
                 :items="items.data">
-                <Column field="name" header="field.name" :sortable="true" />
+                <Column field="name" header="field.name" :sortable="true">
+                    <template #body="{ row }: { row: User }">
+                        <Link :href="route('user.show', row.id)" class="hover:underline hover:text-emerald-500">
+                            {{ row.name }}
+                        </Link>
+                    </template>
+                </Column>
                 <Column field="email" header="field.email" :sortable="true">
                     <template #body="{ row }: { row: User }">
                         <a :href="`mailto:${row.email}`" class="hover:underline hover:text-emerald-500">
@@ -160,9 +166,14 @@ const destroy = (event: MouseEvent, item: User | null) => {
                 </Column>
                 <template #action="{ item }: { item: User }">
                     <div class="flex gap-x-1.5">
+                        <Link v-if="item.id === page.props.auth.user.id" :href="route('profile.edit')">
+                            <Button
+                                icon="pi pi-pencil" size="small" variant="text" severity="secondary"
+                                v-tooltip.bottom="$t('action.edit')" rounded></Button>
+                        </Link>
                         <Button
                             v-tooltip.bottom="$t('action.edit')"
-                            v-if="page.props.auth.allow.edit_user"
+                            v-else-if="page.props.auth.allow.edit_user"
                             icon="pi pi-pencil" size="small" variant="text" severity="secondary"
                             @click="(e) => { e.preventDefault(); modal?.open(item); }" rounded></Button>
                         <Button

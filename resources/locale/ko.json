@@ -43,7 +43,12 @@
         "toggle_column": "열 전환",
         "sort_field_by": "{field} 기준 정렬",
         "asc": "오름차순",
-        "desc": "내림차순"
+        "desc": "내림차순",
+        "show_of": "{total} 중 {index}",
+        "older": "이전",
+        "newer": "다음",
+        "joined_date": "{date}에 가입함",
+        "platform": "플랫폼"
     },
     "action": {
         "submit": "저장",

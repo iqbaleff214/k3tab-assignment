@@ -7,7 +7,6 @@ import { type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import {
     Folder, LayoutGrid, Users2Icon, Briefcase,
-    LetterText,
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 

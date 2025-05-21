@@ -43,7 +43,12 @@
         "toggle_column": "Toggle Columns",
         "sort_field_by": "Sort by {field}",
         "asc": "ascending",
-        "desc": "descending"
+        "desc": "descending",
+        "show_of": "{index} of {total}",
+        "older": "Older",
+        "newer": "Newer",
+        "joined_date": "Joined on {date}",
+        "platform": "Platform"
     },
     "action": {
         "submit": "Save",

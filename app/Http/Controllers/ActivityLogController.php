@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\Permission;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,6 +20,7 @@ class ActivityLogController extends Controller
                 ->filter($request->query('filters'))
                 ->filter($request->query('filter'))
                 ->render($request->query('size')),
+            'modules' => Permission::module(),
         ]);
     }
 }

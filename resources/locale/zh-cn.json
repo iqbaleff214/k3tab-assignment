@@ -43,7 +43,12 @@
         "toggle_column": "切换列",
         "sort_field_by": "按 {field} 排序",
         "asc": "升序",
-        "desc": "降序"
+        "desc": "降序",
+        "show_of": "{index} / {total}",
+        "older": "更早",
+        "newer": "更新",
+        "joined_date": "于 {date} 加入",
+        "platform": "平台"
     },
     "action": {
         "submit": "保存",

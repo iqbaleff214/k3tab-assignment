@@ -68,6 +68,42 @@ export const dateHumanFormatWithTime = (value: Date | string | null, addHour: nu
     });
 };
 
+export const dateHumanSmartFormat = (value: Date | string | null, locale: string = 'en-GB'): string => {
+    if (!value)
+        return '-';
+
+    const now = new Date();
+    const date = new Date(value);
+
+    const isToday =
+        date.getDate() === now.getDate() &&
+        date.getMonth() === now.getMonth() &&
+        date.getFullYear() === now.getFullYear();
+
+    const isThisYear = date.getFullYear() === now.getFullYear();
+
+    if (isToday) {
+        return date.toLocaleTimeString(locale, {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+        });
+    }
+
+    if (isThisYear) {
+        return date.toLocaleDateString(locale, {
+            day: '2-digit',
+            month: 'short',
+        });
+    }
+
+    return date.toLocaleDateString(locale, {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+    });
+};
+
 export const rupiahCurrency = (value: number): string => {
     const formatter = new Intl.NumberFormat('id-ID', {
         style: 'currency',

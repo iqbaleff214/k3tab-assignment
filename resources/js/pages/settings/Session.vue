@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head, router, usePage } from '@inertiajs/vue3';
 
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import { type BreadcrumbItem, Session, SharedData } from '@/types';
@@ -7,15 +7,14 @@ import { type BreadcrumbItem, Session, SharedData } from '@/types';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 
-import { Card, useConfirm, ConfirmPopup, Tag, Button } from 'primevue';
-import { dateHumanFormatWithTime, parseUserAgent } from '@/lib/utils';
+import { Card, useConfirm, ConfirmPopup, Button } from 'primevue';
+import { dateHumanFormatWithTime, dateHumanSmartFormat, parseUserAgent } from '@/lib/utils';
 import { useI18n } from 'vue-i18n';
 
-interface Props extends SharedData {
-    items: Session[];
-}
-
-const props = defineProps<Props>();
+const page = usePage<SharedData>();
+const props = defineProps<{ items: Session[] }>();
+const confirm = useConfirm();
+const { t } = useI18n();
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -23,8 +22,6 @@ const breadcrumbItems: BreadcrumbItem[] = [
         href: route('session.index'),
     },
 ];
-const confirm = useConfirm();
-const { t } = useI18n();
 
 const destroy = (event: MouseEvent, item: Session | null) => {
     confirm.require({
@@ -67,9 +64,10 @@ const destroy = (event: MouseEvent, item: Session | null) => {
                         <Card>
                             <template #title>
                                 <div class="flex justify-between">
-                                    <div class="flex items-center gap-x-1">
+                                    <div class="flex items-baseline gap-x-2">
                                         <div>{{ parseUserAgent(item.user_agent).browser }}</div>
-                                        <Tag severity="success" :value="$t('label.current')" size="small" v-if="item.is_current"></Tag>
+                                        <i v-tooltip="$t('label.current')"
+                                            class="pi pi-verified text-emerald-500" style="font-size: 0.8rem"></i>
                                     </div>
                                     <Button
                                         icon="pi pi-trash" size="small" variant="outlined" severity="danger" :disabled="item.is_current"
@@ -77,7 +75,12 @@ const destroy = (event: MouseEvent, item: Session | null) => {
                                 </div>
                             </template>
                             <template #subtitle>
-                                <small>{{ $t('label.last_active') }}: {{ dateHumanFormatWithTime(item.last_active, 0, $page.props.auth.user.locale) }}</small>
+                                <small class="flex justify-between">
+                                    <span v-text="$t('label.last_active')"></span>
+                                    <span
+                                        v-tooltip="dateHumanFormatWithTime(item.last_active, 0, page.props.auth.user.locale)"
+                                        v-text="dateHumanSmartFormat(item.last_active, page.props.auth.user.locale)"></span>
+                                </small>
                             </template>
                             <template #content>
                                 <div class="flex flex-col gap-y-2 my-4">

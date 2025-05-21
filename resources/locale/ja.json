@@ -43,7 +43,12 @@
         "toggle_column": "列の切り替え",
         "sort_field_by": "{field}で並べ替え",
         "asc": "昇順",
-        "desc": "降順"
+        "desc": "降順",
+        "show_of": "{total} 中の {index}",
+        "older": "過去",
+        "newer": "新しい",
+        "joined_date": "{date} に参加",
+        "platform": "プラットフォーム"
     },
     "action": {
         "submit": "保存",

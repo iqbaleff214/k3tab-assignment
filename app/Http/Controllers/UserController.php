@@ -62,9 +62,19 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Request $request, User $user): Response
     {
-        //
+        $user->load(['roles']);
+        return Inertia::render('user/Show', [
+            'item' => $user,
+            'next' => User::query()->where('id', '>', $user->id)->value('id'),
+            'prev' => User::query()->where('id', '<', $user->id)
+                ->orderByDesc('created_at')->value('id'),
+            'total' => User::query()->count(),
+            'index' => User::query()->where('id', '<', $user->id)->count('id') + 1,
+            'roles' => Role::query()
+                ->pluck('name'),
+        ]);
     }
 
     /**
@@ -91,10 +101,17 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user): RedirectResponse
+    public function destroy(Request $request, User $user): RedirectResponse
     {
         try {
             $user->delete();
+
+            $nextId = $request->input('prev') ?? $request->input('next');
+            if ($nextId) {
+                return redirect()
+                    ->route('user.show', $nextId)
+                    ->with('success', __('action.deleted', ['menu' => __('menu.user')]));
+            }
 
             return back()->with('success', __('action.deleted', ['menu' => __('menu.user')]));
         } catch (\Throwable $exception) {
