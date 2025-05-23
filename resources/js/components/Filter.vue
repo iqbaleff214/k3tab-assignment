@@ -22,8 +22,21 @@ const visible = ref<boolean>(false);
 const load = () => {
     const params = qs.parse(window.location.search, { ignoreQueryPrefix: true });
     for (const key in props.form.filters) {
-        // eslint-disable-next-line vue/no-mutating-props
-        props.form.filters[key].value = params['filters']?.[key]?.['value'] ?? null;
+        if (props.form.filters[key].matchMode.includes('date')) {
+            if (props.form.filters[key].matchMode.includes('Between')) {
+                const dateRange = params['filters']?.[key]?.['value'];
+                if (dateRange && dateRange[0] && dateRange[1]) {
+                    // eslint-disable-next-line vue/no-mutating-props
+                    props.form.filters[key].value = [new Date(dateRange[0]), new Date(dateRange[1])];
+                }
+            } else if (params['filters']?.[key]?.['value']) {
+                // eslint-disable-next-line vue/no-mutating-props
+                props.form.filters[key].value = new Date(params['filters']?.[key]?.['value']);
+            }
+        } else {
+            // eslint-disable-next-line vue/no-mutating-props
+            props.form.filters[key].value = params['filters']?.[key]?.['value'] ?? null;
+        }
     }
 };
 
