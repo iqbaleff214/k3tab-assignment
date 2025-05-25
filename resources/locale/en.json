@@ -1,6 +1,6 @@
 {
     "message": {
-        "hello": "Hello, world"
+        "hello": "hello world"
     },
     "menu": {
         "dashboard": "Dashboard",
@@ -18,24 +18,24 @@
     "label": {
         "new": "New",
         "search_by_field": "Search by {field}",
-        "no_data_available": "No data for {data}.",
-        "show_to_of": "Showing {from} - {to} of total {total}",
+        "no_data_available": "No {data} available.",
+        "show_to_of": "Showing {from} - {to} of {total}",
         "menu_subtitle": "Manage {menu}",
         "are_you_sure_delete": "Are you sure you want to delete?",
         "light": "Light",
         "dark": "Dark",
         "system": "System",
-        "setting_subtitle": "Manage your profile and account settings",
+        "setting_subtitle": "Manage your account profile and settings",
         "profile_subtitle": "Update your name and email address",
         "password_subtitle": "Ensure your account uses a long, random password to stay secure",
-        "session_subtitle": "Manage the devices you use to log in",
-        "appearance_subtitle": "Update the appearance settings of your account",
-        "delete_account_subtitle": "Delete your account and all of its resources",
+        "session_subtitle": "Manage devices used for login",
+        "appearance_subtitle": "Update your account appearance settings",
+        "delete_account_subtitle": "Delete your account and all its resources",
         "warning": "Warning",
-        "delete_account_warning": "Please proceed with caution, this action is irreversible.",
+        "delete_account_warning": "Please proceed carefully, this action cannot be undone.",
         "delete_account_are_you_sure": "Are you sure you want to delete your account?",
-        "delete_account_term": "Once your account is deleted, all of its resources and data will be permanently deleted. Enter your password to confirm that you want to permanently delete your account.",
-        "last_active": "Last Active",
+        "delete_account_term": "Once your account is deleted, all its resources and data will be permanently deleted. Enter your password to confirm you want to permanently delete your account.",
+        "last_active": "Last active",
         "current": "Currently Active",
         "success": "Success",
         "fail": "Failed",
@@ -64,7 +64,8 @@
         "filter": "Filter",
         "reset": "Reset",
         "approve": "Approve",
-        "save": "Save"
+        "save": "Save",
+        "audit": "Audit"
     },
     "field": {
         "name": "Name",

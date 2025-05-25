@@ -64,7 +64,8 @@
         "filter": "Saring",
         "reset": "Setel Ulang",
         "approve": "Setujui",
-        "save": "Simpan"
+        "save": "Simpan",
+        "audit": "Audit"
     },
     "field": {
         "name": "Nama",

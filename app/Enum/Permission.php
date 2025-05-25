@@ -11,11 +11,13 @@ enum Permission: string
     case EditUser = 'edit_user';
     case DeleteUser = 'delete_user';
     case ApproveUser = 'approve_user';
+    case AuditUser = 'audit_user';
     case ViewRole = 'view_role';
     case AddRole = 'add_role';
     case EditRole = 'edit_role';
     case DeleteRole = 'delete_role';
     case ApproveRole = 'approve_role';
+    case AuditRole = 'audit_role';
 
     public static function values(): array
     {
@@ -32,7 +34,7 @@ enum Permission: string
     public static function action(): array
     {
         return [
-            'view', 'add', 'edit', 'delete', 'approve',
+            'view', 'add', 'edit', 'delete', 'approve', 'audit',
         ];
     }
 

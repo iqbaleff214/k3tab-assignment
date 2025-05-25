@@ -39,11 +39,21 @@ class ProfileController extends Controller
 
         if ($request->user()->isDirty('locale')) {
             Session::put('locale', $request->user()->locale);
+            App::setLocale($request->user()->locale);
+            $user = $request->user();
+            activity()
+                ->useLog(\App\Models\User::class)
+                ->causedBy($user)
+                ->performedOn($user)
+                ->event('auth')
+                ->log(__('activity.user.locale', [
+                    'identifier' => $user->name,
+                    'locale' => $user->locale,
+                    'link' => '#',
+                ]));
         }
 
         $request->user()->save();
-
-        App::setLocale($request->user()->locale);
 
         return to_route('profile.edit')
             ->with('success', __('action.updated', ['menu' => __('menu.profile')]));

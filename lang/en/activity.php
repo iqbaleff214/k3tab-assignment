@@ -5,7 +5,16 @@ return [
     'updated' => 'Updated :menu <a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a>.',
     'deleted' => 'Deleted :menu :identifier.',
     'status-updated' => 'Updated status of :menu <a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a> to <strong>:status</strong>.',
-    'uploaded' => 'Uploaded new <strong>:file</strong> for :menu <a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a>.',
+    'uploaded' => 'Uploaded new file <strong>:file</strong> for :menu <a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a>.',
     'delete-uploaded' => 'Deleted uploaded file <strong>:file</strong> for :menu <a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a>.',
-    'notary-office-accessed' => 'Notary Office <a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a> accessed by admin.',
+    'user' => [
+        'login' => '<a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a> logged in.',
+        'logout' => '<a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a> logged out.',
+        'reset' => '<a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a> reset password.',
+        'verify' => '<a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a> verified email.',
+        'verified' => 'Email <a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a> has been successfully verified.',
+        'locale' => '<a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a> changed language to :locale.',
+        'join_membership' => '<a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a> became a member.',
+        'revoke_membership' => '<a class="link text-emerald-600 hover:text-emerald-800 font-semibold" target="_blank" href=":link">:identifier</a> canceled membership.',
+    ],
 ];

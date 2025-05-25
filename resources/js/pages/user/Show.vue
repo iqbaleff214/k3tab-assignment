@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
+import AuditModal from '@/components/ui/activity/Activity.vue';
+import FormModal from '@/pages/user/Index/FormModal.vue';
 import { type BreadcrumbItem, type Role, SharedData, type User as UserBase } from '@/types';
 import { Head, usePage, Link, router } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
 import { useConfirm, ConfirmPopup, Button } from 'primevue';
-import FormModal from '@/pages/user/Index/FormModal.vue';
 import { ref } from 'vue';
 import { dateHumanFormat, dateHumanFormatWithTime, dateHumanSmartFormat } from '@/lib/utils';
 
@@ -113,6 +114,8 @@ const destroy = (event: MouseEvent, item: User) => {
                         v-else-if="page.props.auth.allow.edit_user"
                         icon="pi pi-pencil" size="small" variant="text" severity="secondary"
                         @click="() => modal?.open(item)" rounded></Button>
+                    <AuditModal
+                        module="user" :id="item.id" />
                 </div>
             </div>
 

@@ -17,12 +17,21 @@ class ActivityLog extends Activity
     ];
 
     protected $appends = [
-        'module',
+        'module', 'icon',
     ];
 
     public function getModuleAttribute(): string
     {
         $class = str_replace('App\Models\\', '', $this->log_name);
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $class));
+    }
+
+    public function getIconAttribute(): string
+    {
+        $module = $this->getModuleAttribute();
+        return match ($module) {
+            'user' => 'pi pi-user',
+            'role' => 'pi pi-briefcase',
+        };
     }
 }

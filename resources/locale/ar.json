@@ -1,6 +1,6 @@
 {
     "message": {
-        "hello": "مرحباً بالعالم"
+        "hello": "مرحبا بالعالم"
     },
     "menu": {
         "dashboard": "لوحة التحكم",
@@ -13,30 +13,30 @@
         "appearance": "المظهر",
         "delete_account": "حذف الحساب",
         "logout": "تسجيل الخروج",
-        "activity_log": "سجل الأنشطة"
+        "activity_log": "سجل النشاط"
     },
     "label": {
         "new": "جديد",
         "search_by_field": "البحث حسب {field}",
-        "no_data_available": "لا توجد بيانات لـ {data}.",
-        "show_to_of": "عرض من {from} إلى {to} من إجمالي {total}",
+        "no_data_available": "لا توجد بيانات {data} متاحة.",
+        "show_to_of": "عرض {from} - {to} من أصل {total}",
         "menu_subtitle": "إدارة {menu}",
         "are_you_sure_delete": "هل أنت متأكد أنك تريد الحذف؟",
         "light": "فاتح",
         "dark": "داكن",
         "system": "النظام",
         "setting_subtitle": "إدارة ملفك الشخصي وإعدادات الحساب",
-        "profile_subtitle": "تحديث الاسم وعنوان البريد الإلكتروني",
-        "password_subtitle": "استخدم كلمة مرور طويلة وعشوائية لحماية حسابك",
+        "profile_subtitle": "تحديث اسمك وعنوان البريد الإلكتروني",
+        "password_subtitle": "تأكد من استخدام كلمة مرور طويلة وعشوائية لحماية حسابك",
         "session_subtitle": "إدارة الأجهزة المستخدمة لتسجيل الدخول",
-        "appearance_subtitle": "تحديث إعدادات مظهر الحساب",
-        "delete_account_subtitle": "حذف حسابك وجميع الموارد المرتبطة به",
+        "appearance_subtitle": "تحديث إعدادات مظهر حسابك",
+        "delete_account_subtitle": "حذف حسابك وجميع موارده",
         "warning": "تحذير",
         "delete_account_warning": "يرجى المتابعة بحذر، لا يمكن التراجع عن هذا الإجراء.",
         "delete_account_are_you_sure": "هل أنت متأكد أنك تريد حذف حسابك؟",
-        "delete_account_term": "بمجرد حذف حسابك، سيتم حذف جميع الموارد والبيانات نهائيًا. أدخل كلمة المرور لتأكيد الحذف الدائم.",
+        "delete_account_term": "بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل دائم. أدخل كلمة المرور لتأكيد رغبتك في حذف حسابك نهائيًا.",
         "last_active": "آخر نشاط",
-        "current": "الحالي",
+        "current": "نشط حاليًا",
         "success": "نجاح",
         "fail": "فشل",
         "filter": "تصفية",
@@ -56,15 +56,16 @@
         "back": "رجوع",
         "edit": "تعديل",
         "delete": "حذف",
-        "new_menu": "جديد {menu}",
+        "new_menu": "{menu} جديد",
         "view": "عرض",
         "add": "إضافة",
         "select_all": "تحديد الكل",
-        "select_none": "إلغاء التحديد",
+        "select_none": "إلغاء تحديد الكل",
         "filter": "تصفية",
-        "reset": "إعادة ضبط",
+        "reset": "إعادة تعيين",
         "approve": "موافقة",
-        "save": "حفظ"
+        "save": "حفظ",
+        "audit": "مراجعة"
     },
     "field": {
         "name": "الاسم",
@@ -73,12 +74,12 @@
         "password_confirmation": "تأكيد كلمة المرور",
         "role": "الدور",
         "current_password": "كلمة المرور الحالية",
-        "new_password": "كلمة مرور جديدة",
+        "new_password": "كلمة المرور الجديدة",
         "description": "الوصف",
         "module": "الوحدة",
         "created_at": "تاريخ الإنشاء",
         "updated_at": "تاريخ التحديث",
         "joined_at": "تاريخ الانضمام",
-        "permission": "الصلاحيات"
+        "permission": "الإذن"
     }
 }

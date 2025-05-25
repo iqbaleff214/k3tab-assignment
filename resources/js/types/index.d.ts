@@ -63,6 +63,16 @@ export interface Paginate<T> {
     total: number;
 }
 
+export interface CursorPaginate<T> {
+    data: T[];
+    path: string;
+    per_page: number;
+    next_cursor: string | null;
+    prev_cursor: string | null;
+    next_page_url: string | null;
+    prev_page_url: string | null;
+}
+
 export interface User {
     id: number;
     name: string;
@@ -154,7 +164,8 @@ export interface ActivityLog {
     causer_id: number;
     causer_type: string;
     module: string;
-    properties: object;
+    icon: string;
+    properties: Record<string, any>;
     created_at: Date;
     updated_at: Date;
 }
