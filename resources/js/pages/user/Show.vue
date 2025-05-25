@@ -114,7 +114,7 @@ const destroy = (event: MouseEvent, item: User) => {
                         v-else-if="page.props.auth.allow.edit_user"
                         icon="pi pi-pencil" size="small" variant="text" severity="secondary"
                         @click="() => modal?.open(item)" rounded></Button>
-                    <AuditModal
+                    <AuditModal v-if="page.props.auth.allow.audit_user"
                         module="user" :id="item.id" />
                 </div>
             </div>

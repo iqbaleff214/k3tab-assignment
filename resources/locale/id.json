@@ -80,6 +80,8 @@
         "created_at": "Waktu Dibuat",
         "updated_at": "Waktu Diperbarui",
         "joined_at": "Bergabung Pada",
-        "permission": "Hak Akses"
+        "permission": "Hak Akses",
+        "ip": "Alamat IP",
+        "ip_address": "Alamat IP"
     }
 }

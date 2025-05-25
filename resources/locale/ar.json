@@ -80,6 +80,8 @@
         "created_at": "تاريخ الإنشاء",
         "updated_at": "تاريخ التحديث",
         "joined_at": "تاريخ الانضمام",
-        "permission": "الإذن"
+        "permission": "الإذن",
+        "ip": "عنوان IP",
+        "ip_address": "عنوان IP"
     }
 }

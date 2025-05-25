@@ -80,6 +80,8 @@
         "created_at": "创建时间",
         "updated_at": "更新时间",
         "joined_at": "加入时间",
-        "permission": "权限"
+        "permission": "权限",
+        "ip": "IP地址",
+        "ip_address": "IP地址"
     }
 }

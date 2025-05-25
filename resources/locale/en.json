@@ -80,6 +80,8 @@
         "created_at": "Created At",
         "updated_at": "Updated At",
         "joined_at": "Joined At",
-        "permission": "Permission"
+        "permission": "Permission",
+        "ip": "IP Address",
+        "ip_address": "IP Address"
     }
 }

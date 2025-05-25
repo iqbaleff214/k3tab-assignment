@@ -80,6 +80,8 @@
         "created_at": "생성 일시",
         "updated_at": "업데이트 일시",
         "joined_at": "가입 일시",
-        "permission": "권한"
+        "permission": "권한",
+        "ip": "IP 주소",
+        "ip_address": "IP 주소"
     }
 }

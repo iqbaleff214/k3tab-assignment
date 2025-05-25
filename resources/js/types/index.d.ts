@@ -13,10 +13,14 @@ export interface Allow {
     add_user: boolean;
     edit_user: boolean;
     delete_user: boolean;
+    approve_user: boolean;
+    audit_user: boolean;
     view_role: boolean;
     add_role: boolean;
     edit_role: boolean;
     delete_role: boolean;
+    approve_role: boolean;
+    audit_role: boolean;
 }
 
 export interface BreadcrumbItem {

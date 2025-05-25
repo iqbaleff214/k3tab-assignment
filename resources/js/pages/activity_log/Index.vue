@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import Pagination from '@/components/Pagination.vue';
+import Filter from '@/components/Filter.vue';
+import DataTable from '@/components/ui/table/DataTable.vue';
+import DetailModal from '@/pages/activity_log/Index/DetailModal.vue';
 import type {
     ActivityLog as ActivityLogBase, BreadcrumbItem, FilterColumn,
     Paginate, SharedData, User
 } from '@/types';
-import { Head, useForm, usePage } from '@inertiajs/vue3';
-import { Column, ConfirmPopup } from 'primevue';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { Button, Column, ConfirmPopup } from 'primevue';
 import { dateHumanFormatWithTime } from '@/lib/utils';
-import Filter from '@/components/Filter.vue';
-import DataTable from '@/components/ui/table/DataTable.vue';
 import { useI18n } from 'vue-i18n';
+import { ref } from 'vue';
 
 interface ActivityLog extends ActivityLogBase {
     causer: User;
@@ -28,6 +30,7 @@ const props = defineProps<{
     modules: string[];
 }>();
 
+const modal = ref();
 const page = usePage<SharedData>();
 const { t } = useI18n();
 
@@ -100,11 +103,21 @@ const filterForm = useForm<{ [key: string]: any; filters: Record<string, FilterC
                         {{ row.causer.name }}
                     </template>
                 </Column>
+                <template #action="{ item }: { item: ActivityLog }">
+                    <div class="flex gap-x-1.5">
+                        <Button
+                            v-tooltip.bottom="$t('action.view')"
+                            icon="pi pi-eye" size="small" variant="text" severity="secondary"
+                            @click="(e) => { e.preventDefault(); modal?.open(item); }" rounded></Button>
+                    </div>
+                </template>
             </DataTable>
 
             <Pagination :paginator="items" />
 
             <ConfirmPopup />
+
+            <DetailModal ref="modal" />
         </div>
     </AppLayout>
 </template>
