@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { SidebarProvider } from '@/components/ui/sidebar';
-import { usePage } from '@inertiajs/vue3';
-import { SharedData } from '@/types';
+import { SIDEBAR_COOKIE_NAME } from '@/components/ui/sidebar/utils';
 
 interface Props {
     variant?: 'header' | 'sidebar';
@@ -9,7 +8,7 @@ interface Props {
 
 defineProps<Props>();
 
-const isOpen = usePage<SharedData>().props.sidebarOpen;
+const isOpen = localStorage.getItem(SIDEBAR_COOKIE_NAME) === 'open';
 </script>
 
 <template>
