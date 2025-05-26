@@ -51,6 +51,12 @@ export interface Link {
     active: boolean;
 }
 
+export interface APIResponse<T> {
+    data: T;
+    message: string;
+    error: boolean;
+}
+
 export interface Paginate<T> {
     current_page: number;
     data: T[];

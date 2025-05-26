@@ -7,7 +7,7 @@ import { Head, usePage, Link, router } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
 import { useConfirm, ConfirmPopup, Button } from 'primevue';
 import { ref } from 'vue';
-import { dateHumanFormat, dateHumanFormatWithTime, dateHumanSmartFormat } from '@/lib/utils';
+import { dateHumanFormatWithTime, dateHumanSmartFormat } from '@/lib/utils';
 
 interface User extends UserBase {
     roles: Role[];
