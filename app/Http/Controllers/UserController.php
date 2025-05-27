@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserCreated;
+use App\Events\User\NewUserCreated;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\Role;
@@ -49,7 +49,7 @@ class UserController extends Controller
                 ]);
             $user->assignRole($input['roles']);
 
-            event(new UserCreated($user, $password));
+            event(new NewUserCreated($user, $password));
 
             return back()->with('success', __('action.created', ['menu' => __('menu.user')]));
         } catch (\Throwable $exception) {
