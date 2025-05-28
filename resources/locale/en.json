@@ -48,7 +48,8 @@
         "older": "Older",
         "newer": "Newer",
         "joined_date": "Joined on {date}",
-        "platform": "Platform"
+        "platform": "Platform",
+        "drag_and_drop_file_here_or_browse": "Drag and drop file here or browse"
     },
     "action": {
         "submit": "Save",

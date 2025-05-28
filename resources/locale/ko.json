@@ -48,7 +48,8 @@
         "older": "이전",
         "newer": "최신",
         "joined_date": "{date}에 가입",
-        "platform": "플랫폼"
+        "platform": "플랫폼",
+        "drag_and_drop_file_here_or_browse": "여기에 파일을 끌어다 놓거나 찾아보기"
     },
     "action": {
         "submit": "저장",

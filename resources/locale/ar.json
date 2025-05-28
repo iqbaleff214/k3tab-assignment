@@ -48,7 +48,8 @@
         "older": "أقدم",
         "newer": "أحدث",
         "joined_date": "انضم في {date}",
-        "platform": "المنصة"
+        "platform": "المنصة",
+        "drag_and_drop_file_here_or_browse": "اسحب الملف هنا أو تصفح"
     },
     "action": {
         "submit": "حفظ",

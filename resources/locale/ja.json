@@ -48,7 +48,8 @@
         "older": "古い",
         "newer": "新しい",
         "joined_date": "{date}に参加",
-        "platform": "プラットフォーム"
+        "platform": "プラットフォーム",
+        "drag_and_drop_file_here_or_browse": "ここにファイルをドラッグ＆ドロップするか、参照してください"
     },
     "action": {
         "submit": "保存",

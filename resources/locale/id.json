@@ -48,7 +48,8 @@
         "older": "Lebih lama",
         "newer": "Lebih baru",
         "joined_date": "Bergabung pada {date}",
-        "platform": "Platform"
+        "platform": "Platform",
+        "drag_and_drop_file_here_or_browse": "Seret dan lepas file di sini atau telusuri"
     },
     "action": {
         "submit": "Simpan",

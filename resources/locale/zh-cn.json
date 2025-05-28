@@ -48,7 +48,8 @@
         "older": "更早",
         "newer": "更新",
         "joined_date": "于{date}加入",
-        "platform": "平台"
+        "platform": "平台",
+        "drag_and_drop_file_here_or_browse": "将文件拖到此处或浏览"
     },
     "action": {
         "submit": "保存",
