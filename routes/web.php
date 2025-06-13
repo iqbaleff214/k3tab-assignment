@@ -9,6 +9,9 @@ Route::get('/', fn () => Inertia::render('Welcome', [
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', fn () => Inertia::render('Dashboard') )->name('dashboard');
+    Route::get('/jokowi', function () {
+        broadcast(new \App\Events\HidupJokowi('Hidup Jokowi!'));
+    });
 
     Route::get('/user', [\App\Http\Controllers\UserController::class, 'index'])->name('user.index')->middleware(\App\Enum\Permission::ViewUser->asMiddleware());
     Route::get('/user/{user}', [\App\Http\Controllers\UserController::class, 'show'])->name('user.show')->middleware(\App\Enum\Permission::ViewUser->asMiddleware());

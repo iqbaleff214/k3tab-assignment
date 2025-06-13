@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libpng-dev \
   && docker-php-ext-configure intl \
-  && docker-php-ext-install intl zip pdo_mysql \
+  && docker-php-ext-install intl zip pdo_mysql pcntl \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install gd \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
