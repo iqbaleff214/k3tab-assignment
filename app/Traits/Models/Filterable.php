@@ -65,10 +65,10 @@ trait Filterable
             case 'dateAfter': $query->whereDate($column, '>', $value); break;
             case 'dateBetween':
                 if (is_array($value) && count($value) === 2) {
-                    $query->whereDate('created_at', '>=', $value[0])
-                        ->whereDate('created_at', '<=', $value[1] ?? now());
+                    $query->whereDate($column, '>=', $value[0])
+                        ->whereDate($column, '<=', $value[1] ?? now());
                 } else if (!empty($value)) {
-                    $query->whereDate('created_at', '=', $value);
+                    $query->whereDate($column, '=', $value);
                 }
             break;
         }

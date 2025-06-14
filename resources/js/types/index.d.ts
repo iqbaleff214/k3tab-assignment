@@ -43,6 +43,7 @@ export interface SharedData extends PageProps {
     sidebarOpen: boolean;
     flash: { success: string|null; error: string|null; };
     assistantAIAvailability: boolean;
+    unreadNotification: number;
 }
 
 export interface Link {

@@ -59,6 +59,7 @@ onUnmounted(() => {
     if (timeOutRef.value !== null) {
         clearTimeout(timeOutRef.value);
     }
+    echo.leave('jokowi');
 });
 </script>
 

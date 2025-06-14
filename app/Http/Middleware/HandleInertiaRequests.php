@@ -38,11 +38,13 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        /** @var \App\Models\User $user */
+        $user = $request->user();
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
                 'allow' => Permission::allows(),
             ],
             'ziggy' => [
@@ -55,6 +57,7 @@ class HandleInertiaRequests extends Middleware
                 'error' => $request->session()->get('error', null),
             ],
             'assistantAIAvailability' => GeminiHelper::isAvailable(),
+            'unreadNotification' => $user?->unreadNotifications()->count() ?? 0,
         ];
     }
 }
