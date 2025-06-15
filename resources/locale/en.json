@@ -85,5 +85,31 @@
         "permission": "Permission",
         "ip": "IP Address",
         "ip_address": "IP Address"
+    },
+    "http": {
+        "400": "Bad Request",
+        "401": "Unauthorized",
+        "403": "Forbidden",
+        "404": "Not Found",
+        "405": "Method Not Allowed",
+        "408": "Request Timeout",
+        "429": "Too Many Requests",
+        "500": "Internal Server Error",
+        "502": "Bad Gateway",
+        "503": "Service Unavailable",
+        "504": "Gateway Timeout"
+    },
+    "http_message": {
+        "400": "Invalid request. Please check the information you provided.",
+        "401": "You are not logged in or do not have permission to access this page.",
+        "403": "Access denied. You do not have the necessary permissions.",
+        "404": "Sorry, the page or data you are looking for could not be found.",
+        "405": "The method used is not allowed for this request.",
+        "408": "The request took too long to complete. Please try again.",
+        "429": "Too many requests. Please wait a moment before trying again.",
+        "500": "Something went wrong on our server. Please try again later.",
+        "502": "There was a problem with the gateway. Please try again shortly.",
+        "503": "The service is currently unavailable. It might be under maintenance.",
+        "504": "The server took too long to respond. Please try again later."
     }
 }

@@ -27,14 +27,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/notification', [\App\Http\Controllers\Settings\NotificationController::class, 'markAsReadAll'])->name('notification.mark-as-read-all');
     Route::post('/notification/{id}', [\App\Http\Controllers\Settings\NotificationController::class, 'markAsRead'])->name('notification.mark-as-read');
     Route::delete('/notification/{id}', [\App\Http\Controllers\Settings\NotificationController::class, 'destroy'])->name('notification.destroy');
-
-    Route::name('json.')->prefix('json')->group(function () {
-        Route::get('/notification', [\App\Http\Controllers\Json\NotificationController::class, 'index'])->name('notification.index');
-
-        Route::get('/activity-log/{module}/{id}', [\App\Http\Controllers\JSON\ActivityLogController::class, 'index'])->name('activity-log.index');
-    });
 });
 
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
+require __DIR__.'/json.php';

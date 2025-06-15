@@ -26,5 +26,12 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (Exception $e, \Illuminate\Http\Request $request) {
+            return \Inertia\Inertia::render('Error', [
+                'user' => \Illuminate\Support\Facades\Auth::user(),
+                'appName' => config('app.name'),
+                'statusCode' => $e->getStatusCode() ?? 500,
+                'message' => $e->getMessage(),
+            ]);
+        });
     })->create();
