@@ -32,7 +32,9 @@ onMounted(() => {
         :first :rows-per-page-options="[10, 20, 30, 40, 50]"
         :total-records="paginator.total" :rows="paginator.per_page" >
         <template #start>
-            {{ $t('label.show_to_of', { from: paginator.from, to: paginator.to, total: paginator.total }) }}
+            <span class="text-sm">
+                {{ $t('label.show_to_of', { from: paginator.from, to: paginator.to, total: paginator.total }) }}
+            </span>
         </template>
     </Paginator>
 </template>

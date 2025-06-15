@@ -9,9 +9,6 @@ Route::get('/', fn () => Inertia::render('Welcome', [
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', fn () => Inertia::render('Dashboard') )->name('dashboard');
-    Route::get('/jokowi', function () {
-        broadcast(new \App\Events\HidupJokowi('Hidup Jokowi!'));
-    });
 
     Route::get('/user', [\App\Http\Controllers\UserController::class, 'index'])->name('user.index')->middleware(\App\Enum\Permission::ViewUser->asMiddleware());
     Route::get('/user/{user}', [\App\Http\Controllers\UserController::class, 'show'])->name('user.show')->middleware(\App\Enum\Permission::ViewUser->asMiddleware());
@@ -26,7 +23,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/role', [\App\Http\Controllers\RoleController::class, 'massDestroy'])->name('role.mass-destroy')->middleware(\App\Enum\Permission::DeleteRole->asMiddleware());
     Route::delete('/role/{role}', [\App\Http\Controllers\RoleController::class, 'destroy'])->name('role.destroy')->middleware(\App\Enum\Permission::DeleteRole->asMiddleware());
 
+    Route::get('/notification', [\App\Http\Controllers\Settings\NotificationController::class, 'index'])->name('notification.index');
+    Route::post('/notification', [\App\Http\Controllers\Settings\NotificationController::class, 'markAsReadAll'])->name('notification.mark-as-read-all');
+    Route::post('/notification/{id}', [\App\Http\Controllers\Settings\NotificationController::class, 'markAsRead'])->name('notification.mark-as-read');
+    Route::delete('/notification/{id}', [\App\Http\Controllers\Settings\NotificationController::class, 'destroy'])->name('notification.destroy');
+
     Route::name('json.')->prefix('json')->group(function () {
+        Route::get('/notification', [\App\Http\Controllers\Json\NotificationController::class, 'index'])->name('notification.index');
+
         Route::get('/activity-log/{module}/{id}', [\App\Http\Controllers\JSON\ActivityLogController::class, 'index'])->name('activity-log.index');
     });
 });

@@ -51,6 +51,7 @@ class NewPasswordController extends Controller
                     'remember_token' => Str::random(60),
                 ])->save();
 
+                $user->notify(new \App\Notifications\User\PasswordChanged());
                 event(new PasswordReset($user));
             }
         );

@@ -11,5 +11,6 @@ return [
     "appearance" => "Appearance",
     "delete_account" => "Delete Account",
     "logout" => "Logout",
-    "activity_log" => "Activity Log"
+    "activity_log" => "Activity Log",
+    'notification' => 'Notification',
 ];

@@ -11,5 +11,6 @@ return [
     "appearance" => "Tampilan",
     "delete_account" => "Hapus Akun",
     "logout" => "Keluar",
-    "activity_log" => "Log"
+    "activity_log" => "Log",
+    "notification" => "Notifikasi",
 ];

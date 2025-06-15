@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/app/AppSidebarLayout.vue';
-import type { BreadcrumbItemType, SharedData } from '@/types';
+import type { BreadcrumbItemType, NotificationData, SharedData } from '@/types';
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import { useToast, Toast } from 'primevue';
 import { useI18n } from 'vue-i18n';
 import { echo } from '@/echo';
+import { useNotificationStore } from '@/store/notification';
 
 interface Props {
     breadcrumbs?: BreadcrumbItemType[];
@@ -21,6 +22,10 @@ const audioNotification = new Audio('/assets/sounds/livechat-129007.mp3');
 
 const timeOutRef = ref<number|null>(null);
 const { locale, t } = useI18n();
+const {
+    setUnreadNotificationCount,
+    addUnreadNotificationCount,
+} = useNotificationStore();
 
 watchEffect( () => {
     const flash = page.props.flash;
@@ -45,12 +50,19 @@ watchEffect( () => {
 
 onMounted(() => {
     locale.value = page.props.auth.user.locale;
-    echo.private('jokowi')
-        .listen("HidupJokowi", (response: any) => {
+    setUnreadNotificationCount(page.props.unreadNotification);
+    echo.private(`App.Models.User.${page.props.auth.user.id}`)
+        .notification((response: NotificationData) => {
             audioNotification.play().catch(err => {
                 console.log(err);
             }).finally(() => {
-                console.log(response);
+                addUnreadNotificationCount();
+                toast.add({
+                    severity: 'info',
+                    summary: response.title,
+                    detail: response.message.replace(/<[^>]*>/g, ''),
+                    life: 3000,
+                });
             });
         });
 });
@@ -59,7 +71,7 @@ onUnmounted(() => {
     if (timeOutRef.value !== null) {
         clearTimeout(timeOutRef.value);
     }
-    echo.leave('jokowi');
+    echo.leave(`App.Models.User.${page.props.auth.user.id}`);
 });
 </script>
 

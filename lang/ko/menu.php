@@ -11,5 +11,6 @@ return [
     "appearance" => "화면 설정",
     "delete_account" => "계정 삭제",
     "logout" => "로그아웃",
-    "activity_log" => "활동 로그"
+    "activity_log" => "활동 로그",
+    'notification' => '알림',
 ];

@@ -33,6 +33,7 @@ class PasswordController extends Controller
         $request->user()->update([
             'password' => Hash::make($validated['password']),
         ]);
+        $request->user()->notify(new \App\Notifications\User\PasswordChanged());
 
         return back()
             ->with('success', __('action.updated', ['menu' => __('menu.password')]));

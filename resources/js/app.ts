@@ -13,6 +13,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
 import { createI18n } from 'vue-i18n';
+import { createPinia } from 'pinia'
 
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
@@ -52,6 +53,7 @@ createInertiaApp({
             .use(ConfirmationService)
             .use(ToastService)
             .use(i18n)
+            .use(createPinia())
             .directive('tooltip', Tooltip)
             .mount(el);
     },

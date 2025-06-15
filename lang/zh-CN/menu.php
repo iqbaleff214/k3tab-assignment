@@ -11,5 +11,6 @@ return [
     "appearance" => "外观",
     "delete_account" => "删除账户",
     "logout" => "注销",
-    "activity_log" => "活动日志"
+    "activity_log" => "活动日志",
+    'notification' => '通知',
 ];

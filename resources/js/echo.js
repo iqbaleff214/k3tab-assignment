@@ -3,6 +3,7 @@ import Pusher from 'pusher-js';
 
 window.Pusher = Pusher;
 
+console.log(import.meta.env);
 export const echo = new Echo({
     broadcaster: 'reverb',
     key: import.meta.env.VITE_REVERB_APP_KEY,
@@ -11,5 +12,9 @@ export const echo = new Echo({
     wssPort: import.meta.env.VITE_REVERB_PORT ?? 443,
     forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
+    // broadcaster: 'pusher',
+    // key: import.meta.env.VITE_PUSHER_APP_KEY,
+    // cluster: 'ap1',
+    // forceTLS: true,
 });
 

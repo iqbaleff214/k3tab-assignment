@@ -11,5 +11,6 @@ return [
     "appearance" => "المظهر",
     "delete_account" => "حذف الحساب",
     "logout" => "تسجيل الخروج",
-    "activity_log" => "سجل الأنشطة"
+    "activity_log" => "سجل الأنشطة",
+    'notification' => 'إشعار',
 ];

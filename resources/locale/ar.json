@@ -13,7 +13,8 @@
         "appearance": "المظهر",
         "delete_account": "حذف الحساب",
         "logout": "تسجيل الخروج",
-        "activity_log": "سجل النشاط"
+        "activity_log": "سجل النشاط",
+        "notification": "إشعار"
     },
     "label": {
         "new": "جديد",

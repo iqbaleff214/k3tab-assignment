@@ -11,5 +11,6 @@ return [
     "appearance" => "外観",
     "delete_account" => "アカウント削除",
     "logout" => "ログアウト",
-    "activity_log" => "アクティビティログ"
+    "activity_log" => "アクティビティログ",
+    'notification' => '通知',
 ];

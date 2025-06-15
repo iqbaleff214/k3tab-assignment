@@ -104,6 +104,33 @@ export const dateHumanSmartFormat = (value: Date | string | null, locale: string
     });
 };
 
+export const timeAgo = (value: Date | string, locale: string = 'en'): string => {
+    const rtf = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
+    const now = new Date();
+    const date = new Date(value);
+    const secondsElapsed = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+    const intervals: { unit: Intl.RelativeTimeFormatUnit; seconds: number }[] = [
+        { unit: 'year', seconds: 31536000 },
+        { unit: 'month', seconds: 2592000 },
+        { unit: 'week', seconds: 604800 },
+        { unit: 'day', seconds: 86400 },
+        { unit: 'hour', seconds: 3600 },
+        { unit: 'minute', seconds: 60 },
+        { unit: 'second', seconds: 1 },
+    ];
+
+    for (const { unit, seconds } of intervals) {
+        if (Math.abs(secondsElapsed) >= seconds || unit === 'second') {
+            const value = Math.floor(secondsElapsed / seconds);
+            return rtf.format(-value, unit);
+        }
+    }
+
+    return '';
+};
+
+
 export const rupiahCurrency = (value: number): string => {
     const formatter = new Intl.NumberFormat('id-ID', {
         style: 'currency',
