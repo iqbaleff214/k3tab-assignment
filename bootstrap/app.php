@@ -26,11 +26,51 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (Exception $e, \Illuminate\Http\Request $request) {
+        $exceptions->render(function (\Illuminate\Auth\Access\AuthorizationException $e, \Illuminate\Http\Request $request) {
             return \Inertia\Inertia::render('Error', [
                 'user' => \Illuminate\Support\Facades\Auth::user(),
                 'appName' => config('app.name'),
-                'statusCode' => $e->getStatusCode() ?? 500,
+                'statusCode' => 401,
+                'message' => $e->getMessage(),
+            ]);
+        });
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e, \Illuminate\Http\Request $request) {
+            return \Inertia\Inertia::render('Error', [
+                'user' => \Illuminate\Support\Facades\Auth::user(),
+                'appName' => config('app.name'),
+                'statusCode' => $e->getStatusCode(),
+                'message' => $e->getMessage(),
+            ]);
+        });
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException $e, \Illuminate\Http\Request $request) {
+            return \Inertia\Inertia::render('Error', [
+                'user' => \Illuminate\Support\Facades\Auth::user(),
+                'appName' => config('app.name'),
+                'statusCode' => $e->getStatusCode(),
+                'message' => $e->getMessage(),
+            ]);
+        });
+        $exceptions->render(function (\Illuminate\Database\Eloquent\ModelNotFoundException $e, \Illuminate\Http\Request $request) {
+            return \Inertia\Inertia::render('Error', [
+                'user' => \Illuminate\Support\Facades\Auth::user(),
+                'appName' => config('app.name'),
+                'statusCode' => 404,
+                'message' => $e->getMessage(),
+            ]);
+        });
+        $exceptions->render(function (\Illuminate\Http\Exceptions\ThrottleRequestsException $e, \Illuminate\Http\Request $request) {
+            return \Inertia\Inertia::render('Error', [
+                'user' => \Illuminate\Support\Facades\Auth::user(),
+                'appName' => config('app.name'),
+                'statusCode' => $e->getStatusCode(),
+                'message' => $e->getMessage(),
+            ]);
+        });
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\HttpException $e, \Illuminate\Http\Request $request) {
+            return \Inertia\Inertia::render('Error', [
+                'user' => \Illuminate\Support\Facades\Auth::user(),
+                'appName' => config('app.name'),
+                'statusCode' => $e->getStatusCode(),
                 'message' => $e->getMessage(),
             ]);
         });
