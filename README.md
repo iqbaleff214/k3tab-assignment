@@ -50,9 +50,7 @@ npm run dev
 ## 🧪 Development
 
 ```bash
-php artisan serve
-php artisan queue:work
-npm run dev
+composer run dev
 ```
 
 ## 👟 Get Started
