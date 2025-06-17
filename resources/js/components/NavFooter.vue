@@ -16,7 +16,7 @@ interface Props {
     class?: string;
 }
 
-const { unreadCount, getUnreadNotificationCount } = useNotificationStore();
+const { getUnreadNotificationCount } = useNotificationStore();
 defineProps<Props>();
 </script>
 
@@ -24,16 +24,6 @@ defineProps<Props>();
     <SidebarGroup :class="`group-data-[collapsible=icon]:p-0 ${$props.class || ''}`">
         <SidebarGroupContent>
             <SidebarMenu>
-                <SidebarMenuItem v-for="item in items" :key="item.title">
-                    <SidebarMenuButton
-                        class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100"
-                        as-child :is-active="item.isActive" :tooltip="$t(item.title)">
-                        <a :href="item.href" target="_blank" rel="noopener noreferrer">
-                            <component :is="item.icon" />
-                            <span>{{ $t(item.title) }}</span>
-                        </a>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
                 <SidebarMenuItem>
                     <SidebarMenuButton
                         class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
@@ -47,6 +37,20 @@ defineProps<Props>();
                                     {{ getUnreadNotificationCount() }}
                                 </span>
                             </span>
+                        </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem v-for="item in items" :key="item.title">
+                    <SidebarMenuButton
+                        class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100"
+                        as-child :is-active="item.isActive" :tooltip="$t(item.title)">
+                        <a :href="item.href" target="_blank" rel="noopener noreferrer" v-if="item.isExternal">
+                            <component :is="item.icon" />
+                            <span>{{ $t(item.title) }}</span>
+                        </a>
+                        <Link :href="item.href" v-else>
+                            <component :is="item.icon" />
+                            <span>{{ $t(item.title) }}</span>
                         </Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>

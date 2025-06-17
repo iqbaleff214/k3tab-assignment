@@ -66,7 +66,7 @@ const destroy = (event: MouseEvent, item: Session | null) => {
                                 <div class="flex justify-between">
                                     <div class="flex items-baseline gap-x-2">
                                         <div>{{ parseUserAgent(item.user_agent).browser }}</div>
-                                        <i v-tooltip="$t('label.current')"
+                                        <i v-tooltip="$t('label.current')" v-if="item.is_current"
                                             class="pi pi-verified text-emerald-500" style="font-size: 0.8rem"></i>
                                     </div>
                                     <Button

@@ -14,7 +14,9 @@
         "delete_account": "Hapus Akun",
         "logout": "Keluar",
         "activity_log": "Log",
-        "notification": "Notifikasi"
+        "notification": "Notifikasi",
+        "configuration": "Konfigurasi",
+        "whatsapp": "WhatsApp"
     },
     "label": {
         "new": "Baru",
@@ -32,6 +34,8 @@
         "session_subtitle": "Kelola perangkat yang digunakan untuk masuk",
         "appearance_subtitle": "Perbarui pengaturan tampilan akun Anda",
         "delete_account_subtitle": "Hapus akun Anda beserta seluruh sumber dayanya",
+        "configuration_subtitle": "Konfigurasi sistem Anda",
+        "whatsapp_subtitle": "Atur akun WhatsApp Anda untuk mengirimkan notifikasi",
         "warning": "Peringatan",
         "delete_account_warning": "Harap lanjutkan dengan hati-hati, tindakan ini tidak dapat dibatalkan.",
         "delete_account_are_you_sure": "Apakah Anda yakin ingin menghapus akun Anda?",
@@ -50,7 +54,11 @@
         "newer": "Lebih baru",
         "joined_date": "Bergabung pada {date}",
         "platform": "Platform",
-        "drag_and_drop_file_here_or_browse": "Seret dan lepas file di sini atau telusuri"
+        "drag_and_drop_file_here_or_browse": "Seret dan lepas file di sini atau telusuri",
+        "connected": "Terhubung",
+        "disconnected": "Tidak Terhubung",
+        "whatsapp_not_available": "Fitur ini tidak tersedia karena terjadi gangguan pada WhatsApp Gateway.",
+        "connect_device": "Hubungkan Perangkat"
     },
     "action": {
         "submit": "Simpan",
@@ -67,7 +75,9 @@
         "reset": "Setel Ulang",
         "approve": "Setujui",
         "save": "Simpan",
-        "audit": "Audit"
+        "audit": "Audit",
+        "connect": "Sambungkan",
+        "disconnect": "Putuskan"
     },
     "field": {
         "name": "Nama",

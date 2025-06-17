@@ -1,7 +1,6 @@
 import type { PageProps } from '@inertiajs/core';
 import type { LucideIcon } from 'lucide-vue-next';
 import type { Config } from 'ziggy-js';
-import { ColumnFilterMatchModeOptions } from 'primevue';
 
 export interface Auth {
     user: User;
@@ -34,6 +33,7 @@ export interface NavItem {
     icon?: LucideIcon;
     isActive?: boolean;
     isAvailable: boolean;
+    isExternal?: boolean;
 }
 
 export interface SharedData extends PageProps {
@@ -44,6 +44,7 @@ export interface SharedData extends PageProps {
     flash: { success: string|null; error: string|null; };
     assistantAIAvailability: boolean;
     unreadNotification: number;
+    env: 'production' | 'staging' | 'local' | 'demo';
 }
 
 export interface Link {
@@ -197,3 +198,40 @@ export interface NotificationData {
     message: string;
     link?: string;
 }
+
+type WhatsAppEvent =
+    | "Message"
+    | "ReadReceipt"
+    | "Presence"
+    | "HistorySync"
+    | "ChatPresence";
+
+interface WhatsAppDevice {
+    connected: boolean;
+    events: "All" | WhatsAppEvent | WhatsAppEvent[];
+    expiration: number;
+    id: string;
+    jid: string;
+    loggedIn: boolean;
+    name: string;
+    proxy_config: {
+        enabled: boolean;
+        proxy_url: string;
+    };
+    proxy_url: string;
+    qrcode?: string;
+    s3_config: {
+        access_key: string;
+        bucket: string;
+        enabled: boolean;
+        endpoint: string;
+        media_delivery: string;
+        path_style: boolean;
+        public_url: string;
+        region: string;
+        retention_days: number;
+    };
+    token: string;
+    webhook: string;
+}
+

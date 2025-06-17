@@ -6,7 +6,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import {
-    Folder, LayoutGrid, Users2Icon, Briefcase,
+    Folder, LayoutGrid, Users2Icon, Briefcase, Settings2Icon
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
@@ -38,10 +38,18 @@ const mainNavItems: NavItem[] = [
 
 const footerNavItems: NavItem[] = [
     {
+        title: 'menu.configuration',
+        href: '/configuration',
+        icon: Settings2Icon,
+        isAvailable: true,
+        isActive: route().current('configuration.*'),
+    },
+    {
         title: '404 Not Found Indonesia',
         href: 'https://github.com/404NotFoundIndonesia',
         icon: Folder,
         isAvailable: true,
+        isExternal: true,
     },
 ];
 </script>

@@ -58,6 +58,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'assistantAIAvailability' => GeminiHelper::isAvailable(),
             'unreadNotification' => $user?->unreadNotifications()->count() ?? 0,
+            'env' => config('app.env'),
         ];
     }
 }
