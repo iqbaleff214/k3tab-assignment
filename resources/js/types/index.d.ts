@@ -34,6 +34,7 @@ export interface NavItem {
     isActive?: boolean;
     isAvailable: boolean;
     isExternal?: boolean;
+    children?: NavItem[];
 }
 
 export interface SharedData extends PageProps {

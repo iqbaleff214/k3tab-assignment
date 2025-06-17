@@ -34,6 +34,29 @@ const mainNavItems: NavItem[] = [
         isAvailable: page.props.auth.allow.view_role,
         isActive: route().current('role.*')
     },
+    {
+        title: 'menu.role',
+        href: route('role.index'),
+        icon: Briefcase,
+        isAvailable: page.props.auth.allow.view_role,
+        isActive: route().current('role.*'),
+        children: [
+            {
+                title: 'menu.dashboard',
+                href: route('dashboard'),
+                icon: LayoutGrid,
+                isAvailable: true,
+                isActive: route().current('dashboard')
+            },
+            {
+                title: 'menu.user',
+                href: route('user.index'),
+                icon: Users2Icon,
+                isAvailable: page.props.auth.allow.view_user,
+                isActive: route().current('user.*')
+            },
+        ],
+    },
 ];
 
 const footerNavItems: NavItem[] = [
