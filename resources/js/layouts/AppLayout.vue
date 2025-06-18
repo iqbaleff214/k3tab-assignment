@@ -51,6 +51,8 @@ watchEffect( () => {
 onMounted(() => {
     locale.value = page.props.auth.user.locale;
     setUnreadNotificationCount(page.props.unreadNotification);
+    if (!page.props.auth.user)
+        return;
     echo.private(`App.Models.User.${page.props.auth.user.id}`)
         .notification((response: NotificationData) => {
             audioNotification.play().catch(err => {
@@ -71,7 +73,7 @@ onUnmounted(() => {
     if (timeOutRef.value !== null) {
         clearTimeout(timeOutRef.value);
     }
-    echo.leave(`App.Models.User.${page.props.auth.user.id}`);
+    echo.leaveAllChannels();
 });
 </script>
 

@@ -39,9 +39,9 @@ defineExpose({
         v-model:visible="visible" modal @after-hide="close"
         :header="$t('label.connect_device')" :style="{ width: '50rem' }">
         <div class="flex flex-col gap-6 my-4">
-            <div class="grid">
+            <div>
                 <FloatLabel variant="on">
-                    <InputText :fluid="true" autofocus id="name" v-model="form.name" type="text" />
+                    <InputText :fluid="true" autofocus id="name" v-model="form.name" type="text"  :invalid="form.errors.name !== undefined" />
                     <label for="name" class="text-sm">{{ $t('field.name') }}</label>
                 </FloatLabel>
                 <Message v-if="form.errors.name" severity="error" size="small" variant="simple">

@@ -18,6 +18,12 @@ enum Permission: string
     case DeleteRole = 'delete_role';
     case ApproveRole = 'approve_role';
     case AuditRole = 'audit_role';
+    case ViewWhatsApp = 'view_whatsapp';
+    case AddWhatsApp = 'add_whatsapp';
+    case EditWhatsApp = 'edit_whatsapp';
+    case DeleteWhatsApp = 'delete_whatsapp';
+    case ApproveWhatsApp = 'approve_whatsapp';
+    case AuditWhatsApp = 'audit_whatsapp';
 
     public static function values(): array
     {
@@ -27,7 +33,7 @@ enum Permission: string
     public static function module(): array
     {
         return [
-            'user', 'role',
+            'user', 'role', 'whatsapp',
         ];
     }
 
@@ -42,6 +48,7 @@ enum Permission: string
     {
         return [
             'approve_user', 'approve_role',
+            'approve_whatsapp', 'audit_whatsapp',
         ];
     }
 

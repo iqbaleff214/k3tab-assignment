@@ -15,6 +15,7 @@ import FormModal from '@/pages/user/Index/FormModal.vue';
 import Filter from '@/components/Filter.vue';
 import DataTable from '@/components/ui/table/DataTable.vue';
 import { dateHumanFormatWithTime } from '@/lib/utils';
+import PhoneNumber from '@/components/PhoneNumber.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -51,6 +52,12 @@ const filterForm = useForm<{ [key: string]: any; filters: Record<string, FilterC
             value: null,
             matchMode: 'contains',
             label: 'field.email',
+            canChange: true,
+        },
+        phone: {
+            value: null,
+            matchMode: 'contains',
+            label: 'field.phone',
             canChange: true,
         },
         'roles.name': {
@@ -146,6 +153,11 @@ const destroy = (event: MouseEvent, item: User | null) => {
                         <a :href="`mailto:${row.email}`" class="hover:underline hover:text-emerald-500">
                             {{ row.email }}
                         </a>
+                    </template>
+                </Column>
+                <Column field="phone" header="field.phone" :sortable="true">
+                    <template #body="{ row }: { row: User }">
+                        <PhoneNumber :has_whatsapp="row.has_whatsapp" :phone="row.phone" :international_phone="row.international_phone" />
                     </template>
                 </Column>
                 <Column field="roles.name" header="field.role">

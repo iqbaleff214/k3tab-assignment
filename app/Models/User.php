@@ -31,6 +31,8 @@ class User extends Authenticatable
         'email',
         'password',
         'locale',
+        'phone',
+        'has_whatsapp',
     ];
 
     /**
@@ -57,7 +59,7 @@ class User extends Authenticatable
     }
 
     protected $appends = [
-        'avatar',
+        'avatar', 'international_phone',
     ];
 
     public function getAvatarAttribute(): string
@@ -65,11 +67,34 @@ class User extends Authenticatable
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF&background=EBF4FF';
     }
 
+    public function getInternationalPhoneAttribute(): string | null
+    {
+        if (empty($this->phone))
+            return null;
+
+        $number = $this->phone;
+        $number = preg_replace('/[^0-9]/', '', $number);
+
+        if (str_starts_with($number, '0'))
+            return '62' . substr($number, 1);
+
+        if (str_starts_with($number, '62'))
+            return $number;
+
+        if (str_starts_with($number, '8'))
+            return '62' . $number;
+
+        if (str_starts_with($number, '620'))
+            return '62' . substr($number, 3);
+
+        return $number;
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->useLogName(self::class)
-            ->logOnly(['name', 'email'])
+            ->logOnly(['name', 'email', 'phone'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->setDescriptionForEvent(fn(string $eventName) => match ($eventName) {

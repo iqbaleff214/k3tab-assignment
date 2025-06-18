@@ -8,4 +8,8 @@ return [
         'password_change_title' => 'تم تغيير كلمة المرور',
         'password_change' => 'تم تغيير كلمة المرور الخاصة بك بنجاح.',
     ],
+    'whatsapp' => [
+        'disconnected_title' => 'تم فصل واتساب',
+        'disconnected' => 'تم قطع اتصال واتساب بالنظام، يرجى إعادة الاتصال',
+    ],
 ];

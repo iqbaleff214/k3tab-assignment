@@ -14,7 +14,9 @@
         "delete_account": "アカウント削除",
         "logout": "ログアウト",
         "activity_log": "アクティビティログ",
-        "notification": "通知"
+        "notification": "通知",
+        "configuration": "設定",
+        "whatsapp": "WhatsApp"
     },
     "label": {
         "new": "新規",
@@ -32,6 +34,8 @@
         "session_subtitle": "ログインに使用したデバイスを管理",
         "appearance_subtitle": "アカウントの外観設定を更新",
         "delete_account_subtitle": "アカウントとすべてのリソースを削除",
+        "configuration_subtitle": "システムを設定してください",
+        "whatsapp_subtitle": "通知を送信するためにWhatsAppアカウントを設定してください",
         "warning": "警告",
         "delete_account_warning": "この操作は取り消せません。慎重に進めてください。",
         "delete_account_are_you_sure": "アカウントを削除してもよろしいですか？",
@@ -50,7 +54,11 @@
         "newer": "新しい",
         "joined_date": "{date}に参加",
         "platform": "プラットフォーム",
-        "drag_and_drop_file_here_or_browse": "ここにファイルをドラッグ＆ドロップするか、参照してください"
+        "drag_and_drop_file_here_or_browse": "ここにファイルをドラッグ＆ドロップするか、参照してください",
+        "connected": "接続済み",
+        "disconnected": "未接続",
+        "whatsapp_not_available": "WhatsAppゲートウェイに問題があるため、この機能は使用できません。",
+        "connect_device": "デバイスを接続する"
     },
     "action": {
         "submit": "保存",
@@ -67,7 +75,11 @@
         "reset": "リセット",
         "approve": "承認",
         "save": "保存",
-        "audit": "監査"
+        "audit": "監査",
+        "connect": "接続",
+        "disconnect": "切断",
+        "call": "電話する",
+        "message": "メッセージを送る"
     },
     "field": {
         "name": "名前",
@@ -84,7 +96,10 @@
         "joined_at": "参加日時",
         "permission": "権限",
         "ip": "IPアドレス",
-        "ip_address": "IPアドレス"
+        "ip_address": "IPアドレス",
+        "phone": "電話番号",
+        "has_whatsapp": "WhatsApp",
+        "email_or_phone": "メールアドレスまたは電話番号"
     },
     "http": {
         "400": "不正なリクエスト",

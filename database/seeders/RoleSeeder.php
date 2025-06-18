@@ -14,18 +14,26 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = Role::query()->create([
+        $admin = Role::query()->createOrFirst([
             'name' => 'admin',
         ]);
 
-        User::query()
-            ->first()
-            ->assignRole($admin);
+        $user = User::query()->first();
+        if (!$user->hasRole('admin')) {
+            $user->assignRole('admin');
+        }
 
         foreach (Permission::values() as $permission) {
-            $p = \App\Models\Permission::query()->create([
+            $p = \App\Models\Permission::query()->firstOrCreate([
                 'name' => $permission,
             ]);
+
+            if (in_array($permission, Permission::skip()))
+                continue;
+
+            if ($admin->hasPermissionTo($p))
+                continue;
+
             $admin->givePermissionTo($p);
         }
     }

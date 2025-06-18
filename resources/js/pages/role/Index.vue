@@ -31,6 +31,7 @@ const props = defineProps<{
     items: Paginate<Role>;
     modules: string[];
     actions: string[];
+    skips: string[];
     permissions: string[];
 }>();
 
@@ -169,7 +170,7 @@ const destroy = (event: MouseEvent, item: Role | null) => {
             <ConfirmPopup />
 
             <FormModal
-                :modules :actions
+                :modules :actions :skips
                 ref="modal" />
         </div>
     </AppLayout>

@@ -206,6 +206,9 @@ return [
         "permission" => "权限",
         "ip" => "IP地址",
         "ip_address" => "IP地址",
+        "phone" => "电话号码",
+        "has_whatsapp" => "WhatsApp",
+        "email_or_phone" => "电子邮件或电话号码",
     ],
 
 ];

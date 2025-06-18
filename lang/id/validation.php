@@ -208,7 +208,9 @@ return [
         "joined_at" => "Bergabung Pada",
         "permission" => "Hak Akses",
         "ip" => "Alamat IP",
-        "ip_address" => "Alamat IP"
+        "ip_address" => "Alamat IP",
+        "phone" => "Nomor Telepon",
+        "has_whatsapp" => "WhatsApp",
+        "email_or_phone" => "Surel atau Nomor Telepon",
     ],
-
 ];

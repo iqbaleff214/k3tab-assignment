@@ -61,30 +61,30 @@ const updatePassword = () => {
                     :description="$t('label.password_subtitle')" />
 
                 <form @submit.prevent="updatePassword" class="space-y-6">
-                    <div class="grid">
+                    <div>
                         <FloatLabel variant="on">
-                            <Password v-model="form.current_password" :autofocus="true" inputId="current_password" :fluid="true" :feedback="false" toggleMask required />
-                            <label class="text-sm" for="current_password">{{ $t('field.current_password') }}</label>
+                            <Password :invalid="form.errors.current_password !== undefined" v-model="form.current_password" :autofocus="true" inputId="current_password" :fluid="true" :feedback="false" toggleMask required />
+                            <label class="text-sm" for="current_password">{{ $t('field.current_password') }} <span class="text-red-500">*</span></label>
                         </FloatLabel>
                         <Message v-if="form.errors.current_password" severity="error" size="small" variant="simple">{{ form.errors.current_password }}</Message>
                     </div>
 
-                    <div class="grid">
+                    <div>
                         <FloatLabel variant="on">
-                            <Password v-model="form.password" inputId="password" :fluid="true" toggleMask required />
-                            <label class="text-sm" for="password">{{ $t('field.new_password') }}</label>
+                            <Password :invalid="form.errors.password !== undefined" v-model="form.password" inputId="password" :fluid="true" toggleMask required />
+                            <label class="text-sm" for="password">{{ $t('field.new_password') }} <span class="text-red-500">*</span></label>
                         </FloatLabel>
                         <Message v-if="form.errors.password" severity="error" size="small" variant="simple">{{ form.errors.password }}</Message>
                     </div>
 
-                    <div class="grid">
+                    <div>
                         <FloatLabel variant="on">
                             <Password
                                 :invalid="form.password !== form.password_confirmation"
                                 v-model="form.password_confirmation"
                                 inputId="password_confirmation" :fluid="true"
                                 :feedback="false" toggleMask required />
-                            <label class="text-sm" for="password_confirmation">{{ $t('field.password_confirmation') }}</label>
+                            <label class="text-sm" for="password_confirmation">{{ $t('field.password_confirmation') }} <span class="text-red-500">*</span></label>
                         </FloatLabel>
                         <Message v-if="form.errors.password_confirmation" severity="error" size="small" variant="simple">{{ form.errors.password_confirmation }}</Message>
                     </div>

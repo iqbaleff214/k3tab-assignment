@@ -13,4 +13,6 @@ return [
     "logout" => "注销",
     "activity_log" => "活动日志",
     'notification' => '通知',
+    "configuration" => "配置",
+    "whatsapp" => "WhatsApp",
 ];

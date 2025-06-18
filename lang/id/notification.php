@@ -7,4 +7,8 @@ return [
         'password_change_title' => 'Kata Sandi Diubah',
         'password_change' => 'Kata sandi Anda berhasil diubah.',
     ],
+    'whatsapp' => [
+        'disconnected_title' => 'WhatsApp Terputus',
+        'disconnected' => 'Sambungan WhatsApp sistem telah terputus, harap sambungkan kembali',
+    ],
 ];

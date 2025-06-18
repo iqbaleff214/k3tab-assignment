@@ -14,7 +14,9 @@
         "delete_account": "계정 삭제",
         "logout": "로그아웃",
         "activity_log": "활동 로그",
-        "notification": "알림"
+        "notification": "알림",
+        "configuration": "설정",
+        "whatsapp": "WhatsApp"
     },
     "label": {
         "new": "새로 만들기",
@@ -32,6 +34,8 @@
         "session_subtitle": "로그인에 사용된 기기 관리",
         "appearance_subtitle": "계정 외관 설정 업데이트",
         "delete_account_subtitle": "계정 및 모든 리소스 삭제",
+        "configuration_subtitle": "시스템을 구성하세요",
+        "whatsapp_subtitle": "알림을 보내려면 WhatsApp 계정을 설정하세요",
         "warning": "경고",
         "delete_account_warning": "이 작업은 취소할 수 없으니 신중하게 진행하세요.",
         "delete_account_are_you_sure": "계정을 삭제하시겠습니까?",
@@ -50,7 +54,11 @@
         "newer": "최신",
         "joined_date": "{date}에 가입",
         "platform": "플랫폼",
-        "drag_and_drop_file_here_or_browse": "여기에 파일을 끌어다 놓거나 찾아보기"
+        "drag_and_drop_file_here_or_browse": "여기에 파일을 끌어다 놓거나 찾아보기",
+        "connected": "연결됨",
+        "disconnected": "연결 끊김",
+        "whatsapp_not_available": "WhatsApp 게이트웨이에 문제가 있어 이 기능을 사용할 수 없습니다.",
+        "connect_device": "장치 연결"
     },
     "action": {
         "submit": "저장",
@@ -67,7 +75,11 @@
         "reset": "재설정",
         "approve": "승인",
         "save": "저장",
-        "audit": "감사"
+        "audit": "감사",
+        "connect": "연결",
+        "disconnect": "연결 해제",
+        "call": "전화",
+        "message": "메시지 보내기"
     },
     "field": {
         "name": "이름",
@@ -84,7 +96,10 @@
         "joined_at": "가입 일시",
         "permission": "권한",
         "ip": "IP 주소",
-        "ip_address": "IP 주소"
+        "ip_address": "IP 주소",
+        "phone": "전화번호",
+        "has_whatsapp": "WhatsApp",
+        "email_or_phone": "이메일 또는 전화번호"
     },
     "http": {
         "400": "잘못된 요청",

@@ -8,6 +8,7 @@ import { useI18n } from 'vue-i18n';
 import { useConfirm, ConfirmPopup, Button } from 'primevue';
 import { ref } from 'vue';
 import { dateHumanFormatWithTime, dateHumanSmartFormat } from '@/lib/utils';
+import PhoneNumber from '@/components/PhoneNumber.vue';
 
 interface User extends UserBase {
     roles: Role[];
@@ -122,6 +123,15 @@ const destroy = (event: MouseEvent, item: User) => {
             <div class="flex justify-between items-baseline">
                 <div class="flex flex-col items-baseline gap-2.5">
                     <h1 class="text-2xl">{{ item.name }}</h1>
+                    <div class="flex gap-2 text-sm font-light text-gray-500">
+                        <a :href="`mailto:${item.email}`" class="hover:underline hover:text-emerald-500">
+                            {{ item.email }}
+                        </a>
+                        <span class="text-gray-300">|</span>
+                        <PhoneNumber
+                            :phone="item.phone" :international_phone="item.international_phone"
+                            :has_whatsapp="item.has_whatsapp" />
+                    </div>
                     <div class=" flex gap-x-2 items-center justify-start">
                         <span
                             v-for="role in item.roles" :key="role.id"

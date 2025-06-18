@@ -41,7 +41,7 @@ const footerNavItems: NavItem[] = [
         title: 'menu.configuration',
         href: '/configuration',
         icon: Settings2Icon,
-        isAvailable: true,
+        isAvailable: page.props.auth.allow.view_whatsapp,
         isActive: route().current('configuration.*'),
     },
     {

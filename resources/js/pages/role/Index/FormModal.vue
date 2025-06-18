@@ -15,6 +15,7 @@ const visible = ref<boolean>(false);
 const props = defineProps<{
     modules: string[];
     actions: string[];
+    skips: string[];
 }>();
 
 const form = useForm<{
@@ -59,13 +60,17 @@ const submit = () => {
 };
 
 const selectAll = () => {
-    if (form.permissions.length === (props.modules.length * props.actions.length)) {
+    if (form.permissions.length === (props.modules.length * props.actions.length) - props.skips.length) {
         form.permissions = [];
     } else {
         const permission: string[] = [];
         for (const module of props.modules) {
             for (const action of props.actions) {
-                permission.push(`${action}_${module}`);
+                const permit = `${action}_${module}`;
+                if (props.skips.includes(permit))
+                    continue;
+
+                permission.push(permit);
             }
         }
         form.permissions = permission;
@@ -83,12 +88,12 @@ defineExpose({
         @after-hide="close" :header="$t('menu.role')" :style="{ width: '65rem' }">
         <form @submit.prevent="submit">
             <div class="flex flex-col gap-6 pt-2 pb-8">
-                <div class="grid">
+                <div>
                     <FloatLabel variant="on">
                         <InputText
-                            :fluid="true" :autofocus="true" id="name"
+                            :fluid="true" :autofocus="true" id="name" :invalid="form.errors.name !== undefined"
                             v-model="form.name" type="text" autocomplete="off" />
-                        <label for="name" class="text-sm">{{ $t('field.name') }}</label>
+                        <label for="name" class="text-sm">{{ $t('field.name') }} <span class="text-red-500">*</span></label>
                     </FloatLabel>
                     <Message v-if="form.errors.name" severity="error" size="small" variant="simple">
                         {{ form.errors.name }}
@@ -101,7 +106,7 @@ defineExpose({
                         </template>
                         <template #header>
                             <Button
-                                type="button" size="small" :disabled="form.permissions.length === (props.modules.length * props.actions.length)"
+                                type="button" size="small" :disabled="form.permissions.length === (props.modules.length * props.actions.length) - skips.length"
                                 :label="$t('action.select_all')" @click="selectAll"></Button>
                             <Button
                                 type="button" size="small" :disabled="form.permissions.length === 0"
@@ -111,7 +116,7 @@ defineExpose({
                     <Column v-for="action in actions" :key="action" :header="$t(`action.${action}`)" :field="action">
                         <template #body="{ data }: { data: string }">
                             <Checkbox
-                                v-tooltip="`${action}_${data}`"
+                                v-tooltip="`${action}_${data}`" v-if="!skips.includes(`${action}_${data}`)"
                                 v-model="form.permissions" :input-id="`${action}_${data}`"
                                 :name="`${action}_${data}`" :value="`${action}_${data}`" />
                         </template>

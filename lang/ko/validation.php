@@ -208,7 +208,10 @@ return [
         "joined_at" => "가입 일시",
         "permission" => "권한",
         "ip" => "IP 주소",
-        "ip_address" => "IP 주소"
+        "ip_address" => "IP 주소",
+        "phone" => "전화번호",
+        "has_whatsapp" => "WhatsApp",
+        "email_or_phone" => "이메일 또는 전화번호",
     ],
 
 ];

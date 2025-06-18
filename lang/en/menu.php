@@ -13,4 +13,6 @@ return [
     "logout" => "Logout",
     "activity_log" => "Activity Log",
     'notification' => 'Notification',
+    "configuration" => "Configuration",
+    "whatsapp" => "WhatsApp",
 ];

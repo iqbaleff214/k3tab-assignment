@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Events\User\NewPhoneNumber;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -32,6 +33,7 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
+        $isPhoneChanged = $request->user()->isDirty('phone');
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
@@ -54,6 +56,9 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+        if ($isPhoneChanged && $request->user()->phone) {
+            event(new NewPhoneNumber($request->user()));
+        }
 
         return to_route('profile.edit')
             ->with('success', __('action.updated', ['menu' => __('menu.profile')]));

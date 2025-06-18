@@ -20,6 +20,12 @@ export interface Allow {
     delete_role: boolean;
     approve_role: boolean;
     audit_role: boolean;
+    view_whatsapp: boolean;
+    add_whatsapp: boolean;
+    edit_whatsapp: boolean;
+    delete_whatsapp: boolean;
+    approve_whatsapp: boolean;
+    audit_whatsapp: boolean;
 }
 
 export interface BreadcrumbItem {
@@ -93,6 +99,9 @@ export interface User {
     avatar?: string;
     locale: 'id' | 'en' | 'ko' | 'ja' | 'ar' | 'zh-CN';
     email_verified_at: string | null;
+    phone: string | null;
+    international_phone: string | null;
+    has_whatsapp: boolean;
     created_at: string;
     updated_at: string;
 }

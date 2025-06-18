@@ -208,7 +208,10 @@ return [
         "joined_at" => "تاريخ الانضمام",
         "permission" => "الإذن",
         "ip" => "عنوان IP",
-        "ip_address" => "عنوان IP"
+        "ip_address" => "عنوان IP",
+        "phone" => "رقم الهاتف",
+        "has_whatsapp" => "واتساب",
+        "email_or_phone" => "البريد الإلكتروني أو رقم الهاتف",
     ],
 
 ];

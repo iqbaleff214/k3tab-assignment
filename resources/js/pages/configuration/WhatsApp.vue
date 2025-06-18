@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head, router, usePage } from '@inertiajs/vue3';
 
 import HeadingSmall from '@/components/HeadingSmall.vue';
-import type { BreadcrumbItem, WhatsAppDevice } from '@/types';
+import type { BreadcrumbItem, SharedData, WhatsAppDevice } from '@/types';
 
 import AppLayout from '@/layouts/AppLayout.vue';
 import ConfigLayout from '@/layouts/ConfigurationLayout.vue';
@@ -25,6 +25,7 @@ interface WhatsAppDeviceItem extends WhatsAppDevice {
 
 defineProps<{ items: WhatsAppDeviceItem[]; availability: boolean }>();
 
+const page = usePage<SharedData>();
 const confirm = useConfirm();
 const loading = ref<boolean>(false);
 const connectModal = ref();
@@ -127,7 +128,7 @@ const destroy = (event: MouseEvent, item: WhatsAppDevice) => {
                                             size="small"
                                             variant="outlined"
                                             severity="danger"
-                                            @click="destroy($event, item)"
+                                            @click="destroy($event, item)" v-if="page.props.auth.allow.delete_whatsapp"
                                             rounded></Button>
                                     </div>
                                 </div>
@@ -145,10 +146,10 @@ const destroy = (event: MouseEvent, item: WhatsAppDevice) => {
                                         <Button
                                             v-if="!item.connected" :loading="item.loading"
                                             :label="$t('action.connect')" size="small"
-                                            severity="success" :disabled="item.connected || item.loading"
+                                            severity="success" :disabled="item.connected || item.loading || !page.props.auth.allow.edit_whatsapp"
                                             @click="() => connect(item)"></Button>
                                         <Button
-                                            v-else  :loading="item.loading" :disabled="item.loading"
+                                            v-else :loading="item.loading" :disabled="item.loading || !page.props.auth.allow.edit_whatsapp"
                                             :label="$t('action.disconnect')" size="small" severity="danger"
                                             @click="() => disconnect(item)"></Button>
                                     </div>
@@ -157,7 +158,7 @@ const destroy = (event: MouseEvent, item: WhatsAppDevice) => {
                         </Card>
                     </div>
                     <button
-                        @click="() => formModal?.open()"
+                        @click="() => formModal?.open()" v-if="page.props.auth.allow.add_whatsapp"
                         class="h-[143px] cursor-pointer rounded-2xl bg-white shadow-md hover:bg-gray-50">
                         <i class="pi pi-plus text-gray-500" style="font-size: 1.25rem"></i>
                     </button>

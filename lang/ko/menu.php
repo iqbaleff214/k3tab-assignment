@@ -13,4 +13,6 @@ return [
     "logout" => "로그아웃",
     "activity_log" => "활동 로그",
     'notification' => '알림',
+    "configuration" => "설정",
+    "whatsapp" => "WhatsApp",
 ];

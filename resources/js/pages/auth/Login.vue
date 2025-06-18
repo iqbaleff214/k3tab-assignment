@@ -27,7 +27,7 @@ const submit = () => {
 </script>
 
 <template>
-    <AuthBase title="Log in to your account" description="Enter your email and password below to log in">
+    <AuthBase title="Log in to your account" description="Enter your email or phone and password below to log in">
         <Head title="Log in" />
 
         <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
@@ -38,8 +38,8 @@ const submit = () => {
             <div class="grid gap-6">
                 <div class="grid gap-2">
                     <FloatLabel variant="in">
-                        <InputText :fluid="true" :autofocus="true" id="email" v-model="form.email" type="email" autocomplete="off" />
-                        <label for="email">Email address</label>
+                        <InputText :fluid="true" :autofocus="true" id="email" v-model="form.email" autocomplete="off" />
+                        <label for="email">{{ $t('field.email_or_phone') }}</label>
                     </FloatLabel>
                     <Message v-if="form.errors.email" severity="error" size="small" variant="simple">{{ form.errors.email }}</Message>
                 </div>
@@ -47,7 +47,7 @@ const submit = () => {
                 <div class="grid gap-2">
                     <FloatLabel variant="in">
                         <Password v-model="form.password" inputId="password" :fluid="true" :feedback="false" toggleMask />
-                        <label for="password">Password</label>
+                        <label for="password">{{ $t('field.password') }}</label>
                     </FloatLabel>
                     <Message v-if="form.errors.password" severity="error" size="small" variant="simple">{{ form.errors.password }}</Message>
                 </div>

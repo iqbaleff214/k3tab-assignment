@@ -29,7 +29,7 @@ onMounted(() => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl">
             <div class="flex flex-col w-full text-sm" v-if="items.data.length">
-                <div
+                <a :href="item.data.link ?? '#'"
                     class="flex items-start gap-x-5 group w-full min-h-[40px] border-b-1 border-b-gray-200 hover:bg-gray-50 p-4"
                     :class="{ 'bg-teal-50 hover:bg-teal-100': item.read_at === null }"
                     v-for="item in items.data" :key="item.id">
@@ -41,7 +41,7 @@ onMounted(() => {
                         </div>
                         <p v-html="item.data.message"></p>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </AppLayout>

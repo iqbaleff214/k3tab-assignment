@@ -7,4 +7,8 @@ return [
         'password_change_title' => '비밀번호 변경됨',
         'password_change' => '비밀번호가 성공적으로 변경되었습니다.',
     ],
+    'whatsapp' => [
+        'disconnected_title' => 'WhatsApp 연결 끊김',
+        'disconnected' => '시스템의 WhatsApp 연결이 끊어졌습니다. 다시 연결해 주세요.',
+    ],
 ];

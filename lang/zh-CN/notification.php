@@ -7,4 +7,8 @@ return [
         'password_change_title' => '密码已更改',
         'password_change' => '您的密码已成功更改。',
     ],
+    'whatsapp' => [
+        'disconnected_title' => 'WhatsApp 已断开',
+        'disconnected' => '系统的 WhatsApp 连接已断开，请重新连接。',
+    ],
 ];

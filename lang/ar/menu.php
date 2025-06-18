@@ -13,4 +13,6 @@ return [
     "logout" => "تسجيل الخروج",
     "activity_log" => "سجل الأنشطة",
     'notification' => 'إشعار',
+    "configuration" => "الإعدادات",
+    "whatsapp" => "واتساب",
 ];

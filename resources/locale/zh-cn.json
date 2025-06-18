@@ -14,7 +14,9 @@
         "delete_account": "删除账户",
         "logout": "退出登录",
         "activity_log": "活动日志",
-        "notification": "通知"
+        "notification": "通知",
+        "configuration": "配置",
+        "whatsapp": "WhatsApp"
     },
     "label": {
         "new": "新建",
@@ -32,6 +34,8 @@
         "session_subtitle": "管理用于登录的设备",
         "appearance_subtitle": "更新您的账户外观设置",
         "delete_account_subtitle": "删除您的账户及其所有资源",
+        "configuration_subtitle": "配置您的系统",
+        "whatsapp_subtitle": "设置您的 WhatsApp 账户以发送通知",
         "warning": "警告",
         "delete_account_warning": "请谨慎操作，此操作无法撤销。",
         "delete_account_are_you_sure": "确定要删除您的账户吗？",
@@ -50,7 +54,11 @@
         "newer": "更新",
         "joined_date": "于{date}加入",
         "platform": "平台",
-        "drag_and_drop_file_here_or_browse": "将文件拖到此处或浏览"
+        "drag_and_drop_file_here_or_browse": "将文件拖到此处或浏览",
+        "connected": "已连接",
+        "disconnected": "未连接",
+        "whatsapp_not_available": "由于 WhatsApp 网关发生故障，此功能不可用。",
+        "connect_device": "连接设备"
     },
     "action": {
         "submit": "保存",
@@ -67,7 +75,11 @@
         "reset": "重置",
         "approve": "批准",
         "save": "保存",
-        "audit": "审计"
+        "audit": "审计",
+        "connect": "连接",
+        "disconnect": "断开连接",
+        "call": "打电话",
+        "message": "发送消息"
     },
     "field": {
         "name": "姓名",
@@ -84,7 +96,10 @@
         "joined_at": "加入时间",
         "permission": "权限",
         "ip": "IP地址",
-        "ip_address": "IP地址"
+        "ip_address": "IP地址",
+        "phone": "电话号码",
+        "has_whatsapp": "WhatsApp",
+        "email_or_phone": "电子邮件或电话号码"
     },
     "http": {
         "400": "错误的请求",

@@ -14,7 +14,9 @@
         "delete_account": "حذف الحساب",
         "logout": "تسجيل الخروج",
         "activity_log": "سجل النشاط",
-        "notification": "إشعار"
+        "notification": "إشعار",
+        "configuration": "الإعدادات",
+        "whatsapp": "واتساب"
     },
     "label": {
         "new": "جديد",
@@ -32,6 +34,8 @@
         "session_subtitle": "إدارة الأجهزة المستخدمة لتسجيل الدخول",
         "appearance_subtitle": "تحديث إعدادات مظهر حسابك",
         "delete_account_subtitle": "حذف حسابك وجميع موارده",
+        "configuration_subtitle": "تهيئة النظام الخاص بك",
+        "whatsapp_subtitle": "قم بإعداد حساب واتساب الخاص بك لإرسال الإشعارات",
         "warning": "تحذير",
         "delete_account_warning": "يرجى المتابعة بحذر، لا يمكن التراجع عن هذا الإجراء.",
         "delete_account_are_you_sure": "هل أنت متأكد أنك تريد حذف حسابك؟",
@@ -50,7 +54,11 @@
         "newer": "أحدث",
         "joined_date": "انضم في {date}",
         "platform": "المنصة",
-        "drag_and_drop_file_here_or_browse": "اسحب الملف هنا أو تصفح"
+        "drag_and_drop_file_here_or_browse": "اسحب الملف هنا أو تصفح",
+        "connected": "متصل",
+        "disconnected": "غير متصل",
+        "whatsapp_not_available": "هذه الميزة غير متاحة بسبب وجود خلل في بوابة واتساب.",
+        "connect_device": "اتصل بالجهاز"
     },
     "action": {
         "submit": "حفظ",
@@ -67,7 +75,11 @@
         "reset": "إعادة تعيين",
         "approve": "موافقة",
         "save": "حفظ",
-        "audit": "مراجعة"
+        "audit": "مراجعة",
+        "connect": "اتصال",
+        "disconnect": "قطع الاتصال",
+        "call": "اتصال",
+        "message": "إرسال رسالة"
     },
     "field": {
         "name": "الاسم",
@@ -84,7 +96,10 @@
         "joined_at": "تاريخ الانضمام",
         "permission": "الإذن",
         "ip": "عنوان IP",
-        "ip_address": "عنوان IP"
+        "ip_address": "عنوان IP",
+        "phone": "رقم الهاتف",
+        "has_whatsapp": "واتساب",
+        "email_or_phone": "البريد الإلكتروني أو رقم الهاتف"
     },
     "http": {
         "400": "طلب غير صالح",

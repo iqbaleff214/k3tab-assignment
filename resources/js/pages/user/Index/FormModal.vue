@@ -22,12 +22,14 @@ const form = useForm<{
     id: number;
     name: string;
     email: string;
+    phone: string | null;
     roles: string[];
 }>({
     _method: 'POST',
     id: 0,
     name: '',
     email: '',
+    phone: null,
     roles: [],
 });
 
@@ -41,12 +43,14 @@ const open = (user: User | null) => {
     form.id = user.id;
     form.name = user.name;
     form.email = user.email;
+    form.phone = user.phone;
     form.roles = user.roles.map(role => role.name);
 };
 
 const close = () => {
     visible.value = false;
     form.reset();
+    form.clearErrors();
 };
 
 const submit = () => {
@@ -72,40 +76,53 @@ defineExpose({
         @after-hide="close" :header="$t('menu.user')" :style="{ width: '50rem' }">
         <form @submit.prevent="submit">
             <div class="flex flex-col gap-6 pt-2 pb-8">
-                <div class="grid lg:grid-cols-2 gap-x-6 w-full">
-                    <div class="grid">
+                <div class="grid lg:grid-cols-2 gap-6 w-full">
+                    <div>
                         <FloatLabel variant="on">
                             <InputText
-                                :fluid="true" :autofocus="true" id="name"
+                                :fluid="true" :autofocus="true" id="name" :invalid="form.errors.name !== undefined"
                                 v-model="form.name" type="text" autocomplete="off" />
-                            <label for="name" class="text-sm">{{ $t('field.name') }}</label>
+                            <label for="name" class="text-sm">{{ $t('field.name') }} <span class="text-red-500">*</span></label>
                         </FloatLabel>
                         <Message v-if="form.errors.name" severity="error" size="small" variant="simple">
                             {{ form.errors.name }}
                         </Message>
                     </div>
-                    <div class="grid">
+                    <div>
+                        <FloatLabel variant="on">
+                            <MultiSelect :invalid="form.errors.roles !== undefined"
+                                v-model="form.roles" :options="roles" filter input-id="roles" fluid show-clear
+                                :max-selected-labels="3" class="w-full md:w-80" />
+                            <label for="roles" class="text-sm">{{ $t('field.role') }} <span class="text-red-500">*</span></label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.roles" severity="error" size="small" variant="simple">
+                            {{ form.errors.roles }}
+                        </Message>
+                    </div>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-6 w-full">
+                    <div>
                         <FloatLabel variant="on">
                             <InputText
-                                :fluid="true" id="email" :disabled="form.id > 0"
+                                :fluid="true" id="email" :disabled="form.id > 0" :invalid="form.errors.email !== undefined"
                                 v-model="form.email" type="text" autocomplete="off" />
-                            <label for="email" class="text-sm">{{ $t('field.email') }}</label>
+                            <label for="email" class="text-sm">{{ $t('field.email') }} <span class="text-red-500">*</span></label>
                         </FloatLabel>
                         <Message v-if="form.errors.email" severity="error" size="small" variant="simple">
                             {{ form.errors.email }}
                         </Message>
                     </div>
-                </div>
-                <div class="grid">
-                    <FloatLabel variant="on">
-                        <MultiSelect
-                            v-model="form.roles" :options="roles" filter input-id="roles" fluid show-clear
-                            :max-selected-labels="3" class="w-full md:w-80" />
-                        <label for="roles" class="text-sm">{{ $t('field.role') }}</label>
-                    </FloatLabel>
-                    <Message v-if="form.errors.roles" severity="error" size="small" variant="simple">
-                        {{ form.errors.roles }}
-                    </Message>
+                    <div>
+                        <FloatLabel variant="on">
+                            <InputText
+                                :fluid="true" id="phone" :disabled="form.id > 0" :invalid="form.errors.phone !== undefined"
+                                v-model="form.phone" type="text" autocomplete="off" />
+                            <label for="phone" class="text-sm">{{ $t('field.phone') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.phone" severity="error" size="small" variant="simple">
+                            {{ form.errors.phone }}
+                        </Message>
+                    </div>
                 </div>
             </div>
 

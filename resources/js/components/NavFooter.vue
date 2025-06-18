@@ -40,20 +40,22 @@ defineProps<Props>();
                         </Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
-                <SidebarMenuItem v-for="item in items" :key="item.title">
-                    <SidebarMenuButton
-                        class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100"
-                        as-child :is-active="item.isActive" :tooltip="$t(item.title)">
-                        <a :href="item.href" target="_blank" rel="noopener noreferrer" v-if="item.isExternal">
-                            <component :is="item.icon" />
-                            <span>{{ $t(item.title) }}</span>
-                        </a>
-                        <Link :href="item.href" v-else>
-                            <component :is="item.icon" />
-                            <span>{{ $t(item.title) }}</span>
-                        </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
+                <template v-for="item in items" :key="item.title">
+                    <SidebarMenuItem v-if="item.isAvailable">
+                        <SidebarMenuButton
+                            class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100"
+                            as-child :is-active="item.isActive" :tooltip="$t(item.title)">
+                            <a :href="item.href" target="_blank" rel="noopener noreferrer" v-if="item.isExternal">
+                                <component :is="item.icon" />
+                                <span>{{ $t(item.title) }}</span>
+                            </a>
+                            <Link :href="item.href" v-else>
+                                <component :is="item.icon" />
+                                <span>{{ $t(item.title) }}</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </template>
             </SidebarMenu>
         </SidebarGroupContent>
     </SidebarGroup>

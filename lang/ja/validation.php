@@ -209,7 +209,10 @@ return [
         "joined_at" => "参加日時",
         "permission" => "権限",
         "ip" => "IPアドレス",
-        "ip_address" => "IPアドレス"
+        "ip_address" => "IPアドレス",
+        "phone" => "電話番号",
+        "has_whatsapp" => "WhatsApp",
+        "email_or_phone" => "メールアドレスまたは電話番号",
     ],
 
 ];

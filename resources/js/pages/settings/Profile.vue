@@ -34,6 +34,7 @@ const form = useForm({
     name: user.name,
     email: user.email,
     locale: user.locale,
+    phone: user.phone,
 });
 
 const submit = () => {
@@ -73,27 +74,39 @@ const locales: Locale[] = [
                     :description="$t('label.profile_subtitle')" />
 
                 <form @submit.prevent="submit" class="space-y-6">
-                    <div class="grid">
+                    <div>
                         <FloatLabel variant="on">
                             <InputText
-                                :fluid="true" :autofocus="true" id="name"
+                                :fluid="true" :autofocus="true" id="name" :invalid="form.errors.name !== undefined"
                                 v-model="form.name" type="text" autocomplete="off" />
-                            <label for="name" class="text-sm">{{ $t('field.name') }}</label>
+                            <label for="name" class="text-sm">{{ $t('field.name') }} <span class="text-red-500">*</span></label>
                         </FloatLabel>
                         <Message v-if="form.errors.name" severity="error" size="small" variant="simple">
                             {{ form.errors.name }}
                         </Message>
                     </div>
 
-                    <div class="grid">
+                    <div>
                         <FloatLabel variant="on">
                             <InputText
-                                :fluid="true" id="email"
+                                :fluid="true" id="email" :invalid="form.errors.email !== undefined"
                                 v-model="form.email" type="text" autocomplete="off" />
-                            <label for="email" class="text-sm">{{ $t('field.email') }}</label>
+                            <label for="email" class="text-sm">{{ $t('field.email') }} <span class="text-red-500">*</span></label>
                         </FloatLabel>
                         <Message v-if="form.errors.email" severity="error" size="small" variant="simple">
                             {{ form.errors.email }}
+                        </Message>
+                    </div>
+
+                    <div>
+                        <FloatLabel variant="on">
+                            <InputText
+                                :fluid="true" id="phone" :invalid="form.errors.phone !== undefined"
+                                v-model="form.phone" type="text" autocomplete="off" />
+                            <label for="phone" class="text-sm">{{ $t('field.phone') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.phone" severity="error" size="small" variant="simple">
+                            {{ form.errors.phone }}
                         </Message>
                     </div>
 

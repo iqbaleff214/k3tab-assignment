@@ -14,7 +14,9 @@
         "delete_account": "Delete Account",
         "logout": "Logout",
         "activity_log": "Activity Log",
-        "notification": "Notification"
+        "notification": "Notification",
+        "configuration": "Configuration",
+        "whatsapp": "WhatsApp"
     },
     "label": {
         "new": "New",
@@ -32,6 +34,8 @@
         "session_subtitle": "Manage devices used for login",
         "appearance_subtitle": "Update your account appearance settings",
         "delete_account_subtitle": "Delete your account and all its resources",
+        "configuration_subtitle": "Configure your system",
+        "whatsapp_subtitle": "Set up your WhatsApp account to send notifications",
         "warning": "Warning",
         "delete_account_warning": "Please proceed carefully, this action cannot be undone.",
         "delete_account_are_you_sure": "Are you sure you want to delete your account?",
@@ -50,7 +54,11 @@
         "newer": "Newer",
         "joined_date": "Joined on {date}",
         "platform": "Platform",
-        "drag_and_drop_file_here_or_browse": "Drag and drop file here or browse"
+        "drag_and_drop_file_here_or_browse": "Drag and drop file here or browse",
+        "connected": "Connected",
+        "disconnected": "Disconnected",
+        "whatsapp_not_available": "This feature is not available due to an issue with the WhatsApp Gateway.",
+        "connect_device": "Connect Device"
     },
     "action": {
         "submit": "Save",
@@ -67,7 +75,11 @@
         "reset": "Reset",
         "approve": "Approve",
         "save": "Save",
-        "audit": "Audit"
+        "audit": "Audit",
+        "connect": "Connect",
+        "disconnect": "Disconnect",
+        "call": "Call",
+        "message": "Send Message"
     },
     "field": {
         "name": "Name",
@@ -84,7 +96,10 @@
         "joined_at": "Joined At",
         "permission": "Permission",
         "ip": "IP Address",
-        "ip_address": "IP Address"
+        "ip_address": "IP Address",
+        "phone": "Phone Number",
+        "has_whatsapp": "WhatsApp",
+        "email_or_phone": "Email or Phone Number"
     },
     "http": {
         "400": "Bad Request",
