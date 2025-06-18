@@ -60,6 +60,40 @@ class WhatsAppController extends Controller
         }
     }
 
+    public function connect(Request $request, string $token): RedirectResponse
+    {
+        try {
+            $headers = WhatsAppHelper::headers(config('whatsapp.token'), $token);
+            $response = WhatsAppHelper::sessionConnect(['Message'], $headers);
+            if (!$response['success']) {
+                throw new \Exception($response['details'] ?? 'failed');
+            }
+
+            return back()->with('success', __('action.updated', ['menu' => __('menu.whatsapp')]));
+        } catch (\Throwable $exception) {
+            Log::error($exception->getMessage());
+
+            return back()->with('error', $exception->getMessage());
+        }
+    }
+
+    public function disconnect(Request $request, string $token): RedirectResponse
+    {
+        try {
+            $headers = WhatsAppHelper::headers(config('whatsapp.token'), $token);
+            $response = WhatsAppHelper::sessionDisconnect($headers);
+            if (!$response['success']) {
+                throw new \Exception($response['details'] ?? 'failed');
+            }
+
+            return back()->with('success', __('action.updated', ['menu' => __('menu.whatsapp')]));
+        } catch (\Throwable $exception) {
+            Log::error($exception->getMessage());
+
+            return back()->with('error', $exception->getMessage());
+        }
+    }
+
     public function destroy(Request $request, string $id): RedirectResponse
     {
         try {

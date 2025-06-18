@@ -10,7 +10,7 @@ import ConnectModal from '@/pages/configuration/WhatsApp/ConnectModal.vue';
 import FormModal from '@/pages/configuration/WhatsApp/FormModal.vue';
 import { Button, Card, ConfirmPopup, useConfirm } from 'primevue';
 import { useI18n } from 'vue-i18n';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { ref } from 'vue';
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -24,11 +24,34 @@ interface WhatsAppDeviceItem extends WhatsAppDevice {
 }
 
 defineProps<{ items: WhatsAppDeviceItem[]; availability: boolean }>();
+
 const confirm = useConfirm();
 const loading = ref<boolean>(false);
 const connectModal = ref();
 const formModal = ref();
 const { t } = useI18n();
+
+const connect = (item: WhatsAppDeviceItem) => {
+    item.loading = true;
+    router.post(route('configuration.whatsapp.connect', { token: item.token }), {}, {
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess: () => {
+            item.loading = false;
+        },
+    });
+};
+
+const disconnect = (item: WhatsAppDeviceItem) => {
+    item.loading = true;
+    router.post(route('configuration.whatsapp.disconnect', { token: item.token }), {}, {
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess: () => {
+            item.loading = false;
+        },
+    });
+};
 
 const reload = () => {
     loading.value = true;
@@ -64,22 +87,6 @@ const destroy = (event: MouseEvent, item: WhatsAppDevice) => {
         },
     });
 };
-
-let interval: number;
-
-onMounted(() => {
-    interval = setInterval(() => {
-        router.reload({
-            preserveUrl: true,
-            replace: true,
-            only: ['items'],
-        });
-    },15_000);
-});
-
-onUnmounted(() => {
-    clearInterval(interval);
-});
 </script>
 
 <template>
@@ -97,14 +104,14 @@ onUnmounted(() => {
                                 <div class="flex justify-between">
                                     <div class="flex flex-col gap-0">
                                         <div class="flex items-baseline gap-x-2">
-                                            <div class="text-sm">{{ item.name }}</div>
+                                            <div class="text-sm font-semibold">{{ item.name }}</div>
                                             <i
                                                 v-tooltip="$t('label.connected')"
                                                 v-if="item.loggedIn"
                                                 class="pi pi-verified text-emerald-500"
                                                 style="font-size: 0.8rem"></i>
                                         </div>
-                                        <small class="text-gray-500">{{ item.jid ? item.jid.split(':')[0] : '-' }}</small>
+                                        <small class="text-gray-500 font-light text-sm">{{ item.jid ? item.jid.split(':')[0] : '-' }}</small>
                                     </div>
                                     <div class="flex gap-1">
                                         <Button
@@ -125,23 +132,37 @@ onUnmounted(() => {
                                     </div>
                                 </div>
                             </template>
-                            <template #subtitle>
+                            <template #content>
+                                <div class="flex justify-between mt-5">
+                                    <div>
+                                        <Button
+                                            icon="pi pi-qrcode" v-if="item.connected && item.qrcode && !item.loggedIn"
+                                            size="small" variant="outlined" severity="success"
+                                            @click="() => connectModal?.open(item)"
+                                            rounded></Button>
+                                    </div>
+                                    <div>
+                                        <Button
+                                            v-if="!item.connected" :loading="item.loading"
+                                            :label="$t('action.connect')" size="small"
+                                            severity="success" :disabled="item.connected || item.loading"
+                                            @click="() => connect(item)"></Button>
+                                        <Button
+                                            v-else  :loading="item.loading" :disabled="item.loading"
+                                            :label="$t('action.disconnect')" size="small" severity="danger"
+                                            @click="() => disconnect(item)"></Button>
+                                    </div>
+                                </div>
                             </template>
                         </Card>
                     </div>
                     <button
-                        v-if="items.length === 0"
                         @click="() => formModal?.open()"
-                        class="h-[112px] cursor-pointer rounded-2xl bg-white shadow-md hover:bg-gray-50"
-                    >
+                        class="h-[143px] cursor-pointer rounded-2xl bg-white shadow-md hover:bg-gray-50">
                         <i class="pi pi-plus text-gray-500" style="font-size: 1.25rem"></i>
                     </button>
                 </div>
                 <p v-else class="text-red-500">{{ $t('label.whatsapp_not_available') }}</p>
-
-                <p v-for="item in items" :key="item.id">
-                    {{ item }}
-                </p>
 
                 <ConfirmPopup />
 

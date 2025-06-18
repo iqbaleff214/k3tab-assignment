@@ -13,6 +13,10 @@ let interval: number|null = null;
 const open = (i: WhatsAppDevice) => {
     item.value = i;
     qrCode.value = i.qrcode;
+    if (!i.qrcode)
+        return;
+
+    visible.value = true;
 
     interval = setInterval(check, 1000);
 };
@@ -31,14 +35,14 @@ const check = () => {
 
     fetch(route('json.whatsapp.check', { token: item.value.token }))
         .then((res) => res.json())
-        .then((res: APIResponse<{ Connected: boolean; LoggedIn: boolean }>) => {
+        .then((res: APIResponse<{ connected: boolean; loggedIn: boolean }>) => {
             if (res.error || !item.value)
                 return;
 
-            const { Connected, LoggedIn } = res.data;
-            item.value.connected = Connected;
-            item.value.loggedIn = LoggedIn;
-            if (LoggedIn)
+            const { connected, loggedIn } = res.data;
+            item.value.connected = connected;
+            item.value.loggedIn = loggedIn;
+            if (loggedIn)
                 close();
         });
 };
