@@ -127,7 +127,7 @@ const destroy = (event: MouseEvent, item: User) => {
                         <a :href="`mailto:${item.email}`" class="hover:underline hover:text-emerald-500">
                             {{ item.email }}
                         </a>
-                        <span class="text-gray-300">|</span>
+                        <span class="text-gray-300" v-if="item.phone">|</span>
                         <PhoneNumber
                             :phone="item.phone" :international_phone="item.international_phone"
                             :has_whatsapp="item.has_whatsapp" />
