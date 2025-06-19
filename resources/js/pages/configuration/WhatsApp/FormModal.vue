@@ -37,8 +37,8 @@ defineExpose({
 <template>
     <Dialog
         v-model:visible="visible" modal @after-hide="close"
-        :header="$t('label.connect_device')" :style="{ width: '50rem' }">
-        <div class="flex flex-col gap-6 my-4">
+        :header="$t('label.connect_device')" :style="{ width: '30rem' }">
+        <div class="flex flex-col gap-6 mt-4 pb-8">
             <div>
                 <FloatLabel variant="on">
                     <InputText :fluid="true" autofocus id="name" v-model="form.name" type="text"  :invalid="form.errors.name !== undefined" />

@@ -84,7 +84,7 @@ defineExpose({
 
 <template>
     <Dialog
-        v-model:visible="visible" modal
+        v-model:visible="visible" modal maximizable
         @after-hide="close" :header="$t('menu.role')" :style="{ width: '65rem' }">
         <form @submit.prevent="submit">
             <div class="flex flex-col gap-6 pt-2 pb-8">
