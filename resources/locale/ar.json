@@ -16,7 +16,10 @@
         "activity_log": "سجل النشاط",
         "notification": "إشعار",
         "configuration": "الإعدادات",
-        "whatsapp": "واتساب"
+        "whatsapp": "واتساب",
+        "login": "تسجيل الدخول",
+        "forgot_password": "نسيت كلمة المرور",
+        "reset_password": "إعادة تعيين كلمة المرور"
     },
     "label": {
         "new": "جديد",
@@ -36,6 +39,8 @@
         "delete_account_subtitle": "حذف حسابك وجميع موارده",
         "configuration_subtitle": "تهيئة النظام الخاص بك",
         "whatsapp_subtitle": "قم بإعداد حساب واتساب الخاص بك لإرسال الإشعارات",
+        "login_subtitle": "قم بتسجيل الدخول إلى حسابك",
+        "login_subtitle_2": "أدخل بريدك الإلكتروني أو رقم هاتفك مع كلمة المرور في الحقول أدناه لتسجيل الدخول",
         "warning": "تحذير",
         "delete_account_warning": "يرجى المتابعة بحذر، لا يمكن التراجع عن هذا الإجراء.",
         "delete_account_are_you_sure": "هل أنت متأكد أنك تريد حذف حسابك؟",
@@ -58,7 +63,13 @@
         "connected": "متصل",
         "disconnected": "غير متصل",
         "whatsapp_not_available": "هذه الميزة غير متاحة بسبب وجود خلل في بوابة واتساب.",
-        "connect_device": "اتصل بالجهاز"
+        "connect_device": "اتصل بالجهاز",
+        "remember_me": "تذكرني",
+        "forgot_password": "هل نسيت كلمة المرور؟",
+        "dont_have_an_account": "ليس لديك حساب؟",
+        "enter_email_password_reset_link": "أدخل بريدك الإلكتروني أو رقم هاتفك للحصول على رابط إعادة تعيين كلمة المرور",
+        "or_return_to": "أو العودة إلى",
+        "enter_new_password": "يرجى إدخال كلمة المرور الجديدة الخاصة بك"
     },
     "action": {
         "submit": "حفظ",
@@ -79,7 +90,12 @@
         "connect": "اتصال",
         "disconnect": "قطع الاتصال",
         "call": "اتصال",
-        "message": "إرسال رسالة"
+        "message": "إرسال رسالة",
+        "log_in": "تسجيل الدخول",
+        "sign_up": "إنشاء حساب",
+        "send_reset_link": "إرسال رابط إعادة التعيين",
+        "reset_password": "إعادة تعيين كلمة المرور",
+        "contact_us": "اتصل بنا"
     },
     "field": {
         "name": "الاسم",

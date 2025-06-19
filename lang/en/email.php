@@ -28,4 +28,12 @@ return [
         'contact_admin' => 'If you did not link this phone number and email, please contact your administrator.',
         'thanks' => 'Thank you,',
     ],
+    'reset_password' => [
+        'subject' => 'Password Reset Notification',
+        'greeting' => 'Hello :name,',
+        'reset_password' => 'You are receiving this email because we received a password reset request for your account.',
+        'expire' => 'This link will expire in 60 minutes.',
+        'no_action' => 'If you did not request a password reset, no further action is required.',
+        'thanks' => 'Thank you,',
+    ],
 ];

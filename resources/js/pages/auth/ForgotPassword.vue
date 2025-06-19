@@ -20,8 +20,8 @@ const submit = () => {
 </script>
 
 <template>
-    <AuthLayout title="Forgot password" description="Enter your email to receive a password reset link">
-        <Head title="Forgot password" />
+    <AuthLayout :title="$t('menu.forgot_password')" :description="$t('label.enter_email_password_reset_link')">
+        <Head :title="$t('menu.forgot_password')" />
 
         <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
             {{ status }}
@@ -31,20 +31,20 @@ const submit = () => {
             <form @submit.prevent="submit">
                 <div class="grid gap-2">
                     <FloatLabel variant="in">
-                        <InputText :fluid="true" id="email" v-model="form.email" type="email" autocomplete="off" />
-                        <label for="email">Email address</label>
+                        <InputText :fluid="true" id="email" v-model="form.email" autocomplete="off" />
+                        <label for="email">{{ $t('field.email_or_phone') }}</label>
                     </FloatLabel>
                     <Message v-if="form.errors.email" severity="error" size="small" variant="simple">{{ form.errors.email }}</Message>
                 </div>
 
                 <div class="my-6 flex items-center justify-start">
-                    <Button type="submit" :fluid="true" label="Email password reset link" :loading="form.processing" />
+                    <Button type="submit" :fluid="true" :label="$t('action.send_reset_link')" :loading="form.processing" />
                 </div>
             </form>
 
             <div class="space-x-1 text-center text-sm text-muted-foreground">
-                <span>Or, return to</span>
-                <TextLink :href="route('login')">log in</TextLink>
+                <span v-text="$t('label.or_return_to')"></span>
+                <TextLink :href="route('login')">{{ $t('menu.login') }}</TextLink>
             </div>
         </div>
     </AuthLayout>

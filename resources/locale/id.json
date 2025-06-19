@@ -16,7 +16,10 @@
         "activity_log": "Log",
         "notification": "Notifikasi",
         "configuration": "Konfigurasi",
-        "whatsapp": "WhatsApp"
+        "whatsapp": "WhatsApp",
+        "login": "Masuk",
+        "forgot_password": "Lupa Kata Sandi",
+        "reset_password": "Reset Kata Sandi"
     },
     "label": {
         "new": "Baru",
@@ -29,13 +32,15 @@
         "dark": "Gelap",
         "system": "Sistem",
         "setting_subtitle": "Kelola profil dan pengaturan akun Anda",
-        "profile_subtitle": "Perbarui nama dan alamat email Anda",
+        "profile_subtitle": "Perbarui nama dan alamat surel Anda",
         "password_subtitle": "Pastikan akun Anda menggunakan kata sandi yang panjang dan acak untuk tetap aman",
         "session_subtitle": "Kelola perangkat yang digunakan untuk masuk",
         "appearance_subtitle": "Perbarui pengaturan tampilan akun Anda",
         "delete_account_subtitle": "Hapus akun Anda beserta seluruh sumber dayanya",
         "configuration_subtitle": "Konfigurasi sistem Anda",
         "whatsapp_subtitle": "Atur akun WhatsApp Anda untuk mengirimkan notifikasi",
+        "login_subtitle": "Masuk dengan akun Anda",
+        "login_subtitle_2": "Masukkan surel atau nomor telepon beserta kata sandi Anda ke inputan di bawah untuk masuk",
         "warning": "Peringatan",
         "delete_account_warning": "Harap lanjutkan dengan hati-hati, tindakan ini tidak dapat dibatalkan.",
         "delete_account_are_you_sure": "Apakah Anda yakin ingin menghapus akun Anda?",
@@ -58,7 +63,13 @@
         "connected": "Terhubung",
         "disconnected": "Tidak Terhubung",
         "whatsapp_not_available": "Fitur ini tidak tersedia karena terjadi gangguan pada WhatsApp Gateway.",
-        "connect_device": "Hubungkan Perangkat"
+        "connect_device": "Hubungkan Perangkat",
+        "remember_me": "Ingat Saya",
+        "forgot_password": "Lupa kata sandi?",
+        "dont_have_an_account": "Belum punya akun?",
+        "enter_email_password_reset_link": "Masukkan surel atau nomor telepon Anda untuk mendapatkan tautan untuk mereset kata sandi",
+        "or_return_to": "Atau kembali",
+        "enter_new_password": "Silakan masukkan kata sandi baru Anda"
     },
     "action": {
         "submit": "Simpan",
@@ -72,14 +83,19 @@
         "select_all": "Pilih Semua",
         "select_none": "Hilangkan Semua",
         "filter": "Saring",
-        "reset": "Setel Ulang",
+        "reset": "Reset",
         "approve": "Setujui",
         "save": "Simpan",
         "audit": "Audit",
         "connect": "Sambungkan",
         "disconnect": "Putuskan",
         "call": "Telepon",
-        "message": "Kirim Pesan"
+        "message": "Kirim Pesan",
+        "log_in": "Masuk",
+        "sign_up": "Mendaftar",
+        "send_reset_link": "Kirim tautan reset",
+        "reset_password": "Reset kata sandi",
+        "contact_us": "Hubungi kami"
     },
     "field": {
         "name": "Nama",

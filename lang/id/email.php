@@ -28,4 +28,12 @@ return [
         'contact_admin' => 'Jika Anda tidak merasa menautkan nomor telepon dan email tersebut, silakan hubungi administrator.',
         'thanks' => 'Terima kasih,',
     ],
+    'reset_password' => [
+        'subject' => 'Pemberitahuan reset kata sandi',
+        'greeting' => 'Halo :name,',
+        'reset_password' => 'Anda menerima pesan ini karena ada permintaan reset kata sandi dari akun Anda.',
+        'expire' => 'Tautan tersebut akan kedaluarsa setelah 60 menit berlalu.',
+        'no_action' => 'Jika Anda tidak ingin reset kata sandi maka Anda tidak perlu melakukan apa-apa terhadap pesan ini',
+        'thanks' => 'Terima kasih,',
+    ],
 ];

@@ -55,7 +55,7 @@ class WhatsAppServer extends \Illuminate\Console\Command
         ], null, [
             "TZ" => $timezone,
             "WEBHOOK_FORMAT" => "json",
-            "SESSION_DEVICE_NAME" => "LaravelStarterKitWhatsAppGateway",
+            "SESSION_DEVICE_NAME" => config('app.name'),
             "WUZAPI_ADMIN_TOKEN" => config('whatsapp.token'),
             "WUZAPI_GLOBAL_WEBHOOK" => route("webhook.whatsapp")
         ]);

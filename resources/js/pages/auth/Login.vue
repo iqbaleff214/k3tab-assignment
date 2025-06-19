@@ -13,8 +13,9 @@ defineProps<{
     canRegister: boolean;
 }>();
 
+const param = new URLSearchParams(window.location.search);
 const form = useForm({
-    email: '',
+    email: param.get('email') ?? '',
     password: '',
     remember: false,
 });
@@ -27,8 +28,8 @@ const submit = () => {
 </script>
 
 <template>
-    <AuthBase title="Log in to your account" description="Enter your email or phone and password below to log in">
-        <Head title="Log in" />
+    <AuthBase :title="$t('label.login_subtitle')" :description="$t('label.login_subtitle_2')">
+        <Head :title="$t('menu.login')" />
 
         <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
             {{ status }}
@@ -55,19 +56,19 @@ const submit = () => {
                 <div class="flex items-center justify-between" :tabindex="3">
                     <div class="flex items-center gap-2">
                         <Checkbox v-model="form.remember" inputId="remember" value="true" />
-                        <label for="remember">Remember me</label>
+                        <label for="remember">{{ $t('label.remember_me') }}</label>
                     </div>
                     <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm" :tabindex="5">
-                        Forgot password?
+                        {{ $t('label.forgot_password') }}
                     </TextLink>
                 </div>
 
-                <Button type="submit" label="Log in" :loading="form.processing" />
+                <Button type="submit" :label="$t('action.log_in')" :loading="form.processing" />
             </div>
 
             <div class="text-center text-sm text-muted-foreground" v-if="canRegister">
-                Don't have an account?
-                <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
+                {{ $t('label.dont_have_an_account') }}
+                <TextLink :href="route('register')" :tabindex="5">{{ $t('action.sign_up') }}</TextLink>
             </div>
         </form>
     </AuthBase>

@@ -29,23 +29,23 @@ const submit = () => {
 </script>
 
 <template>
-    <AuthLayout title="Reset password" description="Please enter your new password below">
-        <Head title="Reset password" />
+    <AuthLayout :title="$t('menu.reset_password')" :description="$t('label.enter_new_password')">
+        <Head :title="$t('menu.reset_password')" />
 
         <form @submit.prevent="submit">
             <div class="grid gap-6">
                 <div class="grid gap-2">
                     <FloatLabel variant="in">
-                        <InputText :fluid="true" id="email" v-model="form.email" type="email" autocomplete="email" />
-                        <label for="email">Email</label>
+                        <InputText :fluid="true" id="email" :model-value="form.email" disabled autocomplete="email" />
+                        <label for="email">{{ $t('field.email_or_phone') }}</label>
                     </FloatLabel>
                     <Message v-if="form.errors.email" severity="error" size="small" variant="simple">{{ form.errors.email }}</Message>
                 </div>
 
                 <div class="grid gap-2">
                     <FloatLabel variant="in">
-                        <Password v-model="form.password" inputId="password" :fluid="true" toggleMask />
-                        <label for="password">Password</label>
+                        <Password v-model="form.password" inputId="password" :fluid="true" autofocus toggleMask />
+                        <label for="password">{{ $t('field.password') }}</label>
                     </FloatLabel>
                     <Message v-if="form.errors.password" severity="error" size="small" variant="simple">{{ form.errors.password }}</Message>
                 </div>
@@ -57,12 +57,12 @@ const submit = () => {
                             v-model="form.password_confirmation"
                             inputId="password_confirmation" :fluid="true"
                             :feedback="false" toggleMask />
-                        <label for="password_confirmation">Confirm password</label>
+                        <label for="password_confirmation">{{ $t('field.password_confirmation') }}</label>
                     </FloatLabel>
                     <Message v-if="form.errors.password_confirmation" severity="error" size="small" variant="simple">{{ form.errors.password_confirmation }}</Message>
                 </div>
 
-                <Button type="submit" :fluid="true" label="Reset password" :loading="form.processing" />
+                <Button type="submit" :fluid="true" :label="$t('action.reset_password')" :loading="form.processing" />
             </div>
         </form>
     </AuthLayout>

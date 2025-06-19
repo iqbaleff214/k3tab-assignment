@@ -28,4 +28,12 @@ return [
         'contact_admin' => '如果这不是您本人操作，请联系管理员。',
         'thanks' => '谢谢，'
     ],
+    'reset_password' => [
+        'subject' => '密码重置通知',
+        'greeting' => '您好，:name，',
+        'reset_password' => '我们收到您账户的密码重置请求，因此发送了这封邮件。',
+        'expire' => '该链接将在 60 分钟后失效。',
+        'no_action' => '如果您没有请求密码重置，请忽略此邮件。',
+        'thanks' => '谢谢，',
+    ],
 ];

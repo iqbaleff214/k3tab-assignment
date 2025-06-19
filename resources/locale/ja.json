@@ -16,7 +16,10 @@
         "activity_log": "アクティビティログ",
         "notification": "通知",
         "configuration": "設定",
-        "whatsapp": "WhatsApp"
+        "whatsapp": "WhatsApp",
+        "login": "ログイン",
+        "forgot_password": "パスワードをお忘れですか？",
+        "reset_password": "パスワードをリセット"
     },
     "label": {
         "new": "新規",
@@ -36,6 +39,8 @@
         "delete_account_subtitle": "アカウントとすべてのリソースを削除",
         "configuration_subtitle": "システムを設定してください",
         "whatsapp_subtitle": "通知を送信するためにWhatsAppアカウントを設定してください",
+        "login_subtitle": "アカウントでログイン",
+        "login_subtitle_2": "下の入力欄にメールアドレスまたは電話番号とパスワードを入力してログインしてください",
         "warning": "警告",
         "delete_account_warning": "この操作は取り消せません。慎重に進めてください。",
         "delete_account_are_you_sure": "アカウントを削除してもよろしいですか？",
@@ -58,7 +63,13 @@
         "connected": "接続済み",
         "disconnected": "未接続",
         "whatsapp_not_available": "WhatsAppゲートウェイに問題があるため、この機能は使用できません。",
-        "connect_device": "デバイスを接続する"
+        "connect_device": "デバイスを接続する",
+        "remember_me": "ログイン状態を保持する",
+        "forgot_password": "パスワードをお忘れですか？",
+        "dont_have_an_account": "アカウントをお持ちでないですか？",
+        "enter_email_password_reset_link": "パスワードリセット用のリンクを受け取るためにメールまたは電話番号を入力してください",
+        "or_return_to": "または戻る",
+        "enter_new_password": "新しいパスワードを入力してください"
     },
     "action": {
         "submit": "保存",
@@ -79,7 +90,12 @@
         "connect": "接続",
         "disconnect": "切断",
         "call": "電話する",
-        "message": "メッセージを送る"
+        "message": "メッセージを送る",
+        "log_in": "ログイン",
+        "sign_up": "サインアップ",
+        "send_reset_link": "リセットリンクを送信",
+        "reset_password": "パスワードをリセット",
+        "contact_us": "お問い合わせ"
     },
     "field": {
         "name": "名前",

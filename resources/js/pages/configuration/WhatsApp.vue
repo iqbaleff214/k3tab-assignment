@@ -102,10 +102,10 @@ const destroy = (event: MouseEvent, item: WhatsAppDevice) => {
                     <div v-for="item in items" :key="item.id">
                         <Card>
                             <template #title>
-                                <div class="flex justify-between">
+                                <div class="flex justify-between gap-5">
                                     <div class="flex flex-col gap-0">
                                         <div class="flex items-baseline gap-x-2">
-                                            <div class="text-sm font-semibold">{{ item.name }}</div>
+                                            <div class="text-sm font-semibold wrap-normal">{{ item.name }}</div>
                                             <i
                                                 v-tooltip="$t('label.connected')"
                                                 v-if="item.loggedIn"
@@ -159,7 +159,7 @@ const destroy = (event: MouseEvent, item: WhatsAppDevice) => {
                     </div>
                     <button
                         @click="() => formModal?.open()" v-if="page.props.auth.allow.add_whatsapp"
-                        class="h-[143px] cursor-pointer rounded-2xl bg-white shadow-md hover:bg-gray-50">
+                        class="min-h-[143px] h-full cursor-pointer rounded-2xl bg-white shadow-md hover:bg-gray-50">
                         <i class="pi pi-plus text-gray-500" style="font-size: 1.25rem"></i>
                     </button>
                 </div>

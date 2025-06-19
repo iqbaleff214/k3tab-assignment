@@ -8,6 +8,7 @@ use App\Mail\AccountCreatedMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class NewUserCreatedListener implements ShouldQueue
@@ -42,23 +43,31 @@ class NewUserCreatedListener implements ShouldQueue
         if (empty($items))
             return;
 
-        $token = null;
+        $device = null;
         foreach ($items as $item) {
-            if (!empty($item['token'])) {
-                $token = $item['token'];
+            if (!empty($item['token']) && !empty($item['jid'])) {
+                $device = $item;
                 break;
             }
         }
 
-        if (empty($token))
-            return;
-
-        $headers = WhatsAppHelper::headers(config('whatsapp.token'), $token);
-        $response = WhatsAppHelper::userCheck([$event->user->international_phone], $headers);
-        if (strtolower($response['error'] ?? '') === "no session") {
+        if (empty($device)) {
             $this->notifyWhatsAppAdmin();
             return;
-        } elseif (empty($response['data'])) {
+        }
+
+        $headers = WhatsAppHelper::headers(config('whatsapp.token'), $device['token']);
+        if (!$device['connected']) {
+            $response = WhatsAppHelper::sessionConnect(['Message'], $headers);
+            if (empty($response['data'])) {
+                Log::error('WhatsApp error: ' . $response['error'], $response);
+                return;
+            }
+        }
+
+        $response = WhatsAppHelper::userCheck([$event->user->international_phone], $headers);
+        if (empty($response['data'])) {
+            Log::error('WhatsApp error: ' . $response['error'], $response);
             return;
         }
 

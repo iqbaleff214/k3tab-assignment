@@ -2,6 +2,8 @@
 
 namespace App\Notifications\User;
 
+use App\Broadcasting\WhatsAppChannel;
+use App\Notifications\Messages\WhatsAppMessage;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -15,7 +17,7 @@ class ForgotPassword extends Notification // implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public Carbon $time, public string $ip) { }
+    public function __construct(public Carbon $time, public string $ip, public ?string $link) { }
 
     /**
      * Get the notification's delivery channels.
@@ -24,8 +26,11 @@ class ForgotPassword extends Notification // implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
+        if (!$notifiable->international_phone && !$this->link)
+            return ['database', 'broadcast'];
+
         return [
-            'database', 'broadcast',
+            'database', 'broadcast', WhatsAppChannel::class,
         ];
     }
 
@@ -47,5 +52,17 @@ class ForgotPassword extends Notification // implements ShouldQueue
     public function toBroadcast(object $notifiable): BroadcastMessage
     {
         return new BroadcastMessage($this->toArray($notifiable));
+    }
+
+    public function toWhatsApp(object $notifiable): WhatsAppMessage
+    {
+        App::setLocale($notifiable->locale);
+        $content = __('email.reset_password.greeting', ['name' => $notifiable->name]) . PHP_EOL . PHP_EOL;
+        $content .= __('email.reset_password.reset_password') . PHP_EOL;
+        $content .= $this->link . PHP_EOL;
+        $content .= __('email.reset_password.expire') . PHP_EOL . PHP_EOL;
+        $content .= __('email.reset_password.no_action') . PHP_EOL . PHP_EOL . PHP_EOL;
+        $content .= __('email.reset_password.thanks');
+        return new WhatsAppMessage($notifiable->international_phone ?? '', $content);
     }
 }
