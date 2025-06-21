@@ -17,11 +17,14 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
+    supervisor \
   && docker-php-ext-configure intl \
   && docker-php-ext-install intl zip pdo_mysql pcntl \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install gd \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /var/log/supervisor
 
 # Install Node.js 20.x dan npm terbaru
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
@@ -41,6 +44,7 @@ RUN EXPECTED_SIGNATURE=$(curl -s https://composer.github.io/installer.sig) && \
 COPY ./.docker/php/php.ini /usr/local/etc/php/
 COPY ./.docker/php/docker.conf /usr/local/etc/php-fpm.d/docker.conf
 COPY ./.docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./.docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 WORKDIR /var/www
