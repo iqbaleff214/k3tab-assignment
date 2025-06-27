@@ -209,6 +209,9 @@ return [
         "phone" => "电话号码",
         "has_whatsapp" => "WhatsApp",
         "email_or_phone" => "电子邮件或电话号码",
+        "subject" => "主题",
+        "parent_id" => "主项",
+        "role_id" => "职位",
     ],
 
 ];

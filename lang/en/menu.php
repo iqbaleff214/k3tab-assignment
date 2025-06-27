@@ -15,4 +15,6 @@ return [
     'notification' => 'Notification',
     "configuration" => "Configuration",
     "whatsapp" => "WhatsApp",
+    "access" => "Access",
+    "approval_flow" => "Approval Flow",
 ];

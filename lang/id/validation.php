@@ -212,5 +212,8 @@ return [
         "phone" => "Nomor Telepon",
         "has_whatsapp" => "WhatsApp",
         "email_or_phone" => "Surel atau Nomor Telepon",
+        "subject" => "Subjek",
+        "parent_id" => "Master",
+        "role_id" => "Jabatan",
     ],
 ];

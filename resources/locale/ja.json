@@ -19,7 +19,9 @@
         "whatsapp": "WhatsApp",
         "login": "ログイン",
         "forgot_password": "パスワードをお忘れですか？",
-        "reset_password": "パスワードをリセット"
+        "reset_password": "パスワードをリセット",
+        "access": "アクセス",
+        "approval_flow": "承認フロー"
     },
     "label": {
         "new": "新規",
@@ -41,6 +43,7 @@
         "whatsapp_subtitle": "通知を送信するためにWhatsAppアカウントを設定してください",
         "login_subtitle": "アカウントでログイン",
         "login_subtitle_2": "下の入力欄にメールアドレスまたは電話番号とパスワードを入力してログインしてください",
+        "approval_flow_subtitle": "承認フローは従業員の階層に従い、最上位レベルから最下位レベルまで順に進みます",
         "warning": "警告",
         "delete_account_warning": "この操作は取り消せません。慎重に進めてください。",
         "delete_account_are_you_sure": "アカウントを削除してもよろしいですか？",
@@ -69,7 +72,8 @@
         "dont_have_an_account": "アカウントをお持ちでないですか？",
         "enter_email_password_reset_link": "パスワードリセット用のリンクを受け取るためにメールまたは電話番号を入力してください",
         "or_return_to": "または戻る",
-        "enter_new_password": "新しいパスワードを入力してください"
+        "enter_new_password": "新しいパスワードを入力してください",
+        "need_n_approval": "{total} 件の承認が必要です"
     },
     "action": {
         "submit": "保存",
@@ -95,7 +99,9 @@
         "sign_up": "サインアップ",
         "send_reset_link": "リセットリンクを送信",
         "reset_password": "パスワードをリセット",
-        "contact_us": "お問い合わせ"
+        "contact_us": "お問い合わせ",
+        "preview": "プレビュー",
+        "close": "閉じる"
     },
     "field": {
         "name": "名前",
@@ -115,7 +121,10 @@
         "ip_address": "IPアドレス",
         "phone": "電話番号",
         "has_whatsapp": "WhatsApp",
-        "email_or_phone": "メールアドレスまたは電話番号"
+        "email_or_phone": "メールアドレスまたは電話番号",
+        "subject": "件名",
+        "parent_id": "マスター",
+        "role_id": "役職"
     },
     "http": {
         "400": "不正なリクエスト",

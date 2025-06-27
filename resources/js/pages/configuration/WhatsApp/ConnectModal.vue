@@ -4,7 +4,6 @@ import { Button, Dialog } from 'primevue';
 import { APIResponse, WhatsAppDevice } from '@/types';
 
 const visible = ref<boolean>(false);
-const loading = ref<boolean>(false);
 const item = ref<WhatsAppDevice>();
 const qrCode = ref<string|undefined>();
 

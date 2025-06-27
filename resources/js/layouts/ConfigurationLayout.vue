@@ -7,6 +7,12 @@ import { Link } from '@inertiajs/vue3';
 
 const sidebarNavItems: NavItem[] = [
     {
+        title: 'menu.approval_flow',
+        href: route('configuration.approval-flow.index'),
+        isAvailable: true,
+        isActive: route().current('configuration.approval-flow.*'),
+    },
+    {
         title: 'menu.whatsapp',
         href: route('configuration.whatsapp.index'),
         isAvailable: true,

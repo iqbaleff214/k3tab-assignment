@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 Route::name('json.')->prefix('json')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/role', [\App\Http\Controllers\JSON\RoleController::class, 'index'])->name('role.index');
+
+    Route::get('/approval/{approval}', [\App\Http\Controllers\JSON\ApprovalFlowController::class, 'show'])->name('approval-flow.show');
+
     Route::get('/whatsapp', [\App\Http\Controllers\JSON\WhatsAppController::class, 'check'])->name('whatsapp.check');
     Route::get('/whatsapp/qr', [\App\Http\Controllers\JSON\WhatsAppController::class, 'qr'])->name('whatsapp.qr');
 

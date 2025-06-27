@@ -15,4 +15,6 @@ return [
     'notification' => '通知',
     "configuration" => "設定",
     "whatsapp" => "WhatsApp",
+    "access" => "アクセス",
+    "approval_flow" => "承認フロー",
 ];

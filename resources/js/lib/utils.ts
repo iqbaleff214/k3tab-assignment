@@ -178,3 +178,17 @@ export const parseUserAgent = (ua: string): ParsedUserAgent => {
 
     return { os, browser, version, deviceType };
 }
+
+export const getDepth = (data: any, key?: string): number => {
+    if (typeof data !== 'object' || data === null) return 0;
+
+    if (key && Array.isArray(data[key])) {
+        return 1 + Math.max(0, ...data[key].map((child: any) => getDepth(child, key)));
+    }
+
+    if (Array.isArray(data)) {
+        return 1 + Math.max(0, ...data.map((item: any) => getDepth(item, key)));
+    }
+
+    return 1 + Math.max(0, ...Object.values(data).map((value: any) => getDepth(value, key)));
+};

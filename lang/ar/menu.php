@@ -15,4 +15,6 @@ return [
     'notification' => 'إشعار',
     "configuration" => "الإعدادات",
     "whatsapp" => "واتساب",
+    "access" => "الوصول",
+    "approval_flow" => "مسار الموافقة",
 ];

@@ -19,7 +19,9 @@
         "whatsapp": "WhatsApp",
         "login": "Login",
         "forgot_password": "Forgot Password",
-        "reset_password": "Reset Password"
+        "reset_password": "Reset Password",
+        "access": "Access",
+        "approval_flow": "Approval Flow"
     },
     "label": {
         "new": "New",
@@ -41,6 +43,7 @@
         "whatsapp_subtitle": "Set up your WhatsApp account to send notifications",
         "login_subtitle": "Log in with your account",
         "login_subtitle_2": "Enter your email or phone number along with your password in the input below to log in",
+        "approval_flow_subtitle": "The approval flow follows the employee hierarchy, starting from the highest level to the lowest level",
         "warning": "Warning",
         "delete_account_warning": "Please proceed carefully, this action cannot be undone.",
         "delete_account_are_you_sure": "Are you sure you want to delete your account?",
@@ -69,7 +72,8 @@
         "dont_have_an_account": "Don't have an account?",
         "enter_email_password_reset_link": "Enter your email or phone number to receive a password reset link",
         "or_return_to": "Or return to",
-        "enter_new_password": "Please enter your new password"
+        "enter_new_password": "Please enter your new password",
+        "need_n_approval": "Needs {total} approvals"
     },
     "action": {
         "submit": "Save",
@@ -95,7 +99,9 @@
         "sign_up": "Sign Up",
         "send_reset_link": "Send Reset Link",
         "reset_password": "Reset Password",
-        "contact_us": "Contact Us"
+        "contact_us": "Contact Us",
+        "preview": "Preview",
+        "close": "Close"
     },
     "field": {
         "name": "Name",
@@ -115,7 +121,10 @@
         "ip_address": "IP Address",
         "phone": "Phone Number",
         "has_whatsapp": "WhatsApp",
-        "email_or_phone": "Email or Phone Number"
+        "email_or_phone": "Email or Phone Number",
+        "subject": "Subject",
+        "parent_id": "Parent",
+        "role_id": "Role"
     },
     "http": {
         "400": "Bad Request",

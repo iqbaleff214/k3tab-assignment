@@ -15,4 +15,6 @@ return [
     "notification" => "Notifikasi",
     "configuration" => "Konfigurasi",
     "whatsapp" => "Whatsapp",
+    "access" => "Akses",
+    "approval_flow" => "Alur Persetujuan",
 ];

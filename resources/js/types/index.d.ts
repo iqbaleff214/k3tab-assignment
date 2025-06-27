@@ -26,6 +26,12 @@ export interface Allow {
     delete_whatsapp: boolean;
     approve_whatsapp: boolean;
     audit_whatsapp: boolean;
+    view_approval_flow: boolean;
+    add_approval_flow: boolean;
+    edit_approval_flow: boolean;
+    delete_approval_flow: boolean;
+    approve_approval_flow: boolean;
+    audit_approval_flow: boolean;
 }
 
 export interface BreadcrumbItem {
@@ -41,6 +47,11 @@ export interface NavItem {
     isAvailable: boolean;
     isExternal?: boolean;
     children?: NavItem[];
+}
+
+export interface NavItemGroup {
+    header: string;
+    items: NavItem[];
 }
 
 export interface SharedData extends PageProps {
@@ -245,3 +256,13 @@ interface WhatsAppDevice {
     webhook: string;
 }
 
+export interface ApprovalFlow {
+    id: number;
+    subject: string;
+    parent_id: number | null;
+    role_id: number;
+    role?: Role;
+    children?: ApprovalFlow[];
+    created_at: string;
+    updated_at: string;
+}

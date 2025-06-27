@@ -3,7 +3,7 @@ import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem, type SharedData } from '@/types';
+import { type NavItem, NavItemGroup, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import {
     Folder, LayoutGrid, Users2Icon, Briefcase, Settings2Icon
@@ -12,36 +12,46 @@ import AppLogo from './AppLogo.vue';
 
 const page = usePage<SharedData>();
 
-const mainNavItems: NavItem[] = [
+const mainNavItems: NavItemGroup[] = [
     {
-        title: 'menu.dashboard',
-        href: route('dashboard'),
-        icon: LayoutGrid,
-        isAvailable: true,
-        isActive: route().current('dashboard')
+        header: 'label.platform',
+        items: [
+            {
+                title: 'menu.dashboard',
+                href: route('dashboard'),
+                icon: LayoutGrid,
+                isAvailable: true,
+                isActive: route().current('dashboard')
+            },
+        ],
     },
     {
-        title: 'menu.user',
-        href: route('user.index'),
-        icon: Users2Icon,
-        isAvailable: page.props.auth.allow.view_user,
-        isActive: route().current('user.*')
-    },
-    {
-        title: 'menu.role',
-        href: route('role.index'),
-        icon: Briefcase,
-        isAvailable: page.props.auth.allow.view_role,
-        isActive: route().current('role.*')
-    },
+        header: 'menu.access',
+        items: [
+            {
+                title: 'menu.user',
+                href: route('user.index'),
+                icon: Users2Icon,
+                isAvailable: page.props.auth.allow.view_user,
+                isActive: route().current('user.*')
+            },
+            {
+                title: 'menu.role',
+                href: route('role.index'),
+                icon: Briefcase,
+                isAvailable: page.props.auth.allow.view_role,
+                isActive: route().current('role.*')
+            },
+        ],
+    }
 ];
 
 const footerNavItems: NavItem[] = [
     {
         title: 'menu.configuration',
-        href: '/configuration',
+        href: route('configuration.index'),
         icon: Settings2Icon,
-        isAvailable: page.props.auth.allow.view_whatsapp,
+        isAvailable: page.props.auth.allow.view_whatsapp || page.props.auth.allow.add_approval_flow,
         isActive: route().current('configuration.*'),
     },
     {

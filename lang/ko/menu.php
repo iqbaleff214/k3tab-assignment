@@ -15,4 +15,6 @@ return [
     'notification' => '알림',
     "configuration" => "설정",
     "whatsapp" => "WhatsApp",
+    "access" => "접근",
+    "approval_flow" => "승인 흐름",
 ];

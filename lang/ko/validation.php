@@ -212,6 +212,9 @@ return [
         "phone" => "전화번호",
         "has_whatsapp" => "WhatsApp",
         "email_or_phone" => "이메일 또는 전화번호",
+        "subject" => "제목",
+        "parent_id" => "마스터",
+        "role_id" => "직책",
     ],
 
 ];

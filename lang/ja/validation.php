@@ -213,6 +213,9 @@ return [
         "phone" => "電話番号",
         "has_whatsapp" => "WhatsApp",
         "email_or_phone" => "メールアドレスまたは電話番号",
+        "subject" => "件名",
+        "parent_id" => "マスター",
+        "role_id" => "役職",
     ],
 
 ];
