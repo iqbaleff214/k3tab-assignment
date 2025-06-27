@@ -159,7 +159,7 @@ const destroy = (event: MouseEvent, item: WhatsAppDevice) => {
                     </div>
                     <button
                         @click="() => formModal?.open()" v-if="page.props.auth.allow.add_whatsapp"
-                        class="min-h-[143px] h-full cursor-pointer rounded-2xl bg-white shadow-md hover:bg-gray-50">
+                        class="min-h-[143px] h-full cursor-pointer rounded-xl bg-white shadow-sm hover:bg-gray-50">
                         <i class="pi pi-plus text-gray-500" style="font-size: 1.25rem"></i>
                     </button>
                 </div>
