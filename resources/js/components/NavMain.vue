@@ -15,7 +15,7 @@ const { t } = useI18n();
 <template>
     <SidebarGroup class="px-2 py-0">
         <template v-for="group in items" :key="group.header">
-            <SidebarGroupLabel>{{ t(group.header) }}</SidebarGroupLabel>
+            <SidebarGroupLabel v-if="group.isAvailable">{{ t(group.header) }}</SidebarGroupLabel>
             <SidebarMenu>
                 <template v-for="item in group.items" :key="item.title">
                     <SidebarMenuItem v-if="item.isAvailable">

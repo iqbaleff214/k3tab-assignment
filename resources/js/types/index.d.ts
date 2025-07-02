@@ -52,6 +52,7 @@ export interface NavItem {
 export interface NavItemGroup {
     header: string;
     items: NavItem[];
+    isAvailable?: boolean;
 }
 
 export interface SharedData extends PageProps {

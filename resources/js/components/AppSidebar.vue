@@ -15,6 +15,7 @@ const page = usePage<SharedData>();
 const mainNavItems: NavItemGroup[] = [
     {
         header: 'label.platform',
+        isAvailable: true,
         items: [
             {
                 title: 'menu.dashboard',
@@ -27,6 +28,7 @@ const mainNavItems: NavItemGroup[] = [
     },
     {
         header: 'menu.access',
+        isAvailable: page.props.auth.allow.view_user || page.props.auth.allow.view_role,
         items: [
             {
                 title: 'menu.user',
