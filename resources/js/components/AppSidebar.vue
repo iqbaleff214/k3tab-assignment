@@ -41,7 +41,7 @@ const mainNavItems: NavItemGroup[] = [
                 title: 'menu.role',
                 href: route('role.index'),
                 icon: Briefcase,
-                isAvailable: page.props.auth.allow.view_role,
+                isAvailable: false,
                 isActive: route().current('role.*')
             },
         ],
@@ -53,7 +53,7 @@ const footerNavItems: NavItem[] = [
         title: 'menu.configuration',
         href: route('configuration.index'),
         icon: Settings2Icon,
-        isAvailable: page.props.auth.allow.view_whatsapp || page.props.auth.allow.add_approval_flow,
+        isAvailable: false, // page.props.auth.allow.view_whatsapp || page.props.auth.allow.add_approval_flow,
         isActive: route().current('configuration.*'),
     },
     {

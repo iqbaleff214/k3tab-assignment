@@ -54,12 +54,8 @@ interface Locale {
 }
 
 const locales: Locale[] = [
-    { code: 'ar', name: 'اَلْعَرَبِيَّةُ' },
     { code: 'en', name: 'English' },
     { code: 'id', name: 'Bahasa Indonesia' },
-    { code: 'ja', name: '日本語' },
-    { code: 'ko', name: '한국어' },
-    { code: 'zh-CN', name: '中文' },
 ];
 </script>
 

@@ -28,7 +28,7 @@ defineProps<Props>();
                 {{ $t('menu.setting') }}
             </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem :as-child="true">
+        <DropdownMenuItem :as-child="true" v-if="false">
             <Link class="block w-full" :href="route('activity-log.index')" as="button">
                 <HistoryIcon class="mr-2 h-4 w-4" />
                 {{ $t('menu.activity_log') }}
