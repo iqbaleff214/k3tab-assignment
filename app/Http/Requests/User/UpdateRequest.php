@@ -5,6 +5,7 @@ namespace App\Http\Requests\User;
 use App\Enum\Permission;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Permission::EditUser->isAllowed();
+        return auth()->user()->type === 'admin';
     }
 
     /**
@@ -25,7 +26,8 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'roles' => 'required|array',
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->id)],
+            'phone' => ['nullable', 'string', Rule::unique('users', 'phone')->ignore($this->id)],
         ];
     }
 }

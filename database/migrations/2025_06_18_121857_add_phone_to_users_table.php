@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone')->nullable()->unique()->after('email');
             $table->boolean('has_whatsapp')->default(false)->after('phone');
+            $table->enum('type', \App\Enum\UserType::values())->default(\App\Enum\UserType::Assessee);
         });
     }
 

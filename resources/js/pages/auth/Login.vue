@@ -63,7 +63,9 @@ const submit = () => {
                     </TextLink>
                 </div>
 
-                <Button type="submit" :label="$t('action.log_in')" :loading="form.processing" />
+                <Button
+                    type="submit" :label="$t('action.log_in')"
+                    :loading="form.processing" />
             </div>
 
             <div class="text-center text-sm text-muted-foreground" v-if="canRegister">

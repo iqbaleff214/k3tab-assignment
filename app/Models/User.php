@@ -33,6 +33,7 @@ class User extends Authenticatable
         'locale',
         'phone',
         'has_whatsapp',
+        'type',
     ];
 
     /**
@@ -64,7 +65,7 @@ class User extends Authenticatable
 
     public function getAvatarAttribute(): string
     {
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF&background=EBF4FF';
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF&background=FCD34D';
     }
 
     public function getInternationalPhoneAttribute(): string | null

@@ -21,7 +21,10 @@
         "forgot_password": "Forgot Password",
         "reset_password": "Reset Password",
         "access": "Access",
-        "approval_flow": "Approval Flow"
+        "approval_flow": "Approval Flow",
+        "assessor": "Assessor",
+        "assessee": "Assessee",
+        "management": "Management"
     },
     "label": {
         "new": "New",
@@ -73,7 +76,10 @@
         "enter_email_password_reset_link": "Enter your email or phone number to receive a password reset link",
         "or_return_to": "Or return to",
         "enter_new_password": "Please enter your new password",
-        "need_n_approval": "Needs {total} approvals"
+        "need_n_approval": "Needs {total} approvals",
+        "admin": "Administrator",
+        "assessor": "Assessor",
+        "assessee": "Assessee"
     },
     "action": {
         "submit": "Save",
@@ -124,7 +130,8 @@
         "email_or_phone": "Email or Phone Number",
         "subject": "Subject",
         "parent_id": "Parent",
-        "role_id": "Role"
+        "role_id": "Role",
+        "type": "Type"
     },
     "http": {
         "400": "Bad Request",

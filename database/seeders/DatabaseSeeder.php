@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enum\Role;
+use App\Enum\UserType;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -15,9 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::query()->create([
-            'name' => 'Admin',
-            'email' => 'iqbaleff214@gmail.com',
-            'password' => Hash::make('password'),
+            'name' => 'Administrator',
+            'email' => 'administrator@corsa-poliban.my.id',
+            'password' => Hash::make('MtF]SLHV1b1;'),
+            'type' => UserType::Admin,
+            'locale' => 'en',
         ]);
 
         $this->call([

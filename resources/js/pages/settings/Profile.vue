@@ -124,20 +124,6 @@ const locales: Locale[] = [
                         </div>
                     </div>
 
-                    <div>
-                        <SelectButton
-                            size="small" v-model="form.locale" option-value="code"
-                            :options="locales">
-                            <template #option="{ option }: { option: Locale }">
-                                <div class="w-6 h-6 rounded-full overflow-hidden bg-gray-200">
-                                    <img :src="`/assets/flags/${option.code}.gif`" alt="profile"
-                                         class="w-full h-full object-cover" />
-                                </div>
-                                {{ option.code }}
-                            </template>
-                        </SelectButton>
-                    </div>
-
                     <div class="flex items-center gap-4">
                         <Button
                             type="button" size="small"

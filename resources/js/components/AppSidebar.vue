@@ -6,7 +6,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem, NavItemGroup, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import {
-    Folder, LayoutGrid, Users2Icon, Briefcase, Settings2Icon
+    Folder, LayoutGrid, UserPenIcon, Settings2Icon, UserCheck2Icon
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
@@ -27,22 +27,22 @@ const mainNavItems: NavItemGroup[] = [
         ],
     },
     {
-        header: 'menu.access',
-        isAvailable: page.props.auth.allow.view_user || page.props.auth.allow.view_role,
+        header: 'menu.management',
+        isAvailable: page.props.auth.user.type !== 'assessee',
         items: [
             {
-                title: 'menu.user',
-                href: route('user.index'),
-                icon: Users2Icon,
-                isAvailable: page.props.auth.allow.view_user,
-                isActive: route().current('user.*')
+                title: 'menu.assessor',
+                href: route('assessor.index'),
+                icon: UserPenIcon,
+                isAvailable: page.props.auth.user.type === 'admin',
+                isActive: route().current('assessor.*')
             },
             {
-                title: 'menu.role',
-                href: route('role.index'),
-                icon: Briefcase,
-                isAvailable: false,
-                isActive: route().current('role.*')
+                title: 'menu.assessee',
+                href: route('assessee.index'),
+                icon: UserCheck2Icon,
+                isAvailable: page.props.auth.user.type !== 'assessee',
+                isActive: route().current('assessee.*')
             },
         ],
     }

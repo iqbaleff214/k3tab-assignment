@@ -13,7 +13,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Permission::AddUser->isAllowed();
+        return auth()->user()->type === 'admin';
     }
 
     /**
@@ -26,7 +26,6 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'roles' => 'required|array',
             'phone' => 'nullable|string|unique:users,phone',
         ];
     }

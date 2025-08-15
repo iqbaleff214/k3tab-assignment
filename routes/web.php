@@ -9,9 +9,20 @@ Route::get('/', fn () => Inertia::render('Welcome', [
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', fn () => Inertia::render('Dashboard') )->name('dashboard');
-    Route::get('/jokowi', function (\Illuminate\Http\Request $request) {
-        $request->user()->notify();
-    });
+
+    Route::get('/assessor', [\App\Http\Controllers\AssessorController::class, 'index'])->name('assessor.index');
+    Route::get('/assessor/{assessor}', [\App\Http\Controllers\AssessorController::class, 'show'])->name('assessor.show');
+    Route::post('/assessor', [\App\Http\Controllers\AssessorController::class, 'store'])->name('assessor.store');
+    Route::put('/assessor/{assessor}', [\App\Http\Controllers\AssessorController::class, 'update'])->name('assessor.update');
+    Route::delete('/assessor', [\App\Http\Controllers\AssessorController::class, 'massDestroy'])->name('assessor.mass-destroy');
+    Route::delete('/assessor/{assessor}', [\App\Http\Controllers\AssessorController::class, 'destroy'])->name('assessor.destroy');
+
+    Route::get('/assessee', [\App\Http\Controllers\AssesseeController::class, 'index'])->name('assessee.index');
+    Route::get('/assessee/{assessee}', [\App\Http\Controllers\AssesseeController::class, 'show'])->name('assessee.show');
+    Route::post('/assessee', [\App\Http\Controllers\AssesseeController::class, 'store'])->name('assessee.store');
+    Route::put('/assessee/{assessee}', [\App\Http\Controllers\AssesseeController::class, 'update'])->name('assessee.update');
+    Route::delete('/assessee', [\App\Http\Controllers\AssesseeController::class, 'massDestroy'])->name('assessee.mass-destroy');
+    Route::delete('/assessee/{assessee}', [\App\Http\Controllers\AssesseeController::class, 'destroy'])->name('assessee.destroy');
 
     Route::get('/user', [\App\Http\Controllers\UserController::class, 'index'])->name('user.index')->middleware(\App\Enum\Permission::ViewUser->asMiddleware());
     Route::get('/user/{user}', [\App\Http\Controllers\UserController::class, 'show'])->name('user.show')->middleware(\App\Enum\Permission::ViewUser->asMiddleware());

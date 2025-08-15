@@ -6,32 +6,31 @@ use App\Enum\UserType;
 use App\Events\User\NewUserCreated;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
+use App\Mail\AccountCreatedMail;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class UserController extends Controller
+class AssessorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request): Response
     {
-        return Inertia::render('user/Index', [
+        return Inertia::render('assessor/Index', [
             'items' => User::query()
-                ->whereNot('type', UserType::Admin)
+                ->where('type', UserType::Assessor)
                 ->sort($request->query('sorts'))
                 ->filter($request->query('filters'))
                 ->render($request->query('size')),
-            'roles' => Role::query()
-                ->pluck('name'),
-            'types' => UserType::values(),
          ]);
     }
 
@@ -44,16 +43,16 @@ class UserController extends Controller
             $input = $request->validated();
 
             $password = Str::random(8);
-            $user = User::query()
+            $assessor = User::query()
                 ->create([
                     'name' => $input['name'],
                     'email' => $input['email'],
                     'password' => Hash::make($password),
                     'phone' => $input['phone'],
+                    'type' => UserType::Assessor,
                 ]);
-            $user->assignRole($input['roles']);
-
-            event(new NewUserCreated($user, $password));
+            Mail::to($input['email'])
+                ->send(new AccountCreatedMail($assessor, $password));
 
             return back()->with('success', __('action.created', ['menu' => __('menu.user')]));
         } catch (\Throwable $exception) {
@@ -66,33 +65,35 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, User $user): Response
+    public function show(Request $request, User $assessor): Response
     {
-        $user->load(['roles']);
-        return Inertia::render('user/Show', [
-            'item' => $user,
-            'next' => User::query()->where('id', '>', $user->id)->value('id'),
-            'prev' => User::query()->where('id', '<', $user->id)
+        return Inertia::render('assessor/Show', [
+            'item' => $assessor,
+            'next' => User::query()->where('type', UserType::Assessor)
+                ->where('id', '>', $assessor->id)
+                ->value('id'),
+            'prev' => User::query()->where('type', UserType::Assessor)
+                ->where('id', '<', $assessor->id)
                 ->orderByDesc('created_at')->value('id'),
-            'total' => User::query()->count(),
-            'index' => User::query()->where('id', '<', $user->id)->count('id') + 1,
-            'roles' => Role::query()
-                ->pluck('name'),
+            'total' => User::query()->where('type', UserType::Assessor)->count(),
+            'index' => User::query()->where('type', UserType::Assessor)
+                ->where('id', '<', $assessor->id)->count('id') + 1,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, User $user): RedirectResponse
+    public function update(UpdateRequest $request, User $assessor): RedirectResponse
     {
         try {
             $input = $request->validated();
 
-            $user->update([
+            $assessor->update([
                 'name' => $input['name'],
+                'email' => $input['email'] ?? $assessor->email,
+                'phone' => $input['phone'],
             ]);
-            $user->syncRoles($input['roles']);
 
             return back()->with('success', __('action.updated', ['menu' => __('menu.user')]));
         } catch (\Throwable $exception) {
@@ -105,17 +106,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, User $user): RedirectResponse
+    public function destroy(Request $request, User $assessor): RedirectResponse
     {
         try {
-            $user->delete();
-
-            $nextId = $request->input('prev') ?? $request->input('next');
-            if ($nextId) {
-                return redirect()
-                    ->route('user.show', $nextId)
-                    ->with('success', __('action.deleted', ['menu' => __('menu.user')]));
-            }
+            $assessor->delete();
 
             return back()->with('success', __('action.deleted', ['menu' => __('menu.user')]));
         } catch (\Throwable $exception) {
@@ -135,6 +129,7 @@ class UserController extends Controller
 
             User::query()
                 ->whereIn('id', $ids)
+                ->where('type', UserType::Assessor)
                 ->delete();
 
             return back()->with('success', __('action.deleted', ['menu' => __('menu.user')]));
