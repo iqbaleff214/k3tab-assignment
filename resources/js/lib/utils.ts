@@ -192,3 +192,10 @@ export const getDepth = (data: any, key?: string): number => {
 
     return 1 + Math.max(0, ...Object.values(data).map((value: any) => getDepth(value, key)));
 };
+
+export const downloadFile = (url: string, filename: string) => {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+};

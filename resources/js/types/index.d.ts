@@ -268,3 +268,38 @@ export interface ApprovalFlow {
     created_at: string;
     updated_at: string;
 }
+
+export interface Media {
+    id: number;
+    name: string;
+    filename: string;
+    mime_type: string;
+    size: number;
+    path_url: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Module {
+    id: string;
+    title: string;
+    slug: string;
+    description: string;
+    body: string;
+    duration_estimation: number;
+    minimum_score: number;
+    questions_count: number;
+    questions?: Question[];
+    media?: Media[];
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Question {
+    id: number;
+    module_id: string;
+    title: string;
+    question: string;
+    choices: string[];
+    correct_answer_index: number;
+}

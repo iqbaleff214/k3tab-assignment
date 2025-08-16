@@ -24,7 +24,9 @@
         "approval_flow": "Approval Flow",
         "assessor": "Assessor",
         "assessee": "Assessee",
-        "management": "Management"
+        "management": "Management",
+        "assessment": "Assessment",
+        "module": "Module"
     },
     "label": {
         "new": "New",
@@ -64,6 +66,7 @@
         "older": "Older",
         "newer": "Newer",
         "joined_date": "Joined on {date}",
+        "created_at": "Created at {date}",
         "platform": "Platform",
         "drag_and_drop_file_here_or_browse": "Drag and drop file here or browse",
         "connected": "Connected",
@@ -79,7 +82,15 @@
         "need_n_approval": "Needs {total} approvals",
         "admin": "Administrator",
         "assessor": "Assessor",
-        "assessee": "Assessee"
+        "assessee": "Assessee",
+        "n_minute": "0 minute | a minute | {n} minutes",
+        "n_question": "0 question | a question | {n} questions",
+        "no_estimation": "time estimation not provided",
+        "duration_estimation": "Estimated reading time (minutes)",
+        "total_question": "Number of questions that will appear",
+        "minimum_score": "Minimum score required to pass",
+        "mark_the_correct_answer": "Please mark the correct answer",
+        "out_of_questions_only_display": "{count} of {total} available questions will appear in the post-test."
     },
     "action": {
         "submit": "Save",
@@ -107,7 +118,9 @@
         "reset_password": "Reset Password",
         "contact_us": "Contact Us",
         "preview": "Preview",
-        "close": "Close"
+        "close": "Close",
+        "upload": "Upload",
+        "download": "Download"
     },
     "field": {
         "name": "Name",
@@ -131,7 +144,19 @@
         "subject": "Subject",
         "parent_id": "Parent",
         "role_id": "Role",
-        "type": "Type"
+        "type": "Type",
+        "title": "Title",
+        "question": "Question",
+        "choices": "Choices",
+        "correct_answer_index": "Correct Answer",
+        "slug": "Slug",
+        "body": "Content",
+        "duration_estimation": "Estimated Reading Time (min)",
+        "minimum_score": "Minimum Score",
+        "questions_count": "Question Total",
+        "questions": "Questions",
+        "media": "Media",
+        "answer": "Answer"
     },
     "http": {
         "400": "Bad Request",

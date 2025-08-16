@@ -7,16 +7,13 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import type { NavItem } from '@/types';
-import { BellIcon, BellDotIcon } from 'lucide-vue-next';
 import { Link } from '@inertiajs/vue3';
-import { useNotificationStore } from '@/store/notification';
 
 interface Props {
     items: NavItem[];
     class?: string;
 }
 
-const { getUnreadNotificationCount } = useNotificationStore();
 defineProps<Props>();
 </script>
 
@@ -24,22 +21,6 @@ defineProps<Props>();
     <SidebarGroup :class="`group-data-[collapsible=icon]:p-0 ${$props.class || ''}`">
         <SidebarGroupContent>
             <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton
-                        class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                        as-child :is-active="route().current('notification.*')" :tooltip="$t('menu.notification')">
-                        <Link :href="route('notification.index')" class="w-full flex">
-                            <BellDotIcon v-if="getUnreadNotificationCount() > 0" />
-                            <BellIcon v-else />
-                            <span class="flex items-baseline justify-between flex-1">
-                                <span>{{ $t('menu.notification') }}</span>
-                                <span class="px-2 py-0.5 text-xs bg-slate-200 text-slate-800 rounded-lg" v-if="getUnreadNotificationCount() > 0">
-                                    {{ getUnreadNotificationCount() }}
-                                </span>
-                            </span>
-                        </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
                 <template v-for="item in items" :key="item.title">
                     <SidebarMenuItem v-if="item.isAvailable">
                         <SidebarMenuButton

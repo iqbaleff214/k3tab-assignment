@@ -103,7 +103,7 @@ onMounted(() => {
                         icon="pi pi-objects-column" size="small" variant="text" severity="secondary"
                         @click="(e) => filterPopup?.toggle(e)" rounded></Button>
                     <Popover ref="filterPopup">
-                        <div class="flex flex-col gap-1 w-[10rem]">
+                        <div class="flex flex-col gap-1 w-[12rem]">
                             <div class="flex justify-between items-center">
                                 <span class="font-medium text-sm">{{ $t('label.toggle_column') }}</span>
                                 <div class="flex gap-x-1">

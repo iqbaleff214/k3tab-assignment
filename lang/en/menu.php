@@ -17,4 +17,10 @@ return [
     "whatsapp" => "WhatsApp",
     "access" => "Access",
     "approval_flow" => "Approval Flow",
+    "assessor" => "Assessor",
+    "assessee" => "Assessee",
+    "management" => "Management",
+    "assessment" => "Assessment",
+    "module" => "Module",
+    "module_question" => "Module Question",
 ];

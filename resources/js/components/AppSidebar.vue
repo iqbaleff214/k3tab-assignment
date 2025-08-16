@@ -6,7 +6,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem, NavItemGroup, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import {
-    Folder, LayoutGrid, UserPenIcon, Settings2Icon, UserCheck2Icon
+    Folder, LayoutGrid, UserPenIcon, Settings2Icon, UserCheck2Icon, BookTextIcon
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
@@ -23,6 +23,19 @@ const mainNavItems: NavItemGroup[] = [
                 icon: LayoutGrid,
                 isAvailable: true,
                 isActive: route().current('dashboard')
+            },
+        ],
+    },
+    {
+        header: 'menu.assessment',
+        isAvailable: true,
+        items: [
+            {
+                title: 'menu.module',
+                href: route('admin.module.index'),
+                icon: BookTextIcon,
+                isAvailable: true,
+                isActive: route().current('admin.module.*')
             },
         ],
     },
@@ -45,7 +58,7 @@ const mainNavItems: NavItemGroup[] = [
                 isActive: route().current('assessee.*')
             },
         ],
-    }
+    },
 ];
 
 const footerNavItems: NavItem[] = [
