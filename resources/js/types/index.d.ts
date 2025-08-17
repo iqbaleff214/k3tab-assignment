@@ -283,6 +283,11 @@ export interface Media {
 export interface Module {
     id: string;
     title: string;
+    code: string | null;
+    equipment_required: string | null;
+    procedure: string | null;
+    reference: string | null;
+    performance: string | null;
     slug: string;
     description: string;
     body: string;

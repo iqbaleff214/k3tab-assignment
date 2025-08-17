@@ -44,6 +44,11 @@ class ModuleController extends Controller
                 'duration_estimation' => $input['duration_estimation'],
                 'minimum_score' => $input['minimum_score'],
                 'questions_count' => $input['questions_count'],
+                'code' => $input['code'],
+                'equipment_required' => $input['equipment_required'],
+                'procedure' => $input['procedure'],
+                'reference' => $input['reference'],
+                'performance' => $input['performance'],
             ]);
 
             foreach ($input['questions'] ?? [] as $question) {
@@ -105,6 +110,11 @@ class ModuleController extends Controller
                 'duration_estimation' => $input['duration_estimation'],
                 'minimum_score' => $input['minimum_score'],
                 'questions_count' => $input['questions_count'],
+                'code' => $input['code'],
+                'equipment_required' => $input['equipment_required'],
+                'procedure' => $input['procedure'],
+                'reference' => $input['reference'],
+                'performance' => $input['performance'],
             ]);
 
             return back()->with('success', __('action.updated', ['menu' => __('menu.module')]));

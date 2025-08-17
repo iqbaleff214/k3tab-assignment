@@ -13,7 +13,7 @@ const option = ref();
 
 <template>
     <template v-if="phone && international_phone">
-        <button class="hover:underline hover:text-amber-500 cursor-pointer" @click="e => option.toggle(e)">
+        <button class="hover:underline text-amber-500 cursor-pointer" @click="e => option.toggle(e)">
             {{ phone }}
         </button>
         <Popover ref="option">

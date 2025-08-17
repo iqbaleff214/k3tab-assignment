@@ -19,6 +19,7 @@ class Module extends Model
     protected $fillable = [
         'title', 'slug', 'description', 'body',
         'duration_estimation', 'minimum_score', 'questions_count',
+        'code', 'equipment_required', 'procedure', 'reference', 'performance',
     ];
 
     protected static function boot(): void

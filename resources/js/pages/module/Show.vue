@@ -176,13 +176,28 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
             </div>
 
             <div class="grid lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2">
-                    <p class="wrap-break-word text-black" v-html="item.body"></p>
+                <div class="lg:col-span-2 flex flex-col gap-6">
+                    <div>
+                        <h3 class="font-medium text-amber-600">{{ t('field.equipment_required') }}</h3>
+                        <p class="wrap-break-word text-black" v-html="item.equipment_required ?? '-'"></p>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-amber-600">{{ t('field.procedure') }}</h3>
+                        <p class="wrap-break-word text-black" v-html="item.procedure ?? '-'"></p>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-amber-600">{{ t('field.reference') }}</h3>
+                        <p class="wrap-break-word text-black" v-html="item.reference ?? '-'"></p>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-amber-600">{{ t('field.performance') }}</h3>
+                        <p class="wrap-break-word text-black" v-html="item.performance ?? '-'"></p>
+                    </div>
                 </div>
                 <div class="flex flex-col gap-6">
                     <div>
                         <div class="flex justify-between items-baseline mb-2">
-                            <h3 class="font-medium">{{ t('field.media') }} <span class="text-xs text-gray-400">{{ item.media?.length ?? 0 }}</span></h3>
+                            <h3 class="font-medium text-amber-600">{{ t('field.media') }} <span class="text-xs text-gray-400">{{ item.media?.length ?? 0 }}</span></h3>
                             <Button
                                 v-tooltip.bottom="t('action.upload')"
                                 icon="pi pi-cloud-upload" size="small" variant="text" severity="secondary"
@@ -209,11 +224,12 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                                     </div>
                                 </div>
                             </div>
+                            <p class="text-sm text-gray-500" v-if="!item.media?.length">{{ t('label.no_data_available', { data: t('field.media') }) }}</p>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between items-baseline mb-2">
-                            <h3 class="font-medium">{{ t('field.questions') }} <span class="text-xs text-gray-400">{{ item.questions?.length ?? 0 }}</span></h3>
+                            <h3 class="font-medium text-amber-600">{{ t('field.questions') }} <span class="text-xs text-gray-400">{{ item.questions?.length ?? 0 }}</span></h3>
                             <Button
                                 v-tooltip.bottom="t('action.new_menu', { menu: t('field.question') })"
                                 icon="pi pi-plus" size="small" variant="text" severity="secondary"
@@ -236,6 +252,7 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                                 </div>
                                 <small class="text-xs text-gray-500">{{ question.choices[question.correct_answer_index] }}</small>
                             </div>
+                            <p class="text-sm text-gray-500" v-if="!item.questions?.length">{{ t('label.no_data_available', { data: t('field.questions') }) }}</p>
                         </div>
                     </div>
                 </div>

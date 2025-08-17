@@ -143,14 +143,14 @@ const searchUser = (value: string | undefined): void => {
                 :items="items.data">
                 <Column field="name" header="field.name" :sortable="true">
                     <template #body="{ row }: { row: User }">
-                        <Link :href="route('assessor.show', row.id)" class="hover:underline hover:text-amber-500">
+                        <Link :href="route('assessor.show', row.id)" class="hover:underline text-amber-500">
                             {{ row.name }}
                         </Link>
                     </template>
                 </Column>
                 <Column field="email" header="field.email" :sortable="true">
                     <template #body="{ row }: { row: User }">
-                        <a :href="`mailto:${row.email}`" class="hover:underline hover:text-amber-500">
+                        <a :href="`mailto:${row.email}`" class="hover:underline text-amber-500">
                             {{ row.email }}
                         </a>
                     </template>

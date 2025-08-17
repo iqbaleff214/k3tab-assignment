@@ -109,7 +109,7 @@ const destroy = (event: MouseEvent, item: User) => {
                 <div class="flex flex-col items-baseline gap-2.5">
                     <h1 class="text-2xl">{{ item.name }}</h1>
                     <div class="flex gap-2 text-sm font-light text-gray-500">
-                        <a :href="`mailto:${item.email}`" class="hover:underline hover:text-amber-500">
+                        <a :href="`mailto:${item.email}`" class="hover:underline text-amber-500">
                             {{ item.email }}
                         </a>
                         <span class="text-gray-300" v-if="item.phone">|</span>

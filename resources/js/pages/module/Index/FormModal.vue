@@ -4,7 +4,7 @@ import { useForm } from '@inertiajs/vue3';
 import type { Module, Question } from '@/types';
 import {
     Dialog, Button, FloatLabel, InputText, Message, InputNumber,
-    FileUpload, FileUploadSelectEvent, Image,
+    FileUpload, FileUploadSelectEvent, Image, Textarea,
 } from 'primevue';
 import Editor from 'primevue/editor';
 import { formatBytes } from '@/lib/utils';
@@ -23,6 +23,11 @@ const form = useForm<{
     questions_count: number;
     questions: Question[];
     files: File[];
+    code: string;
+    equipment_required: string;
+    procedure: string;
+    reference: string;
+    performance: string;
 }>({
     _method: 'POST',
     id: '',
@@ -34,6 +39,11 @@ const form = useForm<{
     questions_count: 0,
     questions: [],
     files: [],
+    code: '',
+    equipment_required: '',
+    procedure: '',
+    reference: '',
+    performance: '',
 });
 
 
@@ -50,6 +60,11 @@ const open = (module: Module | null) => {
     form.duration_estimation = module.duration_estimation;
     form.minimum_score = module.minimum_score;
     form.questions_count = module.questions_count;
+    form.code = module.code ?? '';
+    form.equipment_required = module.equipment_required ?? '';
+    form.procedure = module.procedure ?? '';
+    form.reference = module.reference ?? '';
+    form.performance = module.performance ?? '';
 };
 
 const close = () => {
@@ -78,20 +93,6 @@ const upload = (e: FileUploadSelectEvent) => {
     form.files = e.files as File[];
 };
 
-const editorModules = {
-    toolbar: [
-        ['bold', 'italic', 'underline', 'strike'],        // text styles
-        [{ 'header': 1 }, { 'header': 2 }],               // headers
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],     // lists
-        [{ 'indent': '-1'}, { 'indent': '+1' }],          // indent
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // font size
-        [{ 'color': [] }, { 'background': [] }],          // colors
-        [{ 'align': [] }],                                // text align
-        ['link'],                                         // links
-        ['clean']                                         // remove formatting
-    ]
-};
-
 defineExpose({
     open,
 });
@@ -104,16 +105,29 @@ defineExpose({
         <form @submit.prevent="submit">
             <div class="grid gap-6 pt-2 pb-8" :class="{ 'lg:grid-cols-2': form._method === 'POST' }">
                 <div class="flex flex-col gap-6">
-                    <div>
-                        <FloatLabel variant="on">
-                            <InputText
-                                :fluid="true" :autofocus="true" id="title" :invalid="form.errors.title !== undefined"
-                                v-model="form.title" type="text" autocomplete="off" />
-                            <label for="title" class="text-sm">{{ $t('field.title') }} <span class="text-red-500">*</span></label>
-                        </FloatLabel>
-                        <Message v-if="form.errors.title" severity="error" size="small" variant="simple">
-                            {{ form.errors.title }}
-                        </Message>
+                    <div class="grid lg:grid-cols-3 gap-6">
+                        <div>
+                            <FloatLabel variant="on">
+                                <InputText
+                                    :fluid="true" :autofocus="true" id="code" :invalid="form.errors.code !== undefined"
+                                    v-model="form.code" type="text" autocomplete="off" />
+                                <label for="code" class="text-sm">{{ $t('field.code') }} <span class="text-red-500">*</span></label>
+                            </FloatLabel>
+                            <Message v-if="form.errors.code" severity="error" size="small" variant="simple">
+                                {{ form.errors.code }}
+                            </Message>
+                        </div>
+                        <div class="lg:col-span-2">
+                            <FloatLabel variant="on">
+                                <InputText
+                                    :fluid="true" id="title" :invalid="form.errors.title !== undefined"
+                                    v-model="form.title" type="text" autocomplete="off" />
+                                <label for="title" class="text-sm">{{ $t('field.title') }} <span class="text-red-500">*</span></label>
+                            </FloatLabel>
+                            <Message v-if="form.errors.title" severity="error" size="small" variant="simple">
+                                {{ form.errors.title }}
+                            </Message>
+                        </div>
                     </div>
                     <div class="grid lg:grid-cols-3 gap-6">
                         <div>
@@ -154,53 +168,189 @@ defineExpose({
                         </div>
                     </div>
                     <div>
-                        <Editor v-model="form.body" editor-style="height: 185px" :modules="editorModules" />
-                        <Message v-if="form.errors.body" severity="error" size="small" variant="simple">
-                            {{ form.errors.body }}
+                        <FloatLabel variant="on">
+                            <Textarea
+                                fluid id="equipment_required" :invalid="form.errors.equipment_required !== undefined"
+                                v-model="form.equipment_required" rows="2" />
+                            <label for="equipment_required" class="text-sm">{{ $t('field.equipment_required') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.equipment_required" severity="error" size="small" variant="simple">
+                            {{ form.errors.equipment_required }}
+                        </Message>
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-500 font-medium ms-3.5">{{ $t('field.procedure') }}</label>
+                        <Editor v-model="form.procedure" editor-style="height: 135px">
+                            <template v-slot:toolbar>
+                                <span class="ql-formats">
+                                  <button class="ql-bold"></button>
+                                  <button class="ql-italic"></button>
+                                  <button class="ql-underline"></button>
+                                  <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-font"></select>
+                                  <select class="ql-size"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-color"></select>
+                                  <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-list" value="ordered"></button>
+                                  <button class="ql-list" value="bullet"></button>
+                                  <button class="ql-indent" value="-1"></button>
+                                  <button class="ql-indent" value="+1"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-align"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-blockquote"></button>
+                                  <button class="ql-code-block"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-link"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-clean"></button>
+                                </span>
+                            </template>
+                        </Editor>
+                        <Message v-if="form.errors.procedure" severity="error" size="small" variant="simple">
+                            {{ form.errors.procedure }}
+                        </Message>
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-500 font-medium ms-3.5">{{ $t('field.reference') }}</label>
+                        <Editor v-model="form.reference" editor-style="height: 135px">
+                            <template v-slot:toolbar>
+                                <span class="ql-formats">
+                                  <button class="ql-bold"></button>
+                                  <button class="ql-italic"></button>
+                                  <button class="ql-underline"></button>
+                                  <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-font"></select>
+                                  <select class="ql-size"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-color"></select>
+                                  <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-list" value="ordered"></button>
+                                  <button class="ql-list" value="bullet"></button>
+                                  <button class="ql-indent" value="-1"></button>
+                                  <button class="ql-indent" value="+1"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-align"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-blockquote"></button>
+                                  <button class="ql-code-block"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-link"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-clean"></button>
+                                </span>
+                            </template>
+                        </Editor>
+                        <Message v-if="form.errors.reference" severity="error" size="small" variant="simple">
+                            {{ form.errors.reference }}
+                        </Message>
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-500 font-medium ms-3.5">{{ $t('field.performance') }}</label>
+                        <Editor v-model="form.performance" editor-style="height: 135px">
+                            <template v-slot:toolbar>
+                                <span class="ql-formats">
+                                  <button class="ql-bold"></button>
+                                  <button class="ql-italic"></button>
+                                  <button class="ql-underline"></button>
+                                  <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-font"></select>
+                                  <select class="ql-size"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-color"></select>
+                                  <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-list" value="ordered"></button>
+                                  <button class="ql-list" value="bullet"></button>
+                                  <button class="ql-indent" value="-1"></button>
+                                  <button class="ql-indent" value="+1"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-align"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-blockquote"></button>
+                                  <button class="ql-code-block"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-link"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-clean"></button>
+                                </span>
+                            </template>
+                        </Editor>
+                        <Message v-if="form.errors.performance" severity="error" size="small" variant="simple">
+                            {{ form.errors.performance }}
                         </Message>
                     </div>
                 </div>
-                <FileUpload v-if="form._method === 'POST'" :multiple="true" accept="image/*,application/pdf" :max-file-size="10_000_000" @select="upload">
-                    <template #header="{ chooseCallback, clearCallback }">
-                        <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
-                            <div class="flex gap-2">
-                                <Button v-tooltip.top="$t('action.add')" @click="chooseCallback()" icon="pi pi-file-plus" rounded outlined severity="secondary"></Button>
-                                <Button v-tooltip.top="$t('action.reset')" @click="() => { clearCallback(); form.files = []; }" icon="pi pi-undo" rounded outlined severity="danger" :disabled="!form.files || form.files.length === 0"></Button>
+                <div>
+                    <FileUpload v-if="form._method === 'POST'" :multiple="true" accept="image/*,application/pdf" :max-file-size="10_000_000" @select="upload">
+                        <template #header="{ chooseCallback, clearCallback }">
+                            <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
+                                <div class="flex gap-2">
+                                    <Button v-tooltip.top="$t('action.add')" @click="chooseCallback()" icon="pi pi-file-plus" rounded outlined severity="secondary"></Button>
+                                    <Button v-tooltip.top="$t('action.reset')" @click="() => { clearCallback(); form.files = []; }" icon="pi pi-undo" rounded outlined severity="danger" :disabled="!form.files || form.files.length === 0"></Button>
+                                </div>
+                                <span class="whitespace-nowrap">{{ formatBytes(form.files.reduce((sum, item) => sum + item.size, 0)) }}</span>
                             </div>
-                            <span class="whitespace-nowrap">{{ formatBytes(form.files.reduce((sum, item) => sum + item.size, 0)) }}</span>
-                        </div>
-                    </template>
-                    <template #content="{ files, uploadedFiles, messages }">
-                        <div class="flex flex-col gap-8 pt-4">
-                            <Message v-for="message of messages" :key="message" :class="{ 'mb-8': !files.length && !uploadedFiles.length}" severity="error">
-                                {{ message }}
-                            </Message>
-                            <div v-if="form.files.length > 0">
-                                <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-6 w-full">
-                                    <div
-                                        v-for="(file, index) of form.files" :key="file.name + file.type + file.size"
-                                        class="p-3 rounded-xl flex flex-col border border-surface items-center gap-3 relative">
-                                        <Image v-if="file.type.startsWith('image')" :src="previewUrls[index]" :alt="file.name" preview class="w-full rounded-2xl" />
-                                        <iframe v-else-if="file.type.endsWith('pdf')" :src="previewUrls[index]" width="100%"></iframe>
-                                        <span v-tooltip.bottom="file.name" class="font-semibold text-ellipsis max-w-full whitespace-nowrap overflow-hidden">{{ file.name }}</span>
-                                        <small class="text-gray-500">{{ formatBytes(file.size) }}</small>
-                                        <div class="absolute -top-2.5 -right-2.5">
-                                            <Button
-                                                icon="pi pi-trash" @click="() => form.files.splice(index, 1)"
-                                                rounded size="small" severity="danger" />
+                        </template>
+                        <template #content="{ files, uploadedFiles, messages }">
+                            <div class="flex flex-col gap-8 pt-4">
+                                <Message v-for="message of messages" :key="message" :class="{ 'mb-8': !files.length && !uploadedFiles.length}" severity="error">
+                                    {{ message }}
+                                </Message>
+                                <div v-if="form.files.length > 0">
+                                    <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-6 w-full">
+                                        <div
+                                            v-for="(file, index) of form.files" :key="file.name + file.type + file.size"
+                                            class="p-3 rounded-xl flex flex-col border border-surface items-center gap-3 relative">
+                                            <Image v-if="file.type.startsWith('image')" :src="previewUrls[index]" :alt="file.name" preview class="w-full rounded-2xl" />
+                                            <iframe v-else-if="file.type.endsWith('pdf')" :src="previewUrls[index]" width="100%"></iframe>
+                                            <span v-tooltip.bottom="file.name" class="font-semibold text-ellipsis max-w-full whitespace-nowrap overflow-hidden">{{ file.name }}</span>
+                                            <small class="text-gray-500">{{ formatBytes(file.size) }}</small>
+                                            <div class="absolute -top-2.5 -right-2.5">
+                                                <Button
+                                                    icon="pi pi-trash" @click="() => form.files.splice(index, 1)"
+                                                    rounded size="small" severity="danger" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </template>
-                    <template #empty>
-                        <div class="flex items-center justify-center flex-col" v-if="form.files.length === 0">
-                            <i class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color" />
-                            <p class="mt-6 mb-0">{{ $t('label.drag_and_drop_file_here_or_browse') }}</p>
-                        </div>
-                    </template>
-                </FileUpload>
+                        </template>
+                        <template #empty>
+                            <div class="flex items-center justify-center flex-col" v-if="form.files.length === 0">
+                                <i class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color" />
+                                <p class="mt-6 mb-0">{{ $t('label.drag_and_drop_file_here_or_browse') }}</p>
+                            </div>
+                        </template>
+                    </FileUpload>
+                </div>
             </div>
 
             <div class="flex justify-end gap-2">

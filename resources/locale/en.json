@@ -26,7 +26,8 @@
         "assessee": "Assessee",
         "management": "Management",
         "assessment": "Assessment",
-        "module": "Module"
+        "module": "Module",
+        "module_skill": "Module and Skill"
     },
     "label": {
         "new": "New",
@@ -151,12 +152,17 @@
         "correct_answer_index": "Correct Answer",
         "slug": "Slug",
         "body": "Content",
-        "duration_estimation": "Estimated Reading Time (min)",
+        "duration_estimation": "Reading Time",
         "minimum_score": "Minimum Score",
         "questions_count": "Question Total",
         "questions": "Questions",
         "media": "Media",
-        "answer": "Answer"
+        "answer": "Answer",
+        "code": "Code",
+        "equipment_required": "Equipment Required",
+        "procedure": "Procedure",
+        "reference": "Reference",
+        "performance": "Performance"
     },
     "http": {
         "400": "Bad Request",
