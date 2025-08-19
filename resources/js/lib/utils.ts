@@ -199,3 +199,12 @@ export const downloadFile = (url: string, filename: string) => {
     a.download = filename;
     a.click();
 };
+
+export const isHttpUrl = (str: string): boolean => {
+    try {
+        const url = new URL(str);
+        return url.protocol === "http:" || url.protocol === "https:";
+    } catch {
+        return false;
+    }
+}

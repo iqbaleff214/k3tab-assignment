@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => ['nullable', 'string', 'max:255'],
-            'question' => ['required', 'string'],
+            'question' => ['required'],
             'choices' => ['required', 'array'],
             'correct_answer_index' => ['numeric', 'min:0'],
         ];

@@ -18,7 +18,13 @@ class Question extends Model
 
     protected function title(): Attribute
     {
-        return Attribute::get(fn () => $this->title ?? mb_substr($this->question, 0, 20, "UTF-8"));
+        return Attribute::get(function () {
+            $title = $this->title ?? mb_substr($this->question, 0, 20, "UTF-8");
+            if (!filter_var($title, FILTER_VALIDATE_URL))
+                return $title;
+
+            return "Image question";
+        });
     }
 
     public function module(): BelongsTo

@@ -91,7 +91,9 @@
         "total_question": "Number of questions that will appear",
         "minimum_score": "Minimum score required to pass",
         "mark_the_correct_answer": "Please mark the correct answer",
-        "out_of_questions_only_display": "{count} of {total} available questions will appear in the post-test."
+        "out_of_questions_only_display": "{count} of {total} available questions will appear in the post-test.",
+        "n_as_an_image": "{n} as an image",
+        "n_as_a_text": "{n} as a text"
     },
     "action": {
         "submit": "Save",

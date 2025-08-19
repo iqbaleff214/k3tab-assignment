@@ -6,9 +6,9 @@ import MediaModal from '@/pages/module/Index/UploadModal.vue';
 import type { BreadcrumbItem, Media, Module, Question, SharedData } from '@/types';
 import { Head, usePage, Link, router } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-import { useConfirm, ConfirmPopup, Button } from 'primevue';
+import { useConfirm, ConfirmPopup, Button, Image } from 'primevue';
 import { ref } from 'vue';
-import { dateHumanFormatWithTime, dateHumanSmartFormat, downloadFile, formatBytes } from '@/lib/utils';
+import { dateHumanFormatWithTime, dateHumanSmartFormat, downloadFile, formatBytes, isHttpUrl } from '@/lib/utils';
 
 interface Props {
     item: Module;
@@ -237,8 +237,11 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                         </div>
                         <div class="flex flex-col gap-2">
                             <div v-for="question in item.questions" :key="question.id" class="flex flex-col gap-1.5 bg-slate-50 rounded-xl py-2 px-4">
-                                <div class="flex justify-between items-baseline">
-                                    <div class="text-sm font-medium flex-1">{{ question.title }}</div>
+                                <div class="flex justify-between items-center">
+                                    <div class="text-sm font-medium flex-1" v-if="!isHttpUrl(question.question)">{{ question.question }}</div>
+                                    <div v-else>
+                                        <Image :src="question.question" preview :alt="question.title" class="w-16 h-16 rounded-full mt-2" />
+                                    </div>
                                     <div class="flex">
                                         <Button
                                             v-tooltip.bottom="t('action.edit')"
@@ -250,7 +253,15 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                                             @click="destroyQuestion($event, item, question)" rounded></Button>
                                     </div>
                                 </div>
-                                <small class="text-xs text-gray-500">{{ question.choices[question.correct_answer_index] }}</small>
+                                <div class="flex flex-col">
+                                    <small class="text-xs text-gray-500">{{ $t('field.answer') }}</small>
+                                    <div class="ms-2 my-0 py-0">
+                                        <p class="text-sm" v-if="!isHttpUrl(question.choices[question.correct_answer_index])">{{ question.choices[question.correct_answer_index] }}</p>
+                                        <div v-else>
+                                            <Image :src="question.choices[question.correct_answer_index]" preview :alt="question.title" class="w-16 h-16 rounded-full mt-2" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <p class="text-sm text-gray-500" v-if="!item.questions?.length">{{ t('label.no_data_available', { data: t('field.questions') }) }}</p>
                         </div>

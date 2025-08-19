@@ -8,7 +8,9 @@ use App\Models\Module;
 use App\Models\Question;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ModuleQuestionController extends Controller
 {
@@ -16,10 +18,23 @@ class ModuleQuestionController extends Controller
     {
         try {
             $input = $request->validated();
+
+            $question = $input['question'];
+            if ($question instanceof UploadedFile) {
+                $question = Storage::url($question->storePublicly('modules/' . $module->id . '/files'));
+            }
+
+            $choices = $input['choices'];
+            foreach ($choices as $key => $choice) {
+                if ($choice instanceof UploadedFile) {
+                    $choices[$key] = Storage::url($choice->storePublicly('modules/' . $module->id . '/files'));
+                }
+            }
+
             $module->questions()->create([
                 'title' => $input['title'],
-                'question' => $input['question'],
-                'choices' => $input['choices'],
+                'question' => $question,
+                'choices' => $choices,
                 'correct_answer_index' => $input['correct_answer_index'],
             ]);
 
