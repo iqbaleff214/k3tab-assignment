@@ -44,6 +44,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/assessee/{assessee}', [\App\Http\Controllers\AssesseeController::class, 'destroy'])->name('assessee.destroy');
     });
 
+    Route::middleware('allowed-type:assessee')->prefix('e')->name('assessee.')->group(function () {
+        Route::get('/module', [\App\Http\Controllers\Assessee\ModuleController::class, 'index'])->name('module.index');
+    });
 });
 
 

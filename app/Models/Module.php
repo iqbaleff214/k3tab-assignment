@@ -40,4 +40,9 @@ class Module extends Model
     {
         return $this->morphMany(Media::class, 'mediaable');
     }
+
+    public function assessees(): HasMany
+    {
+        return $this->hasMany(ModuleAssessee::class);
+    }
 }

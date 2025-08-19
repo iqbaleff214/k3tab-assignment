@@ -34,8 +34,15 @@ const mainNavItems: NavItemGroup[] = [
                 title: 'menu.module',
                 href: route('admin.module.index'),
                 icon: BookTextIcon,
-                isAvailable: true,
+                isAvailable: page.props.auth.user.type === 'admin',
                 isActive: route().current('admin.module.*')
+            },
+            {
+                title: 'menu.module',
+                href: route('assessee.module.index'),
+                icon: BookTextIcon,
+                isAvailable: page.props.auth.user.type === 'assessee',
+                isActive: route().current('assessee.module.*')
             },
         ],
     },

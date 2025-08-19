@@ -164,7 +164,12 @@
         "equipment_required": "Equipment Required",
         "procedure": "Procedure",
         "reference": "Reference",
-        "performance": "Performance"
+        "performance": "Performance",
+        "score": "Score",
+        "downloaded_files": "Downloaded Files",
+        "read_at": "Read At",
+        "completed_at": "Completed At",
+        "is_doing_test": "Is Doing Test"
     },
     "http": {
         "400": "Bad Request",

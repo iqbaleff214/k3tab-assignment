@@ -296,6 +296,20 @@ export interface Module {
     questions_count: number;
     questions?: Question[];
     media?: Media[];
+    assessees?: ModuleAssessee[];
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ModuleAssessee {
+    id: number;
+    module_id: string;
+    user_id: number;
+    score: number;
+    downloaded_files: string[];
+    is_doing_test: boolean;
+    read_at: string | null;
+    completed_at: string | null;
     created_at: string;
     updated_at: string;
 }
