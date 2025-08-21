@@ -295,6 +295,7 @@ export interface Module {
     minimum_score: number;
     questions_count: number;
     questions?: Question[];
+    available_questions_count: number;
     media?: Media[];
     assessees?: ModuleAssessee[];
     created_at: string;
@@ -306,9 +307,12 @@ export interface ModuleAssessee {
     module_id: string;
     user_id: number;
     score: number;
+    status: 'read' | 'competent' | 'not_competent';
     downloaded_files: string[];
     is_doing_test: boolean;
     read_at: string | null;
+    result?: PostTest | null;
+    results?: PostTest[] | null;
     completed_at: string | null;
     created_at: string;
     updated_at: string;
@@ -321,4 +325,24 @@ export interface Question {
     question: string;
     choices: string[];
     correct_answer_index: number;
+}
+
+export interface PostTest {
+    id: number;
+    module_id: string;
+    user_id: number;
+    answers: Answer[];
+    score: number;
+    minimum_score: number;
+    is_passed: boolean;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Answer {
+    id: number;
+    question: string;
+    answer: string | null;
+    answer_index: number | null;
+    is_correct: boolean;
 }

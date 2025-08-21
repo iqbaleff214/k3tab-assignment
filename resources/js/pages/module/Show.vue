@@ -32,7 +32,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('admin.module.index'),
     },
     {
-        title: props.item.title,
+        title: props.item.code ?? props.item.title,
         href: route('admin.module.show', props.item.id),
     },
 ];
@@ -169,9 +169,9 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                     <div class="text-sm font-light text-gray-500" v-html="item.description"></div>
                 </div>
                 <span
-                    v-tooltip="t('label.created_at', { date: dateHumanFormatWithTime(item.created_at, 0, page.props.auth.user.locale) })"
+                    v-tooltip="t('label.updated_at', { date: dateHumanFormatWithTime(item.updated_at, 0, page.props.auth.user.locale) })"
                     class="text-sm text-gray-500">
-                    {{ dateHumanSmartFormat(item.created_at, page.props.auth.user.locale) }}
+                    {{ dateHumanSmartFormat(item.updated_at, page.props.auth.user.locale) }}
                 </span>
             </div>
 
@@ -255,7 +255,7 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                                 </div>
                                 <div class="flex flex-col">
                                     <small class="text-xs text-gray-500">{{ $t('field.answer') }}</small>
-                                    <div class="ms-2 my-0 py-0">
+                                    <div class="my-0 py-0">
                                         <p class="text-sm" v-if="!isHttpUrl(question.choices[question.correct_answer_index])">{{ question.choices[question.correct_answer_index] }}</p>
                                         <div v-else>
                                             <Image :src="question.choices[question.correct_answer_index]" preview :alt="question.title" class="w-16 h-16 rounded-full mt-2" />

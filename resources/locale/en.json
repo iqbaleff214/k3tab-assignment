@@ -27,7 +27,8 @@
         "management": "Management",
         "assessment": "Assessment",
         "module": "Module",
-        "module_skill": "Module and Skill"
+        "module_skill": "Module and Skill",
+        "post_test": "Post-test"
     },
     "label": {
         "new": "New",
@@ -68,6 +69,8 @@
         "newer": "Newer",
         "joined_date": "Joined on {date}",
         "created_at": "Created at {date}",
+        "updated_at": "Updated at {date}",
+        "read_at": "Read at {date}",
         "platform": "Platform",
         "drag_and_drop_file_here_or_browse": "Drag and drop file here or browse",
         "connected": "Connected",
@@ -85,7 +88,7 @@
         "assessor": "Assessor",
         "assessee": "Assessee",
         "n_minute": "0 minute | a minute | {n} minutes",
-        "n_question": "0 question | a question | {n} questions",
+        "n_question": "no question | a question | {n} questions",
         "no_estimation": "time estimation not provided",
         "duration_estimation": "Estimated reading time (minutes)",
         "total_question": "Number of questions that will appear",
@@ -93,7 +96,22 @@
         "mark_the_correct_answer": "Please mark the correct answer",
         "out_of_questions_only_display": "{count} of {total} available questions will appear in the post-test.",
         "n_as_an_image": "{n} as an image",
-        "n_as_a_text": "{n} as a text"
+        "n_as_a_text": "{n} as a text",
+        "downloaded": "Downloaded",
+        "evaluation": "Evaluation",
+        "progress": "Progress",
+        "unread": "Unread",
+        "read": "Read",
+        "competent": "Competent",
+        "not_competent": "Not Competent",
+        "doing_test": "Doing Test",
+        "you_have_not_taken_post_test": "You have not taken the post-test for this module yet",
+        "you_have_not_accessed_the_module": "You are not allowed to take the post-test as you have not accessed the module yet",
+        "view_detail": "View detail",
+        "post_test_result": "Post-test Result",
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "latest_score": "Latest score"
     },
     "action": {
         "submit": "Save",
@@ -123,7 +141,11 @@
         "preview": "Preview",
         "close": "Close",
         "upload": "Upload",
-        "download": "Download"
+        "download": "Download",
+        "start_the_test": "Start The Post-Test",
+        "retake_the_test": "Retake The Post-Test",
+        "resume_the_test": "Resume The Post-Test",
+        "cancel_the_test": "Cancel The Post-Test"
     },
     "field": {
         "name": "Name",

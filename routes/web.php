@@ -46,6 +46,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('allowed-type:assessee')->prefix('e')->name('assessee.')->group(function () {
         Route::get('/module', [\App\Http\Controllers\Assessee\ModuleController::class, 'index'])->name('module.index');
+        Route::get('/module/{module}', [\App\Http\Controllers\Assessee\ModuleController::class, 'show'])->name('module.show');
+        Route::post('/module/{module}/download/{media}', [\App\Http\Controllers\Assessee\ModuleController::class, 'download'])->name('module.download');
+
+        Route::post('/module/{module}/start', [\App\Http\Controllers\Assessee\ModuleController::class, 'startPostTest'])->name('module.post-test.start');
+        Route::post('/module/{module}/finish', [\App\Http\Controllers\Assessee\ModuleController::class, 'finishPostTest'])->name('module.post-test.finish');
+        Route::post('/module/{module}/cancel', [\App\Http\Controllers\Assessee\ModuleController::class, 'cancelPostTest'])->name('module.post-test.cancel');
     });
 });
 

@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, FilterColumn, Module } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-import { Card, InputText } from 'primevue';
+import { ref } from 'vue';
+import { Card, InputText, Button } from 'primevue';
 import Filter from '@/components/Filter.vue';
-import { dateHumanSmartFormat, parseUserAgent } from '@/lib/utils';
+import PostTestModal from '@/pages/panel/assessee/module/test/PostTestModal.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'menu.dashboard',
-        href: route('dashboard'),
+        title: 'menu.module',
+        href: route('assessee.module.index'),
     },
 ];
 
 const { t } = useI18n();
+const testModal = ref();
 
 defineProps<{
     items: Module[];
@@ -85,17 +87,16 @@ const searchByCode = (value: string | undefined): void => {
                 </div>
             </header>
 
-
             <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <div v-for="item in items" :key="item.id">
                     <Card>
                         <template #title>
                             <div class="w-full flex flex-col gap-0">
                                 <div class="flex justify-between gap-x-2 items-center">
-                                    <h3 class="text-md text-amber-500 hover:underline cursor-pointer">{{ item.code }}</h3>
-                                    <small class="text-sm font-light text-gray-500" :title="t('field.read_at')" v-if="item.assessees?.length">
-                                        {{ dateHumanSmartFormat(item.assessees?.[0]?.read_at ?? '') }}
-                                    </small>
+                                    <Link class="text-md text-amber-500 hover:underline cursor-pointer" :href="route('assessee.module.show', item.id)" :title="t('label.view_detail')">
+                                        {{ item.code }}
+                                    </Link>
+                                    <span class="bg-gray-100 px-2 py-0.5 text-xs rounded-lg" v-if="item.assessees?.length">{{ t(`label.${item.assessees?.[0]?.status}`) }}</span>
                                 </div>
                                 <small :title="item.title" class="w-full line-clamp-1 font-light text-gray-500 text-sm">{{ item.title }}</small>
                             </div>
@@ -109,17 +110,28 @@ const searchByCode = (value: string | undefined): void => {
                                 </div>
                                 <div class="grid lg:grid-cols-2 gap-2.5 text-sm">
                                     <div class="capitalize text-gray-500 ">{{ t('field.questions_count') }}</div>
-                                    <div class="lg:text-end font-medium">{{ t('label.n_question', { n: item.questions_count }) }}</div>
+                                    <div class="lg:text-end font-medium">{{ t('label.n_question', { n: item.available_questions_count }) }}</div>
                                 </div>
                                 <div class="grid lg:grid-cols-2 gap-2.5 text-sm">
                                     <div class="capitalize text-gray-500 ">{{ t('field.minimum_score') }}</div>
                                     <div class="lg:text-end font-medium">{{ item.minimum_score }}</div>
                                 </div>
                             </div>
+
+                            <div class="flex flex-col gap-1">
+                                <Button
+                                    v-if="item.assessees?.length && item.assessees?.[0]?.status !== 'competent' && item.available_questions_count > 0"
+                                    size="small" :disabled="!item.assessees?.length" :variant="item.assessees?.[0]?.is_doing_test ? 'outlined' : ''"
+                                    @click="() => testModal?.open(item)"
+                                    :label="t(item.assessees?.[0]?.is_doing_test ? 'action.resume_the_test' : (item.assessees?.[0]?.status === 'not_competent' ? 'action.retake_the_test' : 'action.start_the_test'))" />
+                                <small v-if="!item.assessees?.length && item.available_questions_count > 0" class="text-gray-500">{{ t('label.you_have_not_accessed_the_module') }}</small>
+                            </div>
                         </template>
                     </Card>
                 </div>
             </div>
+
+            <PostTestModal ref="testModal" />
         </div>
     </AppLayout>
 </template>

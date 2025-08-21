@@ -168,7 +168,45 @@ defineExpose({
                         </div>
                     </div>
                     <div>
-                        <FloatLabel variant="on">
+                        <label class="text-sm text-gray-500 font-medium ms-3.5">{{ $t('field.equipment_required') }}</label>
+                        <Editor v-model="form.equipment_required" editor-style="height: 135px">
+                            <template v-slot:toolbar>
+                                <span class="ql-formats">
+                                  <button class="ql-bold"></button>
+                                  <button class="ql-italic"></button>
+                                  <button class="ql-underline"></button>
+                                  <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-font"></select>
+                                  <select class="ql-size"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-color"></select>
+                                  <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-list" value="ordered"></button>
+                                  <button class="ql-list" value="bullet"></button>
+                                  <button class="ql-indent" value="-1"></button>
+                                  <button class="ql-indent" value="+1"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <select class="ql-align"></select>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-blockquote"></button>
+                                  <button class="ql-code-block"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-link"></button>
+                                </span>
+                                <span class="ql-formats">
+                                  <button class="ql-clean"></button>
+                                </span>
+                            </template>
+                        </Editor>
+                        <FloatLabel variant="on" v-if="false">
                             <Textarea
                                 fluid id="equipment_required" :invalid="form.errors.equipment_required !== undefined"
                                 v-model="form.equipment_required" rows="2" />

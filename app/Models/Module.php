@@ -22,6 +22,10 @@ class Module extends Model
         'code', 'equipment_required', 'procedure', 'reference', 'performance',
     ];
 
+    protected $appends = [
+        'available_questions_count',
+    ];
+
     protected static function boot(): void
     {
         parent::boot();
@@ -29,6 +33,13 @@ class Module extends Model
             if (empty($module->slug))
                 $module->slug = Str::slug($module->title);
         });
+    }
+
+    protected function getAvailableQuestionsCountAttribute(): int
+    {
+        $toDisplay = $this->questions_count;
+        $current = $this->questions()->count();
+        return min($toDisplay, $current);
     }
 
     public function questions(): HasMany
@@ -44,5 +55,11 @@ class Module extends Model
     public function assessees(): HasMany
     {
         return $this->hasMany(ModuleAssessee::class);
+    }
+
+    public function postTests(): HasMany
+    {
+        return $this->hasMany(PostTest::class);
+
     }
 }
