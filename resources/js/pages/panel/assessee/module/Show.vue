@@ -65,7 +65,7 @@ const downloadFile = (id: number, filename: string) => {
                     <div class="flex gap-x-2 items-center">
                         <span class="bg-gray-100 px-2 py-0.5 text-xs rounded-md" v-if="item.assessees?.length">{{ t(`label.${item.assessees?.[0]?.status}`) }}</span>
                         <Button
-                            v-if="(item.assessees?.length || item.assessees?.[0]?.status !== 'competent') && item.available_questions_count > 0"
+                            v-if="(item.assessees?.length && item.assessees?.[0]?.status !== 'competent') && item.available_questions_count > 0"
                             v-tooltip.bottom="t(item.assessees?.[0]?.is_doing_test ? 'action.resume_the_test' : 'action.start_the_test')"
                             :icon="item.assessees?.[0]?.is_doing_test ? 'pi pi-replay' : 'pi pi-play'" size="small" variant="text" severity="secondary"
                             @click="() => testModal?.open(item)" rounded />
