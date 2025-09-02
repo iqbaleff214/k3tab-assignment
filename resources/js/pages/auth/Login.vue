@@ -2,10 +2,11 @@
 import TextLink from '@/components/TextLink.vue';
 import { Checkbox } from '@/components/ui/checkbox';
 import AuthBase from '@/layouts/AuthLayout.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
 import {
     FloatLabel, InputText, Password, Message, Button,
 } from 'primevue';
+import { SharedData } from '@/types';
 
 defineProps<{
     status?: string;
@@ -13,6 +14,7 @@ defineProps<{
     canRegister: boolean;
 }>();
 
+const page = usePage<SharedData>();
 const param = new URLSearchParams(window.location.search);
 const form = useForm({
     email: param.get('email') ?? '',
@@ -66,6 +68,21 @@ const submit = () => {
                 <Button
                     type="submit" :label="$t('action.log_in')"
                     :loading="form.processing" />
+
+                <template v-if="page.props.env !== 'production'">
+                    <div class="grid lg:grid-cols-3 gap-4">
+                        <Button
+                            @click="() => { form.email = 'administrator@corsa-poliban.my.id'; form.password = 'MtF]SLHV1b1;' }"
+                            severity="secondary" type="button" label="Admin" />
+                        <Button
+                            @click="() => { form.email = 'iqbaleff214@gmail.com'; form.password = 'password' }"
+                            severity="secondary" type="button" label="Assessor" />
+                        <Button
+                            @click="() => { form.email = 'mahdanurdiana@gmail.com'; form.password = 'password' }"
+                            severity="secondary" type="button" label="Assessee" />
+                    </div>
+                    <small v-text="page.props.env"></small>
+                </template>
             </div>
 
             <div class="text-center text-sm text-muted-foreground" v-if="canRegister">
