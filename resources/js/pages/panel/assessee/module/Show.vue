@@ -97,9 +97,10 @@ const downloadFile = (id: number, filename: string) => {
                         </div>
                         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             <div v-for="media in item.media" :key="media.path_url" class="relative group w-full h-36 rounded-md overflow-hidden border-gray-100 border-1"
-                                 :class="{ 'bg-center bg-cover bg-no-repeat shadow-md': !media.path_url.endsWith('pdf'), 'bg-white shadow-md flex items-center justify-center': media.path_url.endsWith('pdf') }"
-                                 :style="{ backgroundImage: !media.path_url.endsWith('pdf') ? `url('${media.path_url}')` : 'none' }">
+                                 :class="{ 'bg-center bg-cover bg-no-repeat shadow-md': media.is_image, 'bg-white shadow-md flex items-center justify-center': !media.is_image }"
+                                 :style="{ backgroundImage: media.is_image ? `url('${media.path_url}')` : 'none' }">
                                 <i class="pi pi-file-pdf text-gray-300" v-if="media.path_url.endsWith('pdf')" style="font-size: 2rem"></i>
+                                <i class="pi pi-file-word text-gray-300" v-if="media.path_url.endsWith('doc') || media.path_url.endsWith('docx')" style="font-size: 2rem"></i>
                                 <div class="absolute inset-0 backdrop-blur-sm bg-white/50 flex flex-col items-start justify-between p-4 text-gray-800 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 space-y-2">
                                     <div class="text-start w-full" :class="{ 'text-gray-500': item.assessees?.[0]?.downloaded_files?.includes(media.path_url) }">
                                         <p :title="media.filename" class="break-words font-medium line-clamp-3">

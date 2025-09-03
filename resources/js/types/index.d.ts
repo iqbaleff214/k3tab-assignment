@@ -274,6 +274,7 @@ export interface Media {
     name: string;
     filename: string;
     mime_type: string;
+    is_image: boolean;
     size: number;
     path_url: string;
     created_at: string;

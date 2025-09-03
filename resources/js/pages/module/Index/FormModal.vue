@@ -347,7 +347,9 @@ defineExpose({
                     </div>
                 </div>
                 <div>
-                    <FileUpload v-if="form._method === 'POST'" :multiple="true" accept="image/*,application/pdf" :max-file-size="10_000_000" @select="upload">
+                    <FileUpload v-if="form._method === 'POST'"
+                                accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                :multiple="true" :max-file-size="10_000_000" @select="upload">
                         <template #header="{ chooseCallback, clearCallback }">
                             <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
                                 <div class="flex gap-2">
@@ -369,6 +371,9 @@ defineExpose({
                                             class="p-3 rounded-xl flex flex-col border border-surface items-center gap-3 relative">
                                             <Image v-if="file.type.startsWith('image')" :src="previewUrls[index]" :alt="file.name" preview class="w-full rounded-2xl" />
                                             <iframe v-else-if="file.type.endsWith('pdf')" :src="previewUrls[index]" width="100%"></iframe>
+                                            <div v-else class="h-36 flex items-center justify-center">
+                                                <i class="pi pi-file-word text-gray-300" v-if="file.name.endsWith('doc') || file.name.endsWith('docx')" style="font-size: 2rem"></i>
+                                            </div>
                                             <span v-tooltip.bottom="file.name" class="font-semibold text-ellipsis max-w-full whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                                             <small class="text-gray-500">{{ formatBytes(file.size) }}</small>
                                             <div class="absolute -top-2.5 -right-2.5">

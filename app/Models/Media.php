@@ -14,6 +14,7 @@ class Media extends Model
 
     protected $appends = [
         'path_url',
+        'is_image',
     ];
 
     public function getPathUrlAttribute(): string
@@ -23,6 +24,13 @@ class Media extends Model
         }
 
         return Storage::url($this->path);
+    }
+
+    public function getIsImageAttribute(): bool
+    {
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
+        $ext = strtolower(pathinfo($this->path, PATHINFO_EXTENSION));
+        return in_array($ext, $allowed_extensions, true);
     }
 
     protected static function boot(): void
