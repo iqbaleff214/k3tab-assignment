@@ -28,7 +28,8 @@
         "assessment": "Assessment",
         "module": "Module",
         "module_skill": "Module and Skill",
-        "post_test": "Post-test"
+        "post_test": "Post-test",
+        "performance_guide": "Performance Guide"
     },
     "label": {
         "new": "New",
@@ -111,7 +112,13 @@
         "post_test_result": "Post-test Result",
         "correct": "Correct",
         "incorrect": "Incorrect",
-        "latest_score": "Latest score"
+        "latest_score": "Latest score",
+        "completed": "Completed",
+        "not_completed": "Not Completed",
+        "not_available": "Not Available",
+        "yes": "Yes",
+        "no": "No",
+        "n_a": "N/A"
     },
     "action": {
         "submit": "Save",
@@ -191,7 +198,13 @@
         "downloaded_files": "Downloaded Files",
         "read_at": "Read At",
         "completed_at": "Completed At",
-        "is_doing_test": "Is Doing Test"
+        "is_doing_test": "Is Doing Test",
+        "skill_number": "Skill Number",
+        "tasks": "Tasks",
+        "performance_task": "Performance Task",
+        "hint": "Hint",
+        "group": "Group",
+        "related_module": "Related Module"
     },
     "http": {
         "400": "Bad Request",

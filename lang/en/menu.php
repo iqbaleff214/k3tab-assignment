@@ -23,4 +23,5 @@ return [
     "assessment" => "Assessment",
     "module" => "Module",
     "module_question" => "Module Question",
+    "performance_guide" => "Performance Guide",
 ];

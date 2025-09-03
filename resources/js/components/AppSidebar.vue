@@ -6,7 +6,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem, NavItemGroup, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import {
-    Folder, LayoutGrid, UserPenIcon, Settings2Icon, UserCheck2Icon, BookTextIcon
+    Folder, LayoutGrid, UserPenIcon, Settings2Icon, UserCheck2Icon, BookTextIcon, ListCheckIcon
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
@@ -43,6 +43,13 @@ const mainNavItems: NavItemGroup[] = [
                 icon: BookTextIcon,
                 isAvailable: page.props.auth.user.type === 'assessee',
                 isActive: route().current('assessee.module.*')
+            },
+            {
+                title: 'menu.performance_guide',
+                href: route('admin.performance-guide.index'),
+                icon: ListCheckIcon,
+                isAvailable: page.props.auth.user.type === 'admin',
+                isActive: route().current('admin.performance-guide.*')
             },
         ],
     },

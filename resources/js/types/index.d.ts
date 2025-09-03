@@ -346,3 +346,26 @@ export interface Answer {
     answer_index: number | null;
     is_correct: boolean;
 }
+
+export interface PerformanceGuide {
+    id: string;
+    module_id: string | null;
+    module?: Module;
+    skill_number: string;
+    title: string;
+    performance_task: string;
+    tasks: TaskGroup[];
+    created_at: string;
+    updated_at: string;
+}
+
+export interface TaskGroup {
+    title: string;
+    child: Task[];
+}
+
+export interface Task {
+    title: string;
+    status?: "completed" | "not_completed" | "not_available";
+    hint: string;
+}

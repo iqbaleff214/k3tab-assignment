@@ -25,6 +25,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::put('/module/{module}/question/{question}', [\App\Http\Controllers\ModuleQuestionController::class, 'update'])->name('module.question.update');
             Route::delete('/module/{module}/question', [\App\Http\Controllers\ModuleQuestionController::class, 'massDestroy'])->name('module.question.mass-destroy');
             Route::delete('/module/{module}/question/{question}', [\App\Http\Controllers\ModuleQuestionController::class, 'destroy'])->name('module.question.destroy');
+
+            Route::get("/performance-guide", [\App\Http\Controllers\PerformanceGuideController::class, 'index'])->name('performance-guide.index');
+            Route::post("/performance-guide", [\App\Http\Controllers\PerformanceGuideController::class, 'store'])->name('performance-guide.store');
+            Route::put("/performance-guide/{guide}", [\App\Http\Controllers\PerformanceGuideController::class, 'update'])->name('performance-guide.update');
+            Route::delete("/performance-guide/{guide}", [\App\Http\Controllers\PerformanceGuideController::class, 'destroy'])->name('performance-guide.destroy');
         });
 
         Route::get('/assessor', [\App\Http\Controllers\AssessorController::class, 'index'])->name('assessor.index');
