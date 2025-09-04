@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import PostTestModal from '@/pages/panel/assessee/module/test/PostTestModal.vue';
+import MediaModal from '@/pages/panel/assessee/module/show/MediaModal.vue';
 import type { BreadcrumbItem, Module, PostTest, SharedData } from '@/types';
 import { Head, usePage } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
@@ -18,6 +19,7 @@ const props = defineProps<Props>();
 const page = usePage<SharedData>();
 const { t } = useI18n();
 const testModal = ref();
+const mediaModal = ref();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -111,6 +113,9 @@ const downloadFile = (id: number, filename: string) => {
 
                                     <div class="flex gap-2 justify-end w-full">
                                         <Button
+                                            v-tooltip="t('action.view')" icon="pi pi-eye" size="small" variant="text" severity="secondary"
+                                            :disabled="item.assessees?.[0]?.is_doing_test" @click="() => mediaModal?.open(media, item)" rounded></Button>
+                                        <Button
                                             v-tooltip="t('action.download')" icon="pi pi-download" size="small" variant="text" severity="secondary"
                                             :disabled="item.assessees?.[0]?.is_doing_test" @click="() => downloadFile(media.id, media.filename)" rounded></Button>
                                     </div>
@@ -165,5 +170,6 @@ const downloadFile = (id: number, filename: string) => {
         </div>
 
         <PostTestModal ref="testModal" />
+        <MediaModal ref="mediaModal" />
     </AppLayout>
 </template>

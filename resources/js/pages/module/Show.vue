@@ -3,6 +3,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import FormModal from '@/pages/module/Index/FormModal.vue';
 import QuestionModal from '@/pages/module/question/FormModal.vue';
 import MediaModal from '@/pages/module/Index/UploadModal.vue';
+import ViewMediaModal from '@/pages/panel/assessee/module/show/MediaModal.vue';
 import type { BreadcrumbItem, Media, Module, Question, SharedData } from '@/types';
 import { Head, usePage, Link, router } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
@@ -24,6 +25,7 @@ const confirm = useConfirm();
 const modal = ref();
 const questionModal = ref();
 const mediaModal = ref();
+const viewMediaModal = ref();
 const { t } = useI18n();
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -217,8 +219,8 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
 
                                     <div class="flex gap-2 justify-end w-full">
                                         <Button
-                                            v-tooltip="$t('action.download')" icon="pi pi-download" size="small" variant="text" severity="secondary"
-                                            @click="() => downloadFile(media.path_url, media.filename)" rounded></Button>
+                                            v-tooltip="t('action.view')" icon="pi pi-eye" size="small" variant="text" severity="secondary"
+                                            @click="() => viewMediaModal?.open(media, item)" rounded></Button>
                                         <Button
                                             v-tooltip="$t('action.delete')" icon="pi pi-trash" size="small" variant="text" severity="danger"
                                             @click="destroyMedia($event, item, media)" rounded></Button>
@@ -277,5 +279,6 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
         <FormModal ref="modal" />
         <QuestionModal ref="questionModal" />
         <MediaModal ref="mediaModal" />
+        <ViewMediaModal ref="viewMediaModal" />
     </AppLayout>
 </template>
