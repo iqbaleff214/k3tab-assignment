@@ -78,7 +78,7 @@ onMounted(() => {
     <div class="overflow-x-auto">
         <table class="min-w-full text-sm text-gray-700 whitespace-nowrap">
             <thead>
-            <tr class="bg-gray-100 text-xs uppercase text-gray-500 border-b border-gray-200">
+            <tr class="bg-gray-100 dark:bg-gray-900 text-xs uppercase text-gray-500 dark:text-gray-300 border-b border-gray-200">
                 <th class="px-3 py-2 text-left" v-if="selection">
                     <Checkbox
                         @click="selectAll"
@@ -134,14 +134,14 @@ onMounted(() => {
             </thead>
             <tbody>
             <template v-if="items.length > 0">
-                <tr class="border-b border-gray-200 hover:bg-gray-50" v-for="item in items" :key="item.id">
+                <tr class="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800" v-for="item in items" :key="item.id">
                     <td class="px-3 py-2" v-if="selection">
                         <Checkbox
                             :value="item"
                             v-model="selected" />
                     </td>
                     <template v-for="col in columns" :key="col.field">
-                        <td v-if="col.isVisible" class="px-3 py-2">
+                        <td v-if="col.isVisible" class="px-3 py-2 dark:text-gray-300">
                             <template v-if="col.slot?.body">
                                 <component :is="col.slot?.body" :row="item" />
                             </template>

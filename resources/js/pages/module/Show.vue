@@ -179,19 +179,19 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                 <div class="lg:col-span-2 flex flex-col gap-6">
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.equipment_required') }}</h3>
-                        <p class="wrap-break-word text-black" v-html="item.equipment_required ?? '-'"></p>
+                        <p class="wrap-break-word text-black dark:text-white" v-html="item.equipment_required ?? '-'"></p>
                     </div>
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.procedure') }}</h3>
-                        <p class="wrap-break-word text-black" v-html="item.procedure ?? '-'"></p>
+                        <p class="wrap-break-word text-black dark:text-white" v-html="item.procedure ?? '-'"></p>
                     </div>
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.reference') }}</h3>
-                        <p class="wrap-break-word text-black" v-html="item.reference ?? '-'"></p>
+                        <p class="wrap-break-word text-black dark:text-white" v-html="item.reference ?? '-'"></p>
                     </div>
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.performance') }}</h3>
-                        <p class="wrap-break-word text-black" v-html="item.performance ?? '-'"></p>
+                        <p class="wrap-break-word text-black dark:text-white" v-html="item.performance ?? '-'"></p>
                     </div>
                 </div>
                 <div class="flex flex-col gap-6">
@@ -204,12 +204,12 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                                 @click="() => mediaModal?.open(item)" rounded></Button>
                         </div>
                         <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <div v-for="media in item.media" :key="media.path_url" class="relative group w-full h-36 rounded-md overflow-hidden border-gray-100 border-1"
-                                 :class="{ 'bg-center bg-cover bg-no-repeat shadow-md': media.is_image, 'bg-white shadow-md flex items-center justify-center': !media.is_image }"
+                            <div v-for="media in item.media" :key="media.path_url" class="relative group w-full h-36 rounded-md overflow-hidden border-gray-100 dark:border-slate-500 border-1"
+                                 :class="{ 'bg-center bg-cover bg-no-repeat shadow-md': media.is_image, 'bg-white dark:bg-slate-500 shadow-md flex items-center justify-center': !media.is_image }"
                                  :style="{ backgroundImage: media.is_image ? `url('${media.path_url}')` : 'none' }">
                                 <i class="pi pi-file-pdf text-gray-300" v-if="media.path_url.endsWith('pdf')" style="font-size: 2rem"></i>
                                 <i class="pi pi-file-word text-gray-300" v-if="media.path_url.endsWith('doc') || media.path_url.endsWith('docx')" style="font-size: 2rem"></i>
-                                <div class="absolute inset-0 backdrop-blur-sm bg-white/50 flex flex-col items-start justify-between p-4 text-gray-800 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 space-y-2">
+                                <div class="absolute inset-0 backdrop-blur-sm bg-white/50 flex flex-col items-start justify-between p-4 text-gray-800 text-sm opacity-100 transition-opacity duration-200 space-y-2">
                                     <div class="text-start w-full">
                                         <p class="break-words font-medium line-clamp-3" :title="media.filename">{{ media.filename }}</p>
                                         <p class="text-xs font-light">{{ formatBytes(media.size) }}</p>
@@ -237,7 +237,7 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                                 @click="() => questionModal?.open(item)" rounded></Button>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <div v-for="question in item.questions" :key="question.id" class="flex flex-col gap-1.5 bg-slate-50 rounded-xl py-2 px-4">
+                            <div v-for="question in item.questions" :key="question.id" class="flex flex-col gap-1.5 bg-slate-50 dark:bg-slate-900 rounded-xl py-2 px-4">
                                 <div class="flex justify-between items-center">
                                     <div class="text-sm font-medium flex-1" v-if="!isHttpUrl(question.question)">{{ question.question }}</div>
                                     <div v-else>

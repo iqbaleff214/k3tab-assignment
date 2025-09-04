@@ -77,19 +77,19 @@ const downloadFile = (id: number, filename: string) => {
                 <div class="lg:col-span-2 flex flex-col gap-6">
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.equipment_required') }}</h3>
-                        <p class="wrap-break-word text-black" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.equipment_required ?? '-'"></p>
+                        <p class="wrap-break-word text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.equipment_required ?? '-'"></p>
                     </div>
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.procedure') }}</h3>
-                        <p class="wrap-break-word text-black" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.procedure ?? '-'"></p>
+                        <p class="wrap-break-word text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.procedure ?? '-'"></p>
                     </div>
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.reference') }}</h3>
-                        <p class="wrap-break-word text-black" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.reference ?? '-'"></p>
+                        <p class="wrap-break-word text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.reference ?? '-'"></p>
                     </div>
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.performance') }}</h3>
-                        <p class="wrap-break-word text-black" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.performance ?? '-'"></p>
+                        <p class="wrap-break-word text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.performance ?? '-'"></p>
                     </div>
                     <div>
                         <div class="flex justify-between items-baseline mb-2">
@@ -101,7 +101,7 @@ const downloadFile = (id: number, filename: string) => {
                                  :style="{ backgroundImage: media.is_image ? `url('${media.path_url}')` : 'none' }">
                                 <i class="pi pi-file-pdf text-gray-300" v-if="media.path_url.endsWith('pdf')" style="font-size: 2rem"></i>
                                 <i class="pi pi-file-word text-gray-300" v-if="media.path_url.endsWith('doc') || media.path_url.endsWith('docx')" style="font-size: 2rem"></i>
-                                <div class="absolute inset-0 backdrop-blur-sm bg-white/50 flex flex-col items-start justify-between p-4 text-gray-800 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 space-y-2">
+                                <div class="absolute inset-0 backdrop-blur-sm bg-white/50 flex flex-col items-start justify-between p-4 text-gray-800 text-sm opacity-100 transition-opacity duration-200 space-y-2">
                                     <div class="text-start w-full" :class="{ 'text-gray-500': item.assessees?.[0]?.downloaded_files?.includes(media.path_url) }">
                                         <p :title="media.filename" class="break-words font-medium line-clamp-3">
                                             {{ media.filename }}
