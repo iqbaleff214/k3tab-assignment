@@ -115,9 +115,6 @@ const downloadFile = (id: number, filename: string) => {
                                         <Button
                                             v-tooltip="t('action.view')" icon="pi pi-eye" size="small" variant="text" severity="secondary"
                                             :disabled="item.assessees?.[0]?.is_doing_test" @click="() => mediaModal?.open(media, item)" rounded></Button>
-                                        <Button
-                                            v-tooltip="t('action.download')" icon="pi pi-download" size="small" variant="text" severity="secondary"
-                                            :disabled="item.assessees?.[0]?.is_doing_test" @click="() => downloadFile(media.id, media.filename)" rounded></Button>
                                     </div>
                                 </div>
                             </div>

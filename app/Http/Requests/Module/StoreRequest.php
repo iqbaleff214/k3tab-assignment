@@ -42,6 +42,7 @@ class StoreRequest extends FormRequest
             'questions.*.correct_answer_index' => ['nullable', 'numeric', 'min:0'],
 
             'files' => ['nullable', 'array'],
+            'files.*' => ['max:2048'],
         ];
     }
 }
