@@ -133,7 +133,7 @@ const downloadFile = (id: number, filename: string) => {
                             <template v-if="result_histories?.[0]?.answers">
                                 <div v-for="(answer, index) in result_histories?.[0]?.answers"
                                      :class="{ '': item.assessees?.[0]?.is_doing_test, 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }"
-                                     :key="index" class="flex flex-col gap-1.5 bg-slate-50 rounded-xl py-4 px-4">
+                                     :key="index" class="flex flex-col gap-1.5 bg-slate-50 dark:bg-slate-900 rounded-xl py-4 px-4">
                                     <div class="flex justify-between items-start">
                                         <div class="text-sm font-medium flex-1" v-if="!isHttpUrl(answer.question)">{{ answer.question }}</div>
                                         <div v-else>
