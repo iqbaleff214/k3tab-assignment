@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enum\TaskStatus;
 use App\Http\Requests\PerformanceGuide\StoreRequest;
+use App\Http\Requests\PerformanceGuide\UpdateRequest;
 use App\Models\Module;
 use App\Models\PerformanceGuide;
 use Illuminate\Http\RedirectResponse;
@@ -40,7 +41,7 @@ class PerformanceGuideController extends Controller
         }
     }
 
-    public function update(StoreRequest $request, PerformanceGuide $guide): RedirectResponse
+    public function update(UpdateRequest $request, PerformanceGuide $guide): RedirectResponse
     {
         try {
             $input = $request->validated();
