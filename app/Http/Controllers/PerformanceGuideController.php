@@ -10,6 +10,7 @@ use App\Models\PerformanceGuide;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -39,6 +40,11 @@ class PerformanceGuideController extends Controller
 
             return back()->with('error',$exception->getMessage());
         }
+    }
+
+    public function print(PerformanceGuide $guide): View
+    {
+        return view('pdf.performance-guide-gemini', compact('guide'));
     }
 
     public function update(UpdateRequest $request, PerformanceGuide $guide): RedirectResponse

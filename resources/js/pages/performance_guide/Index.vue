@@ -4,7 +4,7 @@ import Pagination from '@/components/Pagination.vue';
 import type {
     BreadcrumbItem, FilterColumn, Paginate, SharedData, PerformanceGuide, Module
 } from '@/types';
-import { Head, router, usePage, useForm } from '@inertiajs/vue3';
+import { Head, router, usePage, useForm, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
@@ -122,7 +122,13 @@ const searchByCode = (value: string | undefined): void => {
 
             <DataTable
                 name="admin_performance_guide_table" :selection="false" :items="items.data">
-                <Column field="skill_number" header="field.skill_number" :sortable="true" :visible="true" />
+                <Column field="skill_number" header="field.skill_number" :sortable="true" :visible="true">
+                    <template #body="{ row }: { row: PerformanceGuide }">
+                        <a target="_blank" :href="route('admin.performance-guide.print', row.skill_number)" class="hover:underline text-amber-500">
+                            {{ row.skill_number }}
+                        </a>
+                    </template>
+                </Column>
                 <Column field="title" header="field.title" :visible="true" />
                 <Column field="created_at" header="field.created_at" :sortable="true" :visible="false">
                     <template #body="{ row }: { row: PerformanceGuide }">

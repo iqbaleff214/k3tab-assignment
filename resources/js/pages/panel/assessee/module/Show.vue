@@ -79,19 +79,19 @@ const downloadFile = (id: number, filename: string) => {
                 <div class="lg:col-span-2 flex flex-col gap-6">
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.equipment_required') }}</h3>
-                        <p class="wrap-break-word text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.equipment_required ?? '-'"></p>
+                        <div class="prose break-all lg:break-words w-full text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.equipment_required ?? '-'"></div>
                     </div>
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.procedure') }}</h3>
-                        <p class="wrap-break-word text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.procedure ?? '-'"></p>
+                        <div class="prose break-all lg:break-words w-full text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.procedure ?? '-'"></div>
                     </div>
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.reference') }}</h3>
-                        <p class="wrap-break-word text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.reference ?? '-'"></p>
+                        <div class="prose break-all lg:break-words w-full text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.reference ?? '-'"></div>
                     </div>
                     <div>
                         <h3 class="font-medium text-amber-600">{{ t('field.performance') }}</h3>
-                        <p class="wrap-break-word text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.performance ?? '-'"></p>
+                        <div class="prose break-all lg:break-words w-full text-black dark:text-white" :class="{ 'select-none blur-sm': item.assessees?.[0]?.is_doing_test }" v-html="item.performance ?? '-'"></div>
                     </div>
                     <div>
                         <div class="flex justify-between items-baseline mb-2">
