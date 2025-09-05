@@ -8,10 +8,12 @@ Route::get('/', fn () => Inertia::render('Welcome', [
 ]))->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', fn () => Inertia::render('Dashboard') )->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
 
     Route::middleware('allowed-type:admin')->group(function () {
         Route::prefix('a')->name('admin.')->group(function () {
+            Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
+
             Route::get('/module', [\App\Http\Controllers\ModuleController::class, 'index'])->name('module.index');
             Route::get('/module/{module}', [\App\Http\Controllers\ModuleController::class, 'show'])->name('module.show');
             Route::post('/module', [\App\Http\Controllers\ModuleController::class, 'store'])->name('module.store');
@@ -28,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::get("/performance-guide", [\App\Http\Controllers\PerformanceGuideController::class, 'index'])->name('performance-guide.index');
             Route::post("/performance-guide", [\App\Http\Controllers\PerformanceGuideController::class, 'store'])->name('performance-guide.store');
+            Route::get("/performance-guide/{guide:skill_number}/print", [\App\Http\Controllers\PerformanceGuideController::class, 'print'])->name('performance-guide.print');
             Route::put("/performance-guide/{guide}", [\App\Http\Controllers\PerformanceGuideController::class, 'update'])->name('performance-guide.update');
             Route::delete("/performance-guide/{guide}", [\App\Http\Controllers\PerformanceGuideController::class, 'destroy'])->name('performance-guide.destroy');
         });
@@ -49,7 +52,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/assessee/{assessee}', [\App\Http\Controllers\AssesseeController::class, 'destroy'])->name('assessee.destroy');
     });
 
+    Route::middleware('allowed-type:assessor')->prefix('r')->name('assessor.')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Assessor\DashboardController::class, 'index'])->name('dashboard');
+
+        Route::post('/assessment/{assessment}/proposal', [\App\Http\Controllers\Assessor\AssessmentController::class, 'proposal'])->name('assessment.proposal');
+    });
+
     Route::middleware('allowed-type:assessee')->prefix('e')->name('assessee.')->group(function () {
+        Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
+
         Route::get('/module', [\App\Http\Controllers\Assessee\ModuleController::class, 'index'])->name('module.index');
         Route::get('/module/{module}', [\App\Http\Controllers\Assessee\ModuleController::class, 'show'])->name('module.show');
         Route::post('/module/{module}/download/{media}', [\App\Http\Controllers\Assessee\ModuleController::class, 'download'])->name('module.download');
@@ -57,6 +68,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/module/{module}/start', [\App\Http\Controllers\Assessee\ModuleController::class, 'startPostTest'])->name('module.post-test.start');
         Route::post('/module/{module}/finish', [\App\Http\Controllers\Assessee\ModuleController::class, 'finishPostTest'])->name('module.post-test.finish');
         Route::post('/module/{module}/cancel', [\App\Http\Controllers\Assessee\ModuleController::class, 'cancelPostTest'])->name('module.post-test.cancel');
+
+        Route::get('/assessment', [\App\Http\Controllers\Assessee\AssessmentController::class, 'index'])->name('assessment.index');
+        Route::get('/assessment/schedule', [\App\Http\Controllers\Assessee\AssessmentController::class, 'schedule'])->name('assessment.schedule');
+        Route::get('/assessment/{assessment}', [\App\Http\Controllers\Assessee\AssessmentController::class, 'show'])->name('assessment.show');
+        Route::post('/assessment', [\App\Http\Controllers\Assessee\AssessmentController::class, 'store'])->name('assessment.store');
+        Route::delete('/assessment/{assessment}', [\App\Http\Controllers\Assessee\AssessmentController::class, 'destroy'])->name('assessment.destroy');
     });
 });
 

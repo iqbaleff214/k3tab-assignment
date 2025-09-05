@@ -4,7 +4,7 @@ import Pagination from '@/components/Pagination.vue';
 import type {
     BreadcrumbItem, FilterColumn, Paginate, SharedData, PerformanceGuide, Module
 } from '@/types';
-import { Head, router, usePage, useForm, Link } from '@inertiajs/vue3';
+import { Head, router, usePage, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {

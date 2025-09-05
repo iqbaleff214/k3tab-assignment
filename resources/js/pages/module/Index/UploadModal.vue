@@ -62,7 +62,7 @@ defineExpose({
             <div class="grid gap-6 pt-2 pb-8">
                 <FileUpload
                     :multiple="true" accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    :max-file-size="10_000_000" @select="upload">
+                    :max-file-size="20_000_000" @select="upload">
                     <template #header="{ chooseCallback, clearCallback }">
                         <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
                             <div class="flex gap-2">

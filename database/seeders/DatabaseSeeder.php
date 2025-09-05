@@ -21,9 +21,5 @@ class DatabaseSeeder extends Seeder
             'type' => UserType::Admin,
             'locale' => 'en',
         ]);
-
-        $this->call([
-            RoleSeeder::class,
-        ]);
     }
 }

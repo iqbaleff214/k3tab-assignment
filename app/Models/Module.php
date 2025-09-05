@@ -6,6 +6,7 @@ use App\Traits\Models\Filterable;
 use App\Traits\Models\Paginate;
 use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -13,7 +14,7 @@ use Illuminate\Support\Str;
 
 class Module extends Model
 {
-    use HasUuids;
+    use HasUuids, HasFactory;
     use Sortable, Filterable, Paginate;
 
     protected $fillable = [

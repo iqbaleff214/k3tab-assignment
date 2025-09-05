@@ -370,3 +370,48 @@ export interface Task {
     status?: "completed" | "not_completed" | "not_available";
     hint: string;
 }
+
+export interface Assessment {
+    id: string;
+    assessor_id: number;
+    assessee_id: number;
+    assessee_name: string;
+    assessee_no_id: string | null;
+    assessee_school: string | null;
+    assessee?: User;
+    assessor?: User;
+    performance_guide_id: string;
+    guide?: PerformanceGuide;
+    tasks: TaskGroup[];
+    schedules?: AssessmentSchedule[];
+    result: 'competent' | 'no_competent' | null;
+    status: 'pending' | 'scheduled' | 'completed' | 'cancelled';
+    comment: string | null;
+    scheduled_at: string | null;
+    started_at: string | null;
+    finished_at: string | null;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface AssessmentSchedule {
+    id: number;
+    assessment_id: string;
+    proposed_date: string;
+    current_status: 'proposed' | 'accepted' | 'rejected';
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CalendarEvent {
+    id: string;
+    title: string;
+    date: string;
+    start?: string;
+    end?: string;
+    allDay?: boolean;
+    backgroundColor?: string;
+    borderColor?: string;
+    textColor?: string;
+    extendedProps?: { detail: Assessment };
+}

@@ -6,7 +6,15 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem, NavItemGroup, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import {
-    Folder, LayoutGrid, UserPenIcon, Settings2Icon, UserCheck2Icon, BookTextIcon, ListCheckIcon
+    Folder,
+    LayoutGrid,
+    UserPenIcon,
+    Settings2Icon,
+    UserCheck2Icon,
+    BookTextIcon,
+    ListCheckIcon,
+    NotebookPenIcon,
+    CalendarDaysIcon
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
@@ -22,13 +30,13 @@ const mainNavItems: NavItemGroup[] = [
                 href: route('dashboard'),
                 icon: LayoutGrid,
                 isAvailable: true,
-                isActive: route().current('dashboard')
+                isActive: route().current('*.dashboard')
             },
         ],
     },
     {
         header: 'menu.assessment',
-        isAvailable: true,
+        isAvailable: page.props.auth.user.type !== 'assessor',
         items: [
             {
                 title: 'menu.module',
@@ -50,6 +58,21 @@ const mainNavItems: NavItemGroup[] = [
                 icon: ListCheckIcon,
                 isAvailable: page.props.auth.user.type === 'admin',
                 isActive: route().current('admin.performance-guide.*')
+            },
+            {
+                title: 'menu.assessment',
+                href: route('assessee.assessment.index'),
+                icon: NotebookPenIcon,
+                isAvailable: page.props.auth.user.type === 'assessee',
+                isActive: route().current('assessee.assessment.index') ||
+                    route().current('assessee.assessment.show'),
+            },
+            {
+                title: 'menu.schedule',
+                href: route('assessee.assessment.schedule'),
+                icon: CalendarDaysIcon,
+                isAvailable: page.props.auth.user.type === 'assessee',
+                isActive: route().current('assessee.assessment.schedule')
             },
         ],
     },

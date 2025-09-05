@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::name('json.')->prefix('json')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/assessor/assessment/event', [\App\Http\Controllers\JSON\Assessor\AssessmentController::class, 'index'])->name('assessor.assessment.event.index');
+
     Route::get('/role', [\App\Http\Controllers\JSON\RoleController::class, 'index'])->name('role.index');
 
     Route::get('/approval/{approval}', [\App\Http\Controllers\JSON\ApprovalFlowController::class, 'show'])->name('approval-flow.show');

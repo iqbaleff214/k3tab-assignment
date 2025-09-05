@@ -29,7 +29,8 @@
         "module": "Module",
         "module_skill": "Module and Skill",
         "post_test": "Post-test",
-        "performance_guide": "Performance Guide"
+        "performance_guide": "Performance Guide",
+        "schedule": "Schedule"
     },
     "label": {
         "new": "New",
@@ -108,6 +109,7 @@
         "doing_test": "Doing Test",
         "you_have_not_taken_post_test": "You have not taken the post-test for this module yet",
         "you_have_not_accessed_the_module": "You are not allowed to take the post-test as you have not accessed the module yet",
+        "you_have_to_retake_post_test": "You have to retake the post-test first",
         "view_detail": "View detail",
         "post_test_result": "Post-test Result",
         "correct": "Correct",
@@ -118,7 +120,15 @@
         "not_available": "Not Available",
         "yes": "Yes",
         "no": "No",
-        "n_a": "N/A"
+        "n_a": "N/A",
+        "proposed": "Proposed",
+        "accepted": "Accepted",
+        "rejected": "Rejected",
+        "pending": "Pending",
+        "scheduled": "Scheduled",
+        "cancelled": "Cancelled",
+        "proposed_assessment": "Proposed Assessment",
+        "no_assessment_proposed_to_me": "No assessment assigned to me"
     },
     "action": {
         "submit": "Save",
@@ -152,7 +162,10 @@
         "start_the_test": "Start The Post-Test",
         "retake_the_test": "Retake The Post-Test",
         "resume_the_test": "Resume The Post-Test",
-        "cancel_the_test": "Cancel The Post-Test"
+        "cancel_the_test": "Cancel The Post-Test",
+        "submit_menu": "{menu} Submission",
+        "process": "Process",
+        "reject": "Reject"
     },
     "field": {
         "name": "Name",
@@ -204,7 +217,16 @@
         "performance_task": "Performance Task",
         "hint": "Hint",
         "group": "Group",
-        "related_module": "Related Module"
+        "related_module": "Related Module",
+        "assessor": "Assessor",
+        "assessee": "Assessee",
+        "performance_guide": "Performance Guide",
+        "result": "Result",
+        "status": "Status",
+        "scheduled_at": "Scheduled At",
+        "finished_at": "Finished At",
+        "started_at": "Started At",
+        "available_dates": "Available Dates"
     },
     "http": {
         "400": "Bad Request",

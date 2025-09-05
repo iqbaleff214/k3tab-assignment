@@ -121,12 +121,12 @@ class ModuleController extends Controller
             $module->postTests()->create([
                 'user_id' => $request->user()->id,
                 'answers' => $input['answers'],
-                'score' => $input['score'],
+                'score' => (int) $input['score'],
                 'minimum_score' => $module->minimum_score,
                 'is_passed' => $input['score'] >= $module->minimum_score,
             ]);
 
-            $assessee->score = $input['score'];
+            $assessee->score = (int) $input['score'];
             $assessee->is_doing_test = false;
             $assessee->save();
 
