@@ -79,7 +79,8 @@ defineExpose({
                 <div>
                     <FloatLabel variant="on">
                         <DatePicker
-                            :min-date="new Date()"
+                            :min-date="new Date(selectedSchedule?.proposed_date)"
+                            :max-date="new Date(new Date(selectedSchedule?.proposed_date).getTime() + (23 * 60 + 59) * 60 * 1000)"
                             :fluid="true" :autofocus="true" id="scheduled_at" :invalid="form.errors.scheduled_at !== undefined"
                             v-model="form.scheduled_at" show-time hour-format="24" :disabled="form.assessment_scheduled_id === null" />
                         <label for="scheduled_at" class="text-sm">{{ $t('field.scheduled_at') }}</label>

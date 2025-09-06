@@ -6,10 +6,7 @@ import HeadingSmall from '@/components/HeadingSmall.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { type BreadcrumbItem, type SharedData, type User } from '@/types';
-import {
-    SelectButton, Avatar, FloatLabel, Message, InputText,
-    Button,
-} from 'primevue';
+import { FloatLabel, Message, InputText, Button, } from 'primevue';
 import { useI18n } from 'vue-i18n';
 
 interface Props {
@@ -35,6 +32,7 @@ const form = useForm({
     email: user.email,
     locale: user.locale,
     phone: user.phone,
+    nim: user.nim,
 });
 
 const submit = () => {
@@ -91,6 +89,18 @@ const locales: Locale[] = [
                         </FloatLabel>
                         <Message v-if="form.errors.email" severity="error" size="small" variant="simple">
                             {{ form.errors.email }}
+                        </Message>
+                    </div>
+
+                    <div v-if="page.props.auth.user.type === 'assessee'">
+                        <FloatLabel variant="on">
+                            <InputText
+                                :fluid="true" id="nim" :invalid="form.errors.nim !== undefined"
+                                v-model="form.nim" type="text" autocomplete="off" />
+                            <label for="nim" class="text-sm">{{ $t('field.nim') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.nim" severity="error" size="small" variant="simple">
+                            {{ form.errors.nim }}
                         </Message>
                     </div>
 

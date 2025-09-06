@@ -70,6 +70,8 @@ class AssessmentController extends Controller
                 'assessee_id' => $user->id,
                 'assessee_name' => $user->name,
                 'performance_guide_id' => $guide->id,
+                'assessee_no_id' => $input['assessee_no_id'],
+                'assessee_school' => $input['assessee_school'],
             ]);
 
             foreach ($input['available'] as $datetime) {

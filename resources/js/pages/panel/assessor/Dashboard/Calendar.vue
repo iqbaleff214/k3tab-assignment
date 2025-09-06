@@ -45,5 +45,7 @@ onMounted(loadEvent);
         <FullCalendar :options />
     </div>
 
-    <EventModal ref="modal" />
+    <EventModal
+        @submit="loadEvent"
+        ref="modal" />
 </template>

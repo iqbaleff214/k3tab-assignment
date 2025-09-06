@@ -128,7 +128,8 @@
         "scheduled": "Scheduled",
         "cancelled": "Cancelled",
         "proposed_assessment": "Proposed Assessment",
-        "no_assessment_proposed_to_me": "No assessment assigned to me"
+        "no_assessment_proposed_to_me": "No assessment assigned to me",
+        "you_can_change_it_in_profile_page": "Change it in Settings → Profile"
     },
     "action": {
         "submit": "Save",
@@ -226,7 +227,12 @@
         "scheduled_at": "Scheduled At",
         "finished_at": "Finished At",
         "started_at": "Started At",
-        "available_dates": "Available Dates"
+        "available_dates": "Available Dates",
+        "validation_date": "Validation Date",
+        "assessee_no_id": "No ID",
+        "assessee_school": "School",
+        "nim": "No ID",
+        "comment": "Comment"
     },
     "http": {
         "400": "Bad Request",

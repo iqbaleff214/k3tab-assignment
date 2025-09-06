@@ -115,6 +115,7 @@ export interface User {
     international_phone: string | null;
     has_whatsapp: boolean;
     type: 'admin' | 'assessor' | 'assessee';
+    nim: string | null;
     created_at: string;
     updated_at: string;
 }

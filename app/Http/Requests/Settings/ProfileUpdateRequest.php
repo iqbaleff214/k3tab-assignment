@@ -31,6 +31,7 @@ class ProfileUpdateRequest extends FormRequest
                 'nullable',
                 Rule::unique(User::class, 'phone')->ignore($this->user()->id),
             ],
+            'nim' => ['nullable', Rule::unique(User::class)->ignore($this->user()->id),],
         ];
     }
 }

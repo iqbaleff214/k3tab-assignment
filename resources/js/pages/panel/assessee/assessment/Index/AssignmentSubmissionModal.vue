@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { Link, useForm } from '@inertiajs/vue3';
-import type { Assessment, PerformanceGuide, User } from '@/types';
+import { Link, useForm, usePage } from '@inertiajs/vue3';
+import type { PerformanceGuide, SharedData, User } from '@/types';
 import {
-    Dialog, Button, FloatLabel, Message, DatePicker, Select,
+    Dialog, Button, FloatLabel, Message, DatePicker, Select, InputText,
 } from 'primevue';
 import { useI18n } from 'vue-i18n';
+
+const page = usePage<SharedData>();
 
 const visible = ref<boolean>(false);
 const props = defineProps<{
@@ -19,12 +21,16 @@ interface Form {
     assessor_id: number;
     skill_number: string;
     available: Date[];
+    assessee_no_id: string | null;
+    assessee_school: string | null;
 }
 
 const form = useForm<Form>({
     assessor_id: props.assessors?.[0]?.id ?? 0,
     skill_number: props.guides?.[0]?.skill_number ?? '',
     available: [],
+    assessee_no_id: page.props.auth.user.nim,
+    assessee_school: null,
 });
 
 const selectedGuide = computed(() => props.guides.find(g => g.skill_number === form.skill_number));
@@ -108,6 +114,35 @@ defineExpose({
                     <Message v-if="form.errors.assessor_id" severity="error" size="small" variant="simple">
                         {{ form.errors.assessor_id }}
                     </Message>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <FloatLabel variant="on">
+                            <InputText
+                                fluid id="assessee_no_id" :invalid="form.errors.assessee_no_id !== undefined"
+                                v-model="form.assessee_no_id" type="text" disabled />
+                            <label for="assessee_no_id" class="text-sm">{{ t('field.assessee_no_id') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.assessee_no_id" severity="error" size="small" variant="simple">
+                            {{ form.errors.assessee_no_id }}
+                        </Message>
+                        <Link class="text-xs text-amber-500 hover:underline" :href="route('profile.edit')">
+                            {{ t('label.you_can_change_it_in_profile_page') }}
+                        </Link>
+                        <small class="text-amber-500 hover:underline">
+                        </small>
+                    </div>
+                    <div>
+                        <FloatLabel variant="on">
+                            <InputText
+                                fluid id="assessee_school" :invalid="form.errors.assessee_school !== undefined"
+                                v-model="form.assessee_school" type="text" />
+                            <label for="assessee_school" class="text-sm">{{ t('field.assessee_school') }}</label>
+                        </FloatLabel>
+                        <Message v-if="form.errors.assessee_school" severity="error" size="small" variant="simple">
+                            {{ form.errors.assessee_school }}
+                        </Message>
+                    </div>
                 </div>
                 <div>
                     <FloatLabel variant="on">

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Assessor;
 
+use App\Enum\AssessmentResult;
 use App\Enum\AssessmentStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Assessment\EvaluateRequest;
 use App\Http\Requests\Assessment\ProposalRequest;
 use App\Models\Assessment;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class AssessmentController extends Controller
@@ -31,6 +31,29 @@ class AssessmentController extends Controller
                     ->where('id', $input['assessment_scheduled_id'])
                     ->update([ 'status' => 1 ]);
             }
+
+            return back()->with('success', __('action.updated', ['menu' => __('menu.assessment')]));
+        } catch (\Throwable $exception) {
+            Log::error($exception->getMessage());
+
+            return back()->with('error', $exception->getMessage());
+        }
+    }
+
+    public function store(EvaluateRequest $request, Assessment $assessment): RedirectResponse
+    {
+        try {
+            $input = $request->validated();
+
+            $assessment->update([
+                'status' => AssessmentStatus::Completed->value,
+                'tasks' => $input['tasks'],
+                'result' => empty($input['result']) ?
+                    AssessmentResult::NotCompetent->value : AssessmentResult::Competent->value,
+                'comment' => $input['comment'],
+                'started_at' => $input['started_at'],
+                'finished_at' => now(),
+            ]);
 
             return back()->with('success', __('action.updated', ['menu' => __('menu.assessment')]));
         } catch (\Throwable $exception) {

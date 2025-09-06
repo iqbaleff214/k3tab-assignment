@@ -55,6 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('allowed-type:assessor')->prefix('r')->name('assessor.')->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Assessor\DashboardController::class, 'index'])->name('dashboard');
 
+        Route::post('/assessment/{assessment}', [\App\Http\Controllers\Assessor\AssessmentController::class, 'store'])->name('assessment.store');
         Route::post('/assessment/{assessment}/proposal', [\App\Http\Controllers\Assessor\AssessmentController::class, 'proposal'])->name('assessment.proposal');
     });
 

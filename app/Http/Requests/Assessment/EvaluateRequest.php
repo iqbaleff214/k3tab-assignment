@@ -5,14 +5,14 @@ namespace App\Http\Requests\Assessment;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class EvaluateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->user()->type === 'assessee';
+        return auth()->user()->type === 'assessor';
     }
 
     /**
@@ -23,11 +23,10 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'assessor_id' => ['required', 'exists:users,id'],
-            'skill_number' => ['required', 'exists:performance_guides,skill_number'],
-            'available' => ['required', 'array', 'min:1'],
-            'assessee_no_id' => ['nullable'],
-            'assessee_school' => ['nullable'],
+            'tasks' => ['required', 'array'],
+            'result' => ['required', 'boolean'],
+            'comment' => ['nullable', 'string'],
+            'started_at' => ['required', 'date'],
         ];
     }
 }
