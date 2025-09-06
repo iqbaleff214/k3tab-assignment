@@ -369,7 +369,8 @@ export interface TaskGroup {
 export interface Task {
     title: string;
     status?: "completed" | "not_completed" | "not_available";
-    hint: string;
+    hint: string | File;
+    hint_is_image?: boolean;
 }
 
 export interface Assessment {

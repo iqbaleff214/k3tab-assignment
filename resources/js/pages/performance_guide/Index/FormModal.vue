@@ -3,9 +3,10 @@ import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import type { Module, PerformanceGuide, TaskGroup } from '@/types';
 import {
-    Dialog, Button, FloatLabel, InputText, Message, Textarea, Select,
+    Dialog, Button, FloatLabel, InputText, Message, Textarea, Select, FileUpload, Image
 } from 'primevue';
 import Editor from 'primevue/editor';
+import { isHttpUrl } from '@/lib/utils';
 
 const props = defineProps<{
     modules: Module[];
@@ -199,14 +200,28 @@ defineExpose({
                                         :fluid="true" size="small" type="text" rows="3" />
                                 </td>
                                 <td class="px-3 py-2">
-                                    <Textarea
+                                    <div class="flex-1 flex justify-start" v-if="form.tasks[taskGroupIndex].child[taskIndex].hint_is_image">
+                                        <FileUpload
+                                            mode="basic" v-if="!isHttpUrl(form.tasks[taskGroupIndex].child[taskIndex].hint)" accept="image/*" :max-file-size="20_000_000" size="small"
+                                            @select="(e) => form.tasks[taskGroupIndex].child[taskIndex].hint = e.files[0]" />
+                                        <Image v-else :src="form.tasks[taskGroupIndex].child[taskIndex].hint as string" class="w-16 h-16" alt="Answer" preview />
+                                    </div>
+                                    <Textarea v-else
                                         v-model="form.tasks[taskGroupIndex].child[taskIndex].hint"
                                         :fluid="true" size="small" type="text" rows="3" />
                                 </td>
                                 <td class="py-2 text-center w-[50px]">
-                                    <Button
-                                        icon="pi pi-trash" size="small" variant="text" severity="danger"
-                                        @click="(e) => form.tasks[taskGroupIndex].child.splice(taskIndex, 1)" rounded></Button>
+                                    <div class="flex flex-col gap-2 justify-end items-center">
+                                        <Button
+                                            v-if="!isHttpUrl(form.tasks[taskGroupIndex].child[taskIndex].hint)"
+                                            v-tooltip="$t(!form.tasks[taskGroupIndex].child[taskIndex].hint_is_image ? 'label.n_as_an_image' : 'label.n_as_a_text', { n: $t('field.hint') } )"
+                                            :icon="!form.tasks[taskGroupIndex].child[taskIndex].hint_is_image ? 'pi pi-image' : 'pi pi-align-center'"
+                                            @click="() => form.tasks[taskGroupIndex].child[taskIndex].hint_is_image = !form.tasks[taskGroupIndex].child[taskIndex].hint_is_image"
+                                            size="small" variant="text" severity="secondary" rounded />
+                                        <Button
+                                            icon="pi pi-trash" size="small" variant="text" severity="danger"
+                                            @click="(e) => form.tasks[taskGroupIndex].child.splice(taskIndex, 1)" rounded></Button>
+                                    </div>
                                 </td>
                             </tr>
                             <tr class="border-b border-gray-200">

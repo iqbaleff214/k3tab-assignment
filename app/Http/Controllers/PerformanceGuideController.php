@@ -9,7 +9,9 @@ use App\Models\Module;
 use App\Models\PerformanceGuide;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -32,6 +34,13 @@ class PerformanceGuideController extends Controller
     {
         try {
             $input = $request->validated();
+            foreach ($input['tasks'] as $taskIndex => $task) {
+                foreach ($task['child'] as $childIndex => $child) {
+                    if ($child['hint'] instanceof UploadedFile) {
+                        $input['tasks'][$taskIndex]['child'][$childIndex]['hint'] = Storage::url($child['hint']->storePublicly('performance-guides'));
+                    }
+                }
+            }
             PerformanceGuide::query()->create($input);
 
             return back()->with('success', __('action.created', ['menu' => __('menu.performance_guide')]));
@@ -51,6 +60,13 @@ class PerformanceGuideController extends Controller
     {
         try {
             $input = $request->validated();
+            foreach ($input['tasks'] as $taskIndex => $task) {
+                foreach ($task['child'] as $childIndex => $child) {
+                    if ($child['hint'] instanceof UploadedFile) {
+                        $input['tasks'][$taskIndex]['child'][$childIndex]['hint'] = Storage::url($child['hint']->storePublicly('performance-guides'));
+                    }
+                }
+            }
             $guide->update($input);
 
             return back()->with('success', __('action.updated', ['menu' => __('menu.performance_guide')]));

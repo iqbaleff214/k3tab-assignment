@@ -2,10 +2,10 @@
 import { ref } from 'vue';
 import type { CalendarEvent, TaskGroup } from '@/types';
 import {
-    Dialog, Button, Textarea, FloatLabel, Message, InputText, RadioButton
+    Dialog, Button, Textarea, FloatLabel, Message, InputText, RadioButton, Image
 } from 'primevue';
 import { useI18n } from 'vue-i18n';
-import { dateHumanFormat } from '@/lib/utils';
+import { dateHumanFormat, isHttpUrl } from '@/lib/utils';
 import { useForm } from '@inertiajs/vue3';
 
 const visible = ref<boolean>(false);
@@ -159,7 +159,12 @@ defineExpose({
                                         :input-id="`completed_${taskGroupIndex}_${taskIndex}_status_not_available`"
                                         :name="`completed_${taskGroupIndex}_${taskIndex}_status`" value="not_available" />
                                 </td>
-                                <td class="px-3 py-2 border-1 border-gray-200">{{ task.hint }}</td>
+                                <td class="px-3 py-2 border-1 border-gray-200">
+                                    <Image
+                                        :src="task.hint as string" v-if="isHttpUrl(task.hint)"
+                                        class="w-16 h-16" alt="Answer" preview />
+                                    <span v-else>{{ task.hint }}</span>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

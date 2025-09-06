@@ -98,7 +98,15 @@
                     <td class="text-center">@if(($task['status'] ?? '') === 'completed')<i>✓</i>@endif</td>
                     <td class="text-center">@if(($task['status'] ?? '') === 'not_completed')<i>✓</i>@endif</td>
                     <td class="text-center">@if(($task['status'] ?? '') === 'not_available')<i>✓</i>@endif</td>
-                    <td>{{ $task['hint'] }}</td>
+                    <td>
+                        @if(filter_var($task['hint'], FILTER_VALIDATE_URL) !== false)
+                            <img
+                                style="width: 100%"
+                                src="{{ $task['hint'] }}" alt="{{ $task['title'] }}">
+                        @else
+                            {{ $task['hint'] }}
+                        @endif
+                    </td>
                 </tr>
             @endforeach
             </tbody>

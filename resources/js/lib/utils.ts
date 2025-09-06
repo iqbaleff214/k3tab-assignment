@@ -200,8 +200,11 @@ export const downloadFile = (url: string, filename: string) => {
     a.click();
 };
 
-export const isHttpUrl = (str: string): boolean => {
+export const isHttpUrl = (str: any): boolean => {
     try {
+        if (typeof str !== 'string')
+            return false;
+
         const url = new URL(str);
         return url.protocol === "http:" || url.protocol === "https:";
     } catch {
