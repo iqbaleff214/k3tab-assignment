@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Assessment\EvaluateRequest;
 use App\Http\Requests\Assessment\ProposalRequest;
 use App\Models\Assessment;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
@@ -67,5 +69,11 @@ class AssessmentController extends Controller
     public function print(Assessment $assessment): View
     {
         return view('pdf.assessor-assessment', compact('assessment'));
+    }
+
+    public function downloadPrint(Assessment $assessment): Response
+    {
+        $pdf = Pdf::loadView('pdf.assessor-assessment', compact('assessment'));
+        return $pdf->download( $assessment->guide?->skill_number . '.pdf');
     }
 }

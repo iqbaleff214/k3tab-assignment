@@ -56,6 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Assessor\DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/assessment/{assessment}/print', [\App\Http\Controllers\Assessor\AssessmentController::class, 'print'])->name('assessment.print');
+        Route::post('/assessment/{assessment}/print', [\App\Http\Controllers\Assessor\AssessmentController::class, 'downloadPrint'])->name('assessment.download-print');
         Route::post('/assessment/{assessment}', [\App\Http\Controllers\Assessor\AssessmentController::class, 'store'])->name('assessment.store');
         Route::post('/assessment/{assessment}/proposal', [\App\Http\Controllers\Assessor\AssessmentController::class, 'proposal'])->name('assessment.proposal');
     });
@@ -75,6 +76,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/assessment/schedule', [\App\Http\Controllers\Assessee\AssessmentController::class, 'schedule'])->name('assessment.schedule');
         Route::get('/assessment/{assessment}', [\App\Http\Controllers\Assessee\AssessmentController::class, 'show'])->name('assessment.show');
         Route::get('/assessment/{assessment}/print', [\App\Http\Controllers\Assessee\AssessmentController::class, 'print'])->name('assessment.print');
+        Route::post('/assessment/{assessment}/print', [\App\Http\Controllers\Assessee\AssessmentController::class, 'downloadPrint'])->name('assessment.download-print');
         Route::post('/assessment', [\App\Http\Controllers\Assessee\AssessmentController::class, 'store'])->name('assessment.store');
         Route::delete('/assessment/{assessment}', [\App\Http\Controllers\Assessee\AssessmentController::class, 'destroy'])->name('assessment.destroy');
     });

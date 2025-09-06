@@ -51,7 +51,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="window.print()">
 <div class="page">
     <header>
         <div class="logo">CORSA<span class="co-op">POLIBAN</span></div>

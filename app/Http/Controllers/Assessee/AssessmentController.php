@@ -10,6 +10,7 @@ use App\Models\Assessment;
 use App\Models\PerformanceGuide;
 use App\Models\User;
 use App\Notifications\Assessment\AssessorScheduleSubmission;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -114,5 +115,11 @@ class AssessmentController extends Controller
     public function print(Assessment $assessment): View
     {
         return view('pdf.assessee-assessment', compact('assessment'));
+    }
+
+    public function downloadPrint(Assessment $assessment): \Illuminate\Http\Response
+    {
+        $pdf = Pdf::loadView('pdf.assessee-assessment', compact('assessment'));
+        return $pdf->download( $assessment->guide?->skill_number . '.pdf');
     }
 }
