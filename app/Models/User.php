@@ -98,6 +98,11 @@ class User extends Authenticatable
         return $this->hasMany(Assessment::class, 'assessee_id');
     }
 
+    public function assessorAssessments()
+    {
+        return $this->hasMany(Assessment::class, 'assessor_id');
+    }
+
     public function moduleAssessees()
     {
         return $this->hasMany(ModuleAssessee::class, 'user_id');

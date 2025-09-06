@@ -8,22 +8,13 @@ import FormModal from '@/pages/assessee/Index/FormModal.vue';
 import { type BreadcrumbItem, SharedData, type User } from '@/types';
 import { Head, usePage, Link, router } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-import { useConfirm, ConfirmPopup } from 'primevue';
+import { useConfirm, ConfirmPopup, Button as PrimeButton } from 'primevue';
 import { ref, computed } from 'vue';
-import { dateHumanFormatWithTime, dateHumanSmartFormat } from '@/lib/utils';
 import PhoneNumber from '@/components/PhoneNumber.vue';
-import { 
-    Users, 
-    BookOpen, 
-    ClipboardCheck, 
-    TrendingUp, 
-    Clock, 
-    CheckCircle, 
-    AlertCircle,
-    BarChart3,
-    User as UserIcon,
-    Calendar,
-    Target,
+import {
+    BookOpen,
+    ClipboardCheck,
+    TrendingUp,
     Award,
     Activity,
     GraduationCap
@@ -187,7 +178,45 @@ const destroy = (event: MouseEvent, item: User) => {
     <Head :title="item.name" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-6 p-6">
+        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+            <div class="flex justify-between">
+                <div class="flex gap-x-1 items-center">
+                    <Link :href="route('assessee.index')">
+                        <PrimeButton
+                            v-tooltip.bottom="t('action.back')"
+                            icon="pi pi-arrow-left" size="small" variant="text" severity="secondary"
+                            rounded />
+                    </Link>
+                    <PrimeButton
+                        v-tooltip.bottom="t('action.delete')"
+                        icon="pi pi-trash" size="small" variant="text" severity="danger"
+                        @click="destroy($event, item)" rounded />
+                    <span class="text-gray-300">|</span>
+                </div>
+
+                <div class="flex gap-x-1 items-center">
+                    <div class="text-sm text-gray-500">{{ t('label.show_of', { index, total }) }}</div>
+                    <Link :href="route('assessee.show', prev ?? '')" :disabled="prev === null">
+                        <PrimeButton
+                            v-tooltip.bottom="t('label.older')"
+                            :disabled="prev === null"
+                            icon="pi pi-chevron-left" size="small" variant="text" severity="secondary"
+                            rounded />
+                    </Link>
+                    <Link :href="route('assessee.show', next ?? '')" :disabled="next === null">
+                        <PrimeButton
+                            v-tooltip.bottom="t('label.newer')"
+                            :disabled="next === null"
+                            icon="pi pi-chevron-right" size="small" variant="text" severity="secondary"
+                            rounded />
+                    </Link>
+                    <PrimeButton
+                        v-tooltip.bottom="t('action.edit')"
+                        icon="pi pi-pencil" size="small" variant="text" severity="secondary"
+                        @click="() => modal?.open(item)" rounded />
+                </div>
+            </div>
+
             <!-- Header Section -->
             <div class="flex justify-between items-start">
                 <div class="flex items-center gap-4">
@@ -205,9 +234,9 @@ const destroy = (event: MouseEvent, item: User) => {
                             <span v-if="item.phone">•</span>
                             <PhoneNumber
                                 v-if="item.phone"
-                                :phone="item.phone" 
+                                :phone="item.phone"
                                 :international_phone="item.international_phone"
-                                :has_whatsapp="item.has_whatsapp" 
+                                :has_whatsapp="item.has_whatsapp"
                             />
                             <span v-if="item.nim">• NIM: {{ item.nim }}</span>
                         </div>
@@ -222,24 +251,6 @@ const destroy = (event: MouseEvent, item: User) => {
 
                 <!-- Action Buttons -->
                 <div class="flex items-center gap-2">
-                    <div class="text-sm text-muted-foreground mr-4">
-                        {{ index }} of {{ total }}
-                    </div>
-                    <Button variant="outline" size="sm" :disabled="prev === null" asChild>
-                        <Link :href="route('assessee.show', prev ?? '')">
-                            Previous
-                        </Link>
-                    </Button>
-                    <Button variant="outline" size="sm" :disabled="next === null" asChild>
-                        <Link :href="route('assessee.show', next ?? '')">
-                            Next
-                        </Link>
-                    </Button>
-                    <Button variant="outline" size="sm" asChild>
-                        <Link :href="route('assessee.index')">
-                            Back to List
-                        </Link>
-                    </Button>
                 </div>
             </div>
 
@@ -308,8 +319,8 @@ const destroy = (event: MouseEvent, item: User) => {
                     </CardHeader>
                     <CardContent>
                         <div class="space-y-4">
-                            <div 
-                                v-for="skill in charts.skills_statistics" 
+                            <div
+                                v-for="skill in charts.skills_statistics"
                                 :key="skill.skill_name"
                                 class="flex items-center gap-4"
                             >
@@ -322,7 +333,7 @@ const destroy = (event: MouseEvent, item: User) => {
                                 <div class="flex items-center gap-2">
                                     <div class="text-sm font-mono">{{ skill.success_rate }}%</div>
                                     <div class="w-24 bg-muted rounded-full h-2">
-                                        <div 
+                                        <div
                                             class="h-2 rounded-full"
                                             :class="skill.success_rate >= 75 ? 'bg-green-500' : skill.success_rate >= 50 ? 'bg-yellow-500' : 'bg-red-500'"
                                             :style="{ width: `${skill.success_rate}%` }"
@@ -345,8 +356,8 @@ const destroy = (event: MouseEvent, item: User) => {
                     </CardHeader>
                     <CardContent>
                         <div class="space-y-4">
-                            <div 
-                                v-for="activity in recent_activity" 
+                            <div
+                                v-for="activity in recent_activity"
                                 :key="`${activity.type}-${activity.date}`"
                                 class="flex items-start gap-4"
                             >
@@ -379,8 +390,8 @@ const destroy = (event: MouseEvent, item: User) => {
                     </CardHeader>
                     <CardContent>
                         <div class="space-y-4">
-                            <div 
-                                v-for="assessment in assessment_history" 
+                            <div
+                                v-for="assessment in assessment_history"
                                 :key="assessment.id"
                                 class="flex items-center justify-between p-3 border rounded-lg"
                             >
@@ -397,9 +408,9 @@ const destroy = (event: MouseEvent, item: User) => {
                                     <Badge variant="secondary" :class="getStatusColor(assessment.status)">
                                         {{ getStatusText(assessment.status) }}
                                     </Badge>
-                                    <Badge 
-                                        v-if="assessment.result" 
-                                        variant="secondary" 
+                                    <Badge
+                                        v-if="assessment.result"
+                                        variant="secondary"
                                         :class="getResultColor(assessment.result)"
                                     >
                                         {{ getResultText(assessment.result) }}
@@ -421,8 +432,8 @@ const destroy = (event: MouseEvent, item: User) => {
                     </CardHeader>
                     <CardContent>
                         <div class="space-y-4">
-                            <div 
-                                v-for="module in module_progress" 
+                            <div
+                                v-for="module in module_progress"
                                 :key="module.id"
                                 class="flex items-center justify-between p-3 border rounded-lg"
                             >
@@ -441,7 +452,7 @@ const destroy = (event: MouseEvent, item: User) => {
                                     </div>
                                 </div>
                                 <div class="flex flex-col items-end gap-1">
-                                    <Badge 
+                                    <Badge
                                         v-if="module.post_test_completed"
                                         :variant="module.post_test_passed ? 'default' : 'secondary'"
                                         :class="module.post_test_passed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
@@ -469,16 +480,16 @@ const destroy = (event: MouseEvent, item: User) => {
                 </CardHeader>
                 <CardContent>
                     <div class="h-[200px] flex items-end justify-between gap-2">
-                        <div 
-                            v-for="item in charts.performance_timeline" 
+                        <div
+                            v-for="item in charts.performance_timeline"
                             :key="item.date"
                             class="flex flex-col items-center gap-2 flex-1"
                         >
                             <div class="text-xs text-muted-foreground">{{ item.completed_count }}</div>
-                            <div 
+                            <div
                                 class="bg-primary w-full min-h-[4px] rounded-t"
-                                :style="{ 
-                                    height: `${Math.max(4, (item.completed_count / Math.max(...charts.performance_timeline.map(i => i.completed_count))) * 160)}px` 
+                                :style="{
+                                    height: `${Math.max(4, (item.completed_count / Math.max(...charts.performance_timeline.map(i => i.completed_count))) * 160)}px`
                                 }"
                             ></div>
                             <div class="text-xs text-muted-foreground text-center">
