@@ -7,13 +7,13 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import { 
-    Users, 
-    BookOpen, 
-    ClipboardCheck, 
-    TrendingUp, 
-    Clock, 
-    CheckCircle, 
+import {
+    Users,
+    BookOpen,
+    ClipboardCheck,
+    TrendingUp,
+    Clock,
+    CheckCircle,
     AlertCircle,
     BarChart3,
     User,
@@ -116,7 +116,7 @@ const getStatusText = (status: string) => {
             <div class="flex flex-col gap-2">
                 <h1 class="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
                 <p class="text-muted-foreground">
-                    Welcome to the K3TAB Assessment Management System
+                    Welcome to CORSA
                 </p>
             </div>
 
@@ -248,13 +248,13 @@ const getStatusText = (status: string) => {
                     </CardHeader>
                     <CardContent class="pl-2">
                         <div class="h-[200px] flex items-end justify-between gap-2">
-                            <div 
-                                v-for="item in charts.monthly_trend" 
+                            <div
+                                v-for="item in charts.monthly_trend"
                                 :key="item.month"
                                 class="flex flex-col items-center gap-2 flex-1"
                             >
                                 <div class="text-xs text-muted-foreground">{{ item.count }}</div>
-                                <div 
+                                <div
                                     class="bg-primary w-full min-h-[4px] rounded-t"
                                     :style="{ height: `${Math.max(4, (item.count / Math.max(...charts.monthly_trend.map(i => i.count))) * 160)}px` }"
                                 ></div>
@@ -276,8 +276,8 @@ const getStatusText = (status: string) => {
                     </CardHeader>
                     <CardContent>
                         <div class="space-y-4">
-                            <div 
-                                v-for="assessment in recent_assessments" 
+                            <div
+                                v-for="assessment in recent_assessments"
                                 :key="assessment.id"
                                 class="flex items-center gap-4"
                             >
@@ -295,8 +295,8 @@ const getStatusText = (status: string) => {
                                     </p>
                                 </div>
                                 <div class="flex flex-col items-end gap-1">
-                                    <Badge 
-                                        variant="secondary" 
+                                    <Badge
+                                        variant="secondary"
                                         :class="getStatusColor(assessment.status)"
                                         class="text-xs"
                                     >
@@ -324,8 +324,8 @@ const getStatusText = (status: string) => {
                     </CardHeader>
                     <CardContent>
                         <div class="space-y-4">
-                            <div 
-                                v-for="guide in charts.top_guides" 
+                            <div
+                                v-for="guide in charts.top_guides"
                                 :key="guide.name"
                                 class="flex items-center gap-4"
                             >
@@ -335,10 +335,10 @@ const getStatusText = (status: string) => {
                                 <div class="flex items-center gap-2">
                                     <div class="text-sm font-mono">{{ guide.usage_count }}</div>
                                     <div class="w-20 bg-muted rounded-full h-2">
-                                        <div 
+                                        <div
                                             class="bg-primary h-2 rounded-full"
-                                            :style="{ 
-                                                width: `${(guide.usage_count / Math.max(...charts.top_guides.map(g => g.usage_count))) * 100}%` 
+                                            :style="{
+                                                width: `${(guide.usage_count / Math.max(...charts.top_guides.map(g => g.usage_count))) * 100}%`
                                             }"
                                         ></div>
                                     </div>
@@ -358,8 +358,8 @@ const getStatusText = (status: string) => {
                     </CardHeader>
                     <CardContent>
                         <div class="space-y-4">
-                            <div 
-                                v-for="module in module_stats" 
+                            <div
+                                v-for="module in module_stats"
                                 :key="module.title"
                                 class="flex items-center gap-4"
                             >
@@ -372,7 +372,7 @@ const getStatusText = (status: string) => {
                                 <div class="flex items-center gap-2">
                                     <div class="text-sm font-mono">{{ module.completion_rate }}%</div>
                                     <div class="w-20 bg-muted rounded-full h-2">
-                                        <div 
+                                        <div
                                             class="bg-green-500 h-2 rounded-full"
                                             :style="{ width: `${module.completion_rate}%` }"
                                         ></div>
