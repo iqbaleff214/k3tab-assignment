@@ -92,6 +92,22 @@ class User extends Authenticatable
         return $number;
     }
 
+    // Relationships
+    public function assessments()
+    {
+        return $this->hasMany(Assessment::class, 'assessee_id');
+    }
+
+    public function moduleAssessees()
+    {
+        return $this->hasMany(ModuleAssessee::class, 'user_id');
+    }
+
+    public function postTests()
+    {
+        return $this->hasMany(PostTest::class, 'user_id');
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -106,7 +122,7 @@ class User extends Authenticatable
                     'link' => '#',
                 ]),
                 'updated' => __('activity.updated', [
-                    'menu' => __('menu.user'),
+                    'menu' => __('user'),
                     'identifier' => $this->name,
                     'link' => '#',
                 ]),
