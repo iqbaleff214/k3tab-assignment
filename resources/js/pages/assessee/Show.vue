@@ -188,7 +188,7 @@ const destroy = (event: MouseEvent, item: User) => {
                             rounded />
                     </Link>
                     <PrimeButton
-                        v-tooltip.bottom="t('action.delete')"
+                        v-tooltip.bottom="t('action.delete')" v-if="page.props.auth.user.type === 'admin'"
                         icon="pi pi-trash" size="small" variant="text" severity="danger"
                         @click="destroy($event, item)" rounded />
                     <span class="text-gray-300">|</span>
@@ -211,7 +211,7 @@ const destroy = (event: MouseEvent, item: User) => {
                             rounded />
                     </Link>
                     <PrimeButton
-                        v-tooltip.bottom="t('action.edit')"
+                        v-tooltip.bottom="t('action.edit')" v-if="page.props.auth.user.type === 'admin'"
                         icon="pi pi-pencil" size="small" variant="text" severity="secondary"
                         @click="() => modal?.open(item)" rounded />
                 </div>
