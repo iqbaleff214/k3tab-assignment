@@ -12,7 +12,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('allowed-type:admin')->group(function () {
         Route::prefix('a')->name('admin.')->group(function () {
-            Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
+            Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
             Route::get('/module', [\App\Http\Controllers\ModuleController::class, 'index'])->name('module.index');
             Route::get('/module/{module}', [\App\Http\Controllers\ModuleController::class, 'show'])->name('module.show');
