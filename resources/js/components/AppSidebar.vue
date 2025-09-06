@@ -67,13 +67,6 @@ const mainNavItems: NavItemGroup[] = [
                 isActive: route().current('assessee.assessment.index') ||
                     route().current('assessee.assessment.show'),
             },
-            {
-                title: 'menu.schedule',
-                href: route('assessee.assessment.schedule'),
-                icon: CalendarDaysIcon,
-                isAvailable: page.props.auth.user.type === 'assessee',
-                isActive: route().current('assessee.assessment.schedule')
-            },
         ],
     },
     {

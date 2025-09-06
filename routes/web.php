@@ -60,7 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::middleware('allowed-type:assessee')->prefix('e')->name('assessee.')->group(function () {
-        Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
+        Route::get('/dashboard', [\App\Http\Controllers\Assessee\DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/module', [\App\Http\Controllers\Assessee\ModuleController::class, 'index'])->name('module.index');
         Route::get('/module/{module}', [\App\Http\Controllers\Assessee\ModuleController::class, 'show'])->name('module.show');

@@ -385,7 +385,7 @@ export interface Assessment {
     guide?: PerformanceGuide;
     tasks: TaskGroup[];
     schedules?: AssessmentSchedule[];
-    result: 'competent' | 'no_competent' | null;
+    result: 'competent' | 'not_competent' | null;
     status: 'pending' | 'scheduled' | 'completed' | 'cancelled';
     comment: string | null;
     scheduled_at: string | null;

@@ -13,6 +13,7 @@ import { Button, ConfirmPopup, InputText, useConfirm } from 'primevue';
 import Filter from '@/components/Filter.vue';
 import Pagination from '@/components/Pagination.vue';
 import AssignmentSubmissionModal from '@/pages/panel/assessee/assessment/Index/AssignmentSubmissionModal.vue';
+import ViewModal from '@/pages/panel/assessee/assessment/Index/ViewModal.vue';
 import { dateHumanFormatWithTime } from '@/lib/utils';
 import DataTable from '@/components/ui/table/DataTable.vue';
 
@@ -34,6 +35,7 @@ const props = defineProps<{
 const { t, locale } = useI18n();
 
 const modal = ref();
+const viewModal = ref();
 const confirm = useConfirm();
 
 const filterForm = useForm<{ [key: string]: any; filters: Record<string, FilterColumn> }>({
@@ -50,6 +52,13 @@ const filterForm = useForm<{ [key: string]: any; filters: Record<string, FilterC
             label: 'field.status',
             canChange: true,
             options: statuses.map(s => ({ code: s, label: t(`label.${s}`) }))
+        },
+        result: {
+            value: null,
+            matchMode: 'equals',
+            label: 'field.result',
+            canChange: true,
+            options: ['competent', 'not_competent'].map(s => ({ code: s, label: t(`label.${s}`) }))
         },
         scheduled_at: {
             value: null,
@@ -127,7 +136,9 @@ const searchByCode = (value: string | undefined): void => {
                 name="assessee_assessment_table" :selection="false" :items="items.data">
                 <Column field="skill_number" header="field.skill_number" :sortable="false" :visible="true">
                     <template #body="{ row }: { row: Assessment }">
-                        <span class="text-amber-500">{{ row.guide?.skill_number }}</span>
+                        <button class="text-amber-500 hover:underline cursor-pointer" @click="() => viewModal?.open(row)">
+                            {{ row.guide?.skill_number }}
+                        </button>
                     </template>
                 </Column>
                 <Column field="assessor" header="field.assessor" :sortable="true" :visible="true">
@@ -149,6 +160,16 @@ const searchByCode = (value: string | undefined): void => {
                             'bg-red-100 text-red-600': row.status === 'cancelled',
                         }">
                             {{ t(`label.${row.status}`) }}
+                        </span>
+                    </template>
+                </Column>
+                <Column field="result" header="field.result" :sortable="true" :visible="true">
+                    <template #body="{ row }: { row: Assessment }">
+                        <span class="px-2 py-0.5 text-xs rounded-lg font-medium uppercase" :class="{
+                            'bg-emerald-100 text-emerald-600': row.result === 'competent',
+                            'bg-red-100 text-red-600': row.result === 'not_competent',
+                        }" v-if="row.result">
+                            {{ t(`label.${row.result}`) }}
                         </span>
                     </template>
                 </Column>
@@ -178,6 +199,7 @@ const searchByCode = (value: string | undefined): void => {
 
             <AssignmentSubmissionModal
                 :assessors :guides ref="modal" />
+            <ViewModal ref="viewModal" />
         </div>
     </AppLayout>
 </template>
