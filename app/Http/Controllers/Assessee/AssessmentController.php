@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -109,5 +110,9 @@ class AssessmentController extends Controller
             Log::error($exception->getMessage());
             return back()->with('error', $exception->getMessage());
         }
+    }
+    public function print(Assessment $assessment): View
+    {
+        return view('pdf.assessee-assessment', compact('assessment'));
     }
 }

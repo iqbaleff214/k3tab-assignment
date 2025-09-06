@@ -10,6 +10,7 @@ use App\Http\Requests\Assessment\ProposalRequest;
 use App\Models\Assessment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 
 class AssessmentController extends Controller
 {
@@ -61,5 +62,10 @@ class AssessmentController extends Controller
 
             return back()->with('error', $exception->getMessage());
         }
+    }
+
+    public function print(Assessment $assessment): View
+    {
+        return view('pdf.assessor-assessment', compact('assessment'));
     }
 }

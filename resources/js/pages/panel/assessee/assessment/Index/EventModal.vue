@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import type { CalendarEvent, TaskGroup } from '@/types';
 import {
-    Dialog, Textarea, FloatLabel, Message, InputText, RadioButton
+    Dialog, Textarea, FloatLabel, Message, InputText, RadioButton, Button
 } from 'primevue';
 import { useI18n } from 'vue-i18n';
 import { dateHumanFormat } from '@/lib/utils';
@@ -46,9 +46,18 @@ defineExpose({
         v-model:visible="visible" modal maximizable
         @after-hide="close" :header="selectedEvent?.extendedProps?.detail?.guide?.skill_number ?? t('menu.assessment')" :style="{ width: '65rem' }">
         <div class="flex flex-col gap-6 pt-2 pb-8">
-            <div>
-                <h1 class="text-xl font-semibold underline">{{ selectedEvent?.extendedProps?.detail?.guide?.title }}</h1>
-                <div class="text-gray-500">{{ selectedEvent?.extendedProps?.detail?.assessor?.name }}</div>
+            <div class="flex justify-between">
+                <div>
+                    <h1 class="text-xl font-semibold underline">{{ selectedEvent?.extendedProps?.detail?.guide?.title }}</h1>
+                    <div class="text-gray-500">{{ selectedEvent?.extendedProps?.detail?.assessor?.name }}</div>
+                </div>
+
+                <a target="_blank" :href="route('assessee.assessment.print', selectedEvent?.extendedProps?.detail?.id)">
+                    <Button
+                        v-tooltip.bottom="t('action.print')" type="button"
+                        icon="pi pi-print" size="small" variant="text" severity="secondary"
+                        rounded></Button>
+                </a>
             </div>
 
             <div class="grid md:grid-cols-2 gap-4">
@@ -98,7 +107,6 @@ defineExpose({
                         <tr class="bg-amber-300 dark:bg-gray-900 text-black dark:text-gray-300">
                             <th class="text-center px-3 py-2 font-semibold border-1 border-gray-200" rowspan="2" style="width: 25rem">Tasks</th>
                             <th class="text-center px-3 py-2 font-semibold border-1 border-gray-200" colspan="3">Completed</th>
-                            <th class="text-center px-3 py-2 font-semibold border-1 border-gray-200" rowspan="2">Observation/ Hints</th>
                         </tr>
                         <tr class="bg-amber-300 dark:bg-gray-900 text-black dark:text-gray-300">
                             <th class="text-center px-3 py-2 font-semibold border-1 border-gray-200" style="width: 75px">Yes</th>
@@ -108,7 +116,7 @@ defineExpose({
                         </thead>
                         <tbody>
                         <tr class="border-1 border-gray-200 font-semibold hover:bg-amber-50 text-black">
-                            <td class="px-3 py-2" colspan="5">{{ taskGroup.title }}</td>
+                            <td class="px-3 py-2" colspan="4">{{ taskGroup.title }}</td>
                         </tr>
                         <tr
                             v-for="(task, taskIndex) in taskGroup.child" :key="taskIndex"
@@ -137,7 +145,6 @@ defineExpose({
                                     :input-id="`completed_${taskGroupIndex}_${taskIndex}_status_not_available`"
                                     :name="`completed_${taskGroupIndex}_${taskIndex}_status`" value="not_available" />
                             </td>
-                            <td class="px-3 py-2 border-1 border-gray-200">{{ task.hint }}</td>
                         </tr>
                         </tbody>
                     </table>

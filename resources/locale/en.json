@@ -166,7 +166,8 @@
         "cancel_the_test": "Cancel The Post-Test",
         "submit_menu": "{menu} Submission",
         "process": "Process",
-        "reject": "Reject"
+        "reject": "Reject",
+        "print": "Print"
     },
     "field": {
         "name": "Name",

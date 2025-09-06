@@ -62,7 +62,16 @@ defineExpose({
         @after-hide="close" :header="selectedEvent?.extendedProps?.detail?.guide?.skill_number ?? t('menu.assessment')" :style="{ width: '65rem' }">
         <form @submit.prevent="submit">
             <div class="flex flex-col gap-6 pt-2 pb-8">
-                <h1 class="text-xl font-semibold underline">{{ selectedEvent?.extendedProps?.detail?.guide?.title }}</h1>
+                <div class="flex justify-between">
+                    <h1 class="text-xl font-semibold underline flex-1">{{ selectedEvent?.extendedProps?.detail?.guide?.title }}</h1>
+
+                    <a target="_blank" :href="route('assessor.assessment.print', selectedEvent?.extendedProps?.detail?.id)">
+                        <Button
+                            v-tooltip.bottom="t('action.print')" type="button"
+                            icon="pi pi-print" size="small" variant="text" severity="secondary"
+                            rounded></Button>
+                    </a>
+                </div>
 
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
