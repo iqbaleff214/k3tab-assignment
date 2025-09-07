@@ -129,7 +129,8 @@
         "cancelled": "Cancelled",
         "proposed_assessment": "Proposed Assessment",
         "no_assessment_proposed_to_me": "No assessment assigned to me",
-        "you_can_change_it_in_profile_page": "Change it in Settings → Profile"
+        "you_can_change_it_in_profile_page": "Change it in Settings → Profile",
+        "assessment_calendar": "Assessment Calendar"
     },
     "action": {
         "submit": "Save",

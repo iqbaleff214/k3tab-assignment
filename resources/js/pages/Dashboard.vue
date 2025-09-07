@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, onMounted, nextTick, ref } from 'vue';
 import {
     Users,
     BookOpen,
@@ -20,6 +20,17 @@ import {
     Calendar,
     Target
 } from 'lucide-vue-next';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    BarController,
+    Title,
+    Tooltip,
+    Legend,
+    type ChartConfiguration
+} from 'chart.js';
 
 interface Props {
     stats: {
@@ -68,12 +79,83 @@ interface Props {
 
 const props = defineProps<Props>();
 
+// Register Chart.js components
+ChartJS.register(CategoryScale, LinearScale, BarElement, BarController, Title, Tooltip, Legend);
+
+// Chart refs
+const trendChartRef = ref<HTMLCanvasElement>();
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'menu.dashboard',
         href: route('dashboard'),
     },
 ];
+
+// Chart data for assessment trend
+const trendChartData = computed(() => ({
+    labels: props.charts.monthly_trend.map(item => item.month),
+    datasets: [
+        {
+            label: 'Assessment Count',
+            data: props.charts.monthly_trend.map(item => item.count),
+            backgroundColor: 'rgba(99, 102, 241, 0.6)',
+            borderColor: 'rgb(99, 102, 241)',
+            borderWidth: 1,
+            borderRadius: 4,
+            borderSkipped: false,
+        }
+    ]
+}));
+
+const trendChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            display: false,
+        },
+        title: {
+            display: false,
+        }
+    },
+    scales: {
+        x: {
+            display: true,
+            grid: {
+                display: false,
+            }
+        },
+        y: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 1,
+            }
+        }
+    }
+};
+
+// Initialize chart
+const initializeTrendChart = async () => {
+    await nextTick();
+    
+    try {
+        if (trendChartRef.value && props.charts.monthly_trend.length > 0) {
+            const ctx = trendChartRef.value.getContext('2d');
+            if (ctx) {
+                new ChartJS(ctx, {
+                    type: 'bar',
+                    data: trendChartData.value,
+                    options: trendChartOptions
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error initializing trend chart:', error);
+    }
+};
+
+onMounted(initializeTrendChart);
 
 // Computed values for better organization
 const assessmentCompletionRate = computed(() => {
@@ -247,21 +329,13 @@ const getStatusText = (status: string) => {
                         </CardDescription>
                     </CardHeader>
                     <CardContent class="pl-2">
-                        <div class="h-[200px] flex items-end justify-between gap-2">
-                            <div
-                                v-for="item in charts.monthly_trend"
-                                :key="item.month"
-                                class="flex flex-col items-center gap-2 flex-1"
-                            >
-                                <div class="text-xs text-muted-foreground">{{ item.count }}</div>
-                                <div
-                                    class="bg-primary w-full min-h-[4px] rounded-t"
-                                    :style="{ height: `${Math.max(4, (item.count / Math.max(...charts.monthly_trend.map(i => i.count))) * 160)}px` }"
-                                ></div>
-                                <div class="text-xs text-muted-foreground text-center">
-                                    {{ item.month }}
-                                </div>
-                            </div>
+                        <div v-if="charts.monthly_trend.length > 0" class="h-[300px] flex items-center justify-center">
+                            <canvas ref="trendChartRef" class="max-w-full max-h-full"></canvas>
+                        </div>
+                        <div v-else class="h-[300px] flex flex-col items-center justify-center text-muted-foreground">
+                            <TrendingUp class="h-12 w-12 mb-4 text-muted-foreground/30" />
+                            <p class="text-center font-medium">No assessment trend data available</p>
+                            <p class="text-sm text-center">Charts will appear once assessments are created</p>
                         </div>
                     </CardContent>
                 </Card>

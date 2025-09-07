@@ -8,7 +8,7 @@ import { type BreadcrumbItem, type Role, SharedData, type User as UserBase } fro
 import { Head, usePage, Link, router } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
 import { useConfirm, ConfirmPopup, Button as PrimeButton } from 'primevue';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import PhoneNumber from '@/components/PhoneNumber.vue';
 import {
     ClipboardCheck,
@@ -16,6 +16,20 @@ import {
     Timer,
     Eye
 } from 'lucide-vue-next';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    BarController,
+    LineController,
+    Title,
+    Tooltip,
+    Legend,
+    type ChartConfiguration
+} from 'chart.js';
 
 interface User extends UserBase {
     roles: Role[];
@@ -92,6 +106,120 @@ const page = usePage<SharedData>();
 const confirm = useConfirm();
 const modal = ref();
 const { t } = useI18n();
+
+// Register Chart.js components
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, BarController, LineController, Title, Tooltip, Legend);
+
+// Chart refs
+const trendChartRef = ref<HTMLCanvasElement>();
+
+// Chart data for assessment trend
+const trendChartData = computed(() => ({
+    labels: props.charts.assessment_trend.map(item => item.month),
+    datasets: [
+        {
+            type: 'bar' as const,
+            label: 'Total Assessments',
+            data: props.charts.assessment_trend.map(item => item.total_assessments),
+            backgroundColor: 'rgba(99, 102, 241, 0.6)',
+            borderColor: 'rgb(99, 102, 241)',
+            borderWidth: 1,
+            yAxisID: 'y',
+        },
+        {
+            type: 'bar' as const,
+            label: 'Completed',
+            data: props.charts.assessment_trend.map(item => item.completed_count),
+            backgroundColor: 'rgba(34, 197, 94, 0.6)',
+            borderColor: 'rgb(34, 197, 94)',
+            borderWidth: 1,
+            yAxisID: 'y',
+        },
+        {
+            type: 'line' as const,
+            label: 'Success Rate (%)',
+            data: props.charts.assessment_trend.map(item => item.success_rate),
+            borderColor: 'rgb(239, 68, 68)',
+            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+            borderWidth: 2,
+            fill: false,
+            tension: 0.4,
+            yAxisID: 'y1',
+        }
+    ]
+}));
+
+const trendChartOptions: ChartConfiguration<'bar' | 'line'>['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: {
+        mode: 'index' as const,
+        intersect: false,
+    },
+    plugins: {
+        legend: {
+            position: 'top' as const,
+        },
+        title: {
+            display: false,
+        }
+    },
+    scales: {
+        x: {
+            display: true,
+            title: {
+                display: true,
+                text: 'Month'
+            }
+        },
+        y: {
+            type: 'linear' as const,
+            display: true,
+            position: 'left' as const,
+            title: {
+                display: true,
+                text: 'Assessment Count'
+            },
+            beginAtZero: true,
+        },
+        y1: {
+            type: 'linear' as const,
+            display: true,
+            position: 'right' as const,
+            title: {
+                display: true,
+                text: 'Success Rate (%)'
+            },
+            beginAtZero: true,
+            max: 100,
+            grid: {
+                drawOnChartArea: false,
+            },
+        },
+    },
+};
+
+// Initialize chart
+const initializeTrendChart = async () => {
+    await nextTick();
+    
+    try {
+        if (trendChartRef.value && props.charts.assessment_trend.length > 0) {
+            const ctx = trendChartRef.value.getContext('2d');
+            if (ctx) {
+                new ChartJS(ctx, {
+                    type: 'bar',
+                    data: trendChartData.value,
+                    options: trendChartOptions
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error initializing trend chart:', error);
+    }
+};
+
+onMounted(initializeTrendChart);
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -328,27 +456,13 @@ const destroy = (event: MouseEvent, item: User) => {
                         </CardDescription>
                     </CardHeader>
                     <CardContent class="pl-2">
-                        <div class="h-[200px] flex items-end justify-between gap-2">
-                            <div
-                                v-for="item in charts.assessment_trend"
-                                :key="item.month"
-                                class="flex flex-col items-center gap-2 flex-1"
-                            >
-                                <div class="text-xs text-muted-foreground">{{ item.completed_count }}</div>
-                                <div
-                                    class="bg-primary w-full min-h-[4px] rounded-t"
-                                    :style="{
-                                        height: `${Math.max(4, (item.completed_count / Math.max(...charts.assessment_trend.map(i => i.completed_count))) * 160)}px`
-                                    }"
-                                ></div>
-                                <div class="text-xs text-muted-foreground text-center">
-                                    {{ item.month }}
-                                </div>
-                                <div class="text-xs font-medium text-center"
-                                     :class="item.success_rate >= 75 ? 'text-green-600' : item.success_rate >= 50 ? 'text-yellow-600' : 'text-red-600'">
-                                    {{ item.success_rate }}%
-                                </div>
-                            </div>
+                        <div v-if="charts.assessment_trend.length > 0" class="h-[300px] flex items-center justify-center">
+                            <canvas ref="trendChartRef" class="max-w-full max-h-full"></canvas>
+                        </div>
+                        <div v-else class="h-[300px] flex flex-col items-center justify-center text-muted-foreground">
+                            <ClipboardCheck class="h-12 w-12 mb-4 text-muted-foreground/30" />
+                            <p class="text-center font-medium">No assessment trend data available</p>
+                            <p class="text-sm text-center">Charts will appear once assessments are completed</p>
                         </div>
                     </CardContent>
                 </Card>

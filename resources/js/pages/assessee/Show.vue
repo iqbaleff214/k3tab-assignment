@@ -9,7 +9,7 @@ import { type BreadcrumbItem, SharedData, type User } from '@/types';
 import { Head, usePage, Link, router } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
 import { useConfirm, ConfirmPopup, Button as PrimeButton } from 'primevue';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import PhoneNumber from '@/components/PhoneNumber.vue';
 import {
     BookOpen,
@@ -19,6 +19,19 @@ import {
     Activity,
     GraduationCap
 } from 'lucide-vue-next';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    LineController,
+    Title,
+    Tooltip,
+    Legend,
+    Filler,
+    type ChartConfiguration
+} from 'chart.js';
 
 interface Props {
     item: User;
@@ -93,6 +106,78 @@ const page = usePage<SharedData>();
 const confirm = useConfirm();
 const modal = ref();
 const { t } = useI18n();
+
+// Register Chart.js components
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, LineController, Title, Tooltip, Legend, Filler);
+
+// Chart refs
+const performanceChartRef = ref<HTMLCanvasElement>();
+
+// Chart data for performance timeline
+const performanceChartData = computed(() => ({
+    labels: props.charts.performance_timeline.map(item => item.date),
+    datasets: [
+        {
+            label: 'Total Assessments',
+            data: props.charts.performance_timeline.map(item => item.assessment_count),
+            borderColor: 'rgb(99, 102, 241)',
+            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+            fill: true,
+            tension: 0.4,
+        },
+        {
+            label: 'Completed Assessments',
+            data: props.charts.performance_timeline.map(item => item.completed_count),
+            borderColor: 'rgb(34, 197, 94)',
+            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+            fill: true,
+            tension: 0.4,
+        }
+    ]
+}));
+
+const chartOptions: ChartConfiguration<'line'>['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            position: 'top' as const,
+        },
+        title: {
+            display: false,
+        }
+    },
+    scales: {
+        y: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 1,
+            }
+        }
+    }
+};
+
+// Initialize chart
+const initializeChart = async () => {
+    await nextTick();
+    
+    try {
+        if (performanceChartRef.value && props.charts.performance_timeline.length > 0) {
+            const ctx = performanceChartRef.value.getContext('2d');
+            if (ctx) {
+                new ChartJS(ctx, {
+                    type: 'line',
+                    data: performanceChartData.value,
+                    options: chartOptions
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error initializing performance chart:', error);
+    }
+};
+
+onMounted(initializeChart);
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -479,23 +564,8 @@ const destroy = (event: MouseEvent, item: User) => {
                     <CardDescription>Assessment activity over the last 6 months</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div class="h-[200px] flex items-end justify-between gap-2">
-                        <div
-                            v-for="item in charts.performance_timeline"
-                            :key="item.date"
-                            class="flex flex-col items-center gap-2 flex-1"
-                        >
-                            <div class="text-xs text-muted-foreground">{{ item.completed_count }}</div>
-                            <div
-                                class="bg-primary w-full min-h-[4px] rounded-t"
-                                :style="{
-                                    height: `${Math.max(4, (item.completed_count / Math.max(...charts.performance_timeline.map(i => i.completed_count))) * 160)}px`
-                                }"
-                            ></div>
-                            <div class="text-xs text-muted-foreground text-center">
-                                {{ item.date }}
-                            </div>
-                        </div>
+                    <div class="h-[300px] flex items-center justify-center">
+                        <canvas ref="performanceChartRef" class="max-w-full max-h-full"></canvas>
                     </div>
                 </CardContent>
             </Card>
