@@ -21,6 +21,7 @@ return [
     "assessee" => "Assessee",
     "management" => "Management",
     "assessment" => "Assessment",
+    "post_test" => "Post-test",
     "module" => "Module",
     "module_question" => "Module Question",
     "performance_guide" => "Performance Guide",

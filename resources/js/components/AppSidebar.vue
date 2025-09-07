@@ -14,7 +14,7 @@ import {
     BookTextIcon,
     ListCheckIcon,
     NotebookPenIcon,
-    CalendarDaysIcon
+    CalendarDaysIcon, BookUp2Icon
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
@@ -66,6 +66,20 @@ const mainNavItems: NavItemGroup[] = [
                 isAvailable: page.props.auth.user.type === 'assessee',
                 isActive: route().current('assessee.assessment.index') ||
                     route().current('assessee.assessment.show'),
+            },
+            {
+                title: 'menu.post_test',
+                href: route('admin.post-test.index'),
+                icon: BookUp2Icon,
+                isAvailable: page.props.auth.user.type === 'admin',
+                isActive: route().current('admin.post-test.index'),
+            },
+            {
+                title: 'menu.assessment',
+                href: route('admin.assessment.index'),
+                icon: NotebookPenIcon,
+                isAvailable: page.props.auth.user.type === 'admin',
+                isActive: route().current('admin.assessment.index'),
             },
         ],
     },

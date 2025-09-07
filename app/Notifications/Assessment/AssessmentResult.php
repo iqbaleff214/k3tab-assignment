@@ -3,19 +3,18 @@
 namespace App\Notifications\Assessment;
 
 use App\Models\Assessment;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AssessorScheduleSubmission extends Notification
+class AssessmentResult extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(public User $assessee, public Assessment $assessment)
+    public function __construct(public Assessment $assessment)
     {
         //
     }
@@ -36,13 +35,14 @@ class AssessorScheduleSubmission extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('New Assessment Schedule Submission from ' . $this->assessee->name)
-            ->greeting('Dear ' . $notifiable->name . ',')
-            ->line('We would like to inform you that ' . $this->assessee->name . ' has submitted new assessment schedule proposals for ' . $this->assessment->guide?->skill_number . '.')
-            ->line('The assessee has suggested several date options for the assessment session.')
-            ->action('Review Schedule', route('dashboard'))
-            ->line('Please review and approve one of the proposed dates at your earliest convenience.')
-            ->line('Thank you for your attention and cooperation.')
+            ->subject('Your Assessment Result is Available')
+            ->greeting('Hello ' . $notifiable->name . ',')
+            ->line('We would like to inform you that your assessment for ' . $this->assessment->guide?->skill_number . ' has been completed.')
+            ->line('Here are your results:')
+            ->line('Status: ' . $this->assessment->enumResult()->label())
+            ->action('View Details', route('assessee.assessment.print', $this->assessment))
+            ->line('You can check the full assessment details by clicking the button above.')
+            ->line('Thank you for your effort and participation.')
             ->salutation("Best regards,\nCORSA");
     }
 

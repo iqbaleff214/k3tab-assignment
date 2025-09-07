@@ -11,4 +11,12 @@ enum AssessmentResult: string
     {
         return array_map(fn (self $enum): string => $enum->value, self::cases());
     }
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::Competent => 'Competent',
+            self::NotCompetent => 'Not Competent',
+        };
+    }
 }

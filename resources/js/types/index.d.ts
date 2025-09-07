@@ -336,6 +336,8 @@ export interface PostTest {
     answers: Answer[];
     score: number;
     minimum_score: number;
+    assessee?: User;
+    module?: Module;
     is_passed: boolean;
     created_at: string;
     updated_at: string;

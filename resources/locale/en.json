@@ -234,7 +234,8 @@
         "assessee_no_id": "No ID",
         "assessee_school": "School",
         "nim": "No ID",
-        "comment": "Comment"
+        "comment": "Comment",
+        "is_passed": "Is Passed?"
     },
     "http": {
         "400": "Bad Request",

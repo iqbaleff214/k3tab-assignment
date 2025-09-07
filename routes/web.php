@@ -33,6 +33,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get("/performance-guide/{guide:skill_number}/print", [\App\Http\Controllers\PerformanceGuideController::class, 'print'])->name('performance-guide.print');
             Route::put("/performance-guide/{guide}", [\App\Http\Controllers\PerformanceGuideController::class, 'update'])->name('performance-guide.update');
             Route::delete("/performance-guide/{guide}", [\App\Http\Controllers\PerformanceGuideController::class, 'destroy'])->name('performance-guide.destroy');
+
+            Route::get("/assessment", [\App\Http\Controllers\AssessmentController::class, 'index'])->name('assessment.index');
+            Route::delete("/assessment/{assessment}", [\App\Http\Controllers\AssessmentController::class, 'destroy'])->name('assessment.destroy');
+
+            Route::get("/post-test", [\App\Http\Controllers\PostTestController::class, 'index'])->name('post-test.index');
+            Route::delete("/post-test/{test}", [\App\Http\Controllers\PostTestController::class, 'destroy'])->name('post-test.destroy');
         });
 
         Route::get('/assessor', [\App\Http\Controllers\AssessorController::class, 'index'])->name('assessor.index');

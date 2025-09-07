@@ -58,6 +58,8 @@ class AssessmentController extends Controller
                 'finished_at' => now(),
             ]);
 
+            $assessment->assessee->notify(new \App\Notifications\Assessment\AssessmentResult($assessment));
+
             return back()->with('success', __('action.updated', ['menu' => __('menu.assessment')]));
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
