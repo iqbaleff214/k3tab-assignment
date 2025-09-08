@@ -80,6 +80,26 @@ Unauthorized copying or distribution of this software is strictly prohibited.
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+        <!-- Favicon standar -->
+        <link rel="icon" type="image/jpg" sizes="32x32" href="/CORSA.jpeg">
+        <link rel="icon" type="image/jpg" sizes="16x16" href="/CORSA.jpeg">
+
+        <!-- Apple Touch Icon (iOS) -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/CORSA.jpeg">
+
+        <!-- Android/Chrome -->
+        <link rel="icon" sizes="192x192" href="/CORSA.jpeg">
+
+        <!-- Title -->
+        <meta property="og:title" content="{{ config('app.name') }}">
+        <!-- Deskripsi -->
+        <meta property="og:description" content="K3TAB 2025 - POLIBAN">
+        <!-- URL -->
+        <meta property="og:url" content="{{ config('app.url') }}">
+        <!-- Gambar -->
+        <meta property="og:image" content="https://raw.githubusercontent.com/iqbaleff214/k3tab-assignment/refs/heads/main/public/CORSA.jpeg">
+        <!-- Tipe konten -->
+        <meta property="og:type" content="website">
 
         @routes
         @vite(['resources/js/app.ts'])
