@@ -84,8 +84,8 @@ const page = usePage<SharedData>();
                         </li>
                     </ul>
                 </div>
-                <div class="relative -mb-px aspect-335/376 flex items-center justify-center w-full shrink-0 overflow-hidden rounded-t-lg bg-gray-800 lg:-ml-px lg:mb-0 lg:aspect-auto lg:w-[438px] lg:rounded-r-lg lg:rounded-t-none">
-                    <img src="/404NFID.png" width="40%" :alt="page.props.name">
+                <div class="relative -mb-px aspect-335/376 flex items-center justify-center w-full shrink-0 overflow-hidden rounded-t-lg bg-[#f1ffff] lg:-ml-px lg:mb-0 lg:aspect-auto lg:w-[438px] lg:rounded-r-lg lg:rounded-t-none">
+                    <img src="/CORSA.jpeg" width="40%" :alt="page.props.name" class="rounded-full">
                 </div>
             </main>
         </div>

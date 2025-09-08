@@ -14,7 +14,7 @@ import {
     BookTextIcon,
     ListCheckIcon,
     NotebookPenIcon,
-    CalendarDaysIcon, BookUp2Icon
+    BookUp2Icon
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 

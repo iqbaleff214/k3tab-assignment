@@ -14,7 +14,7 @@ defineProps<{
                 <div class="flex flex-col items-center gap-4">
                     <Link :href="route('home')" class="flex flex-col items-center gap-2 font-medium">
                         <div class="mb-1 flex h-9 w-9 items-center justify-center rounded-md">
-                            <img alt="404 Not Found Indonesia" src="/404NFID.png" class="h-11" />
+                            <img alt="404 Not Found Indonesia" src="/CORSA.jpeg" class="rounded-full w-11" />
                         </div>
                         <span class="sr-only">{{ title }}</span>
                     </Link>

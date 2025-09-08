@@ -163,6 +163,9 @@ defineExpose({
                                     <Image
                                         :src="task.hint as string" v-if="isHttpUrl(task.hint)"
                                         class="w-16 h-16" alt="Answer" preview />
+                                    <Textarea v-if="selectedEvent?.extendedProps?.detail.status === 'scheduled'"
+                                        :fluid="true" id="comment" rows="1"
+                                        v-model="form.tasks[taskGroupIndex].child[taskIndex].hint" />
                                     <span v-else>{{ task.hint }}</span>
                                 </td>
                             </tr>
