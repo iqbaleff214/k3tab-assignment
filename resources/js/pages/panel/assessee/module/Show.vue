@@ -14,8 +14,10 @@ import { onMounted, onBeforeUnmount } from "vue";
 onMounted(() => {
     const handleKeyUp = (e: KeyboardEvent) => {
         if (e.key === "PrintScreen") {
-            alert("Screenshot detected!");
             document.body.innerHTML = "";
+            setTimeout(() => {
+                alert("Screenshot detected! Screenshot are not allowed");
+            }, 250);
         }
     };
 
