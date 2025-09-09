@@ -9,6 +9,22 @@ import { formatBytes, isHttpUrl } from '@/lib/utils';
 import { Button, Image } from 'primevue';
 import axios from 'axios';
 import { ref } from 'vue';
+import { onMounted, onBeforeUnmount } from "vue";
+
+onMounted(() => {
+    const handleKeyUp = (e: KeyboardEvent) => {
+        if (e.key === "PrintScreen") {
+            alert("Screenshot detected!");
+            document.body.innerHTML = "";
+        }
+    };
+
+    document.addEventListener("keyup", handleKeyUp);
+
+    onBeforeUnmount(() => {
+        document.removeEventListener("keyup", handleKeyUp);
+    });
+});
 
 interface Props {
     item: Module;
