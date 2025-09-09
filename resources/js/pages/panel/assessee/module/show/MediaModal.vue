@@ -56,7 +56,7 @@ defineExpose({
             </div>
             <div v-else-if="selectedMedia?.mime_type?.includes('pdf')">
                 <iframe
-                    :src="selectedMedia?.path_url" class="w-full"
+                    :src="selectedMedia?.path_url + '#toolbar=0&navpanes=0&zoom=page-width'" class="w-full"
                     style="width:100%;height:500px;border:0"
                     title="PDF"
                 />
