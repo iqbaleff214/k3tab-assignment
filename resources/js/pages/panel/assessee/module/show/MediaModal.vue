@@ -7,6 +7,23 @@ import {
 import { useI18n } from 'vue-i18n';
 import axios from 'axios';
 
+import { onMounted, onBeforeUnmount } from "vue";
+
+onMounted(() => {
+    const handleKeyUp = (e: KeyboardEvent) => {
+        if (e.key === "PrintScreen") {
+            alert("Screenshot detected!");
+            document.body.innerHTML = "";
+        }
+    };
+
+    document.addEventListener("keyup", handleKeyUp);
+
+    onBeforeUnmount(() => {
+        document.removeEventListener("keyup", handleKeyUp);
+    });
+});
+
 const visible = ref<boolean>(false);
 const selectedMedia = ref<Media>();
 const selectedModule = ref<Module>();
