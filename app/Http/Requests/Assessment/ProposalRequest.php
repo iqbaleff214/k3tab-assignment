@@ -25,6 +25,17 @@ class ProposalRequest extends FormRequest
         return [
             'scheduled_at' => ['nullable', 'date'],
             'assessment_scheduled_id' => ['nullable', 'exists:assessment_schedules,id'],
+            'feedback' => [
+                'nullable',
+                'string',
+                'max:1000',
+                function ($attribute, $value, $fail) {
+                    // If rejecting (no scheduled_at and no assessment_scheduled_id), feedback is required
+                    if (empty($this->scheduled_at) && empty($this->assessment_scheduled_id) && empty($value)) {
+                        $fail('Feedback is required when rejecting an assessment proposal.');
+                    }
+                },
+            ],
         ];
     }
 }

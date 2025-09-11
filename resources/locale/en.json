@@ -235,7 +235,14 @@
         "assessee_school": "School",
         "nim": "No ID",
         "comment": "Comment",
-        "is_passed": "Is Passed?"
+        "is_passed": "Is Passed?",
+        "feedback": "Feedback",
+        "optional": "Optional",
+        "information": "Information",
+        "proposed_dates": "Proposed Dates",
+        "select_date_and_time": "Select a date and set specific time",
+        "feedback_placeholder": "Provide feedback about your availability if the proposed dates don't work...",
+        "feedback_description": "Provide alternative dates or explain your availability if none of the proposed dates work for you."
     },
     "http": {
         "400": "Bad Request",

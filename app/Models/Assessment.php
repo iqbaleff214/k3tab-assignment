@@ -22,7 +22,7 @@ class Assessment extends Model
     protected $fillable = [
         'assessor_id', 'assessee_id', 'assessee_name', 'assessee_no_id',
         'assessee_school', 'performance_guide_id', 'status', 'tasks', 'result',
-        'comment', 'scheduled_at', 'started_at', 'finished_at',
+        'comment', 'feedback', 'scheduled_at', 'started_at', 'finished_at',
     ];
 
     protected $casts = [

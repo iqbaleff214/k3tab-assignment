@@ -26,6 +26,7 @@ class AssessmentController extends Controller
                 'status' => empty($input['assessment_scheduled_id']) ?
                     AssessmentStatus::Cancelled->value : AssessmentStatus::Scheduled->value,
                 'tasks' => $assessment->guide->tasks,
+                'feedback' => $input['feedback'] ?? null,
             ]);
 
             $assessment->schedules()->update([ 'status' => 0 ]);
