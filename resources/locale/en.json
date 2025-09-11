@@ -1,6 +1,9 @@
 {
     "message": {
-        "hello": "hello world"
+        "hello": "hello world",
+        "pending_assessment_info": "Your assessment proposal is pending approval from the assessor. You will be notified once they respond to your proposed dates.",
+        "scheduled_assessment_info": "Your assessment has been scheduled! Please be prepared for the assessment at the confirmed date and time.",
+        "cancelled_assessment_info": "Your assessment proposal was cancelled by the assessor. Please review any feedback provided and submit a new proposal if needed."
     },
     "menu": {
         "dashboard": "Dashboard",
@@ -130,7 +133,10 @@
         "proposed_assessment": "Proposed Assessment",
         "no_assessment_proposed_to_me": "No assessment assigned to me",
         "you_can_change_it_in_profile_page": "Change it in Settings → Profile",
-        "assessment_calendar": "Assessment Calendar"
+        "assessment_calendar": "Assessment Calendar",
+        "no_feedback_provided": "No feedback provided",
+        "assessment_schedule_details": "Assessment Schedule Details",
+        "schedule_information": "Schedule Information"
     },
     "action": {
         "submit": "Save",
@@ -242,7 +248,11 @@
         "proposed_dates": "Proposed Dates",
         "select_date_and_time": "Select a date and set specific time",
         "feedback_placeholder": "Provide feedback about your availability if the proposed dates don't work...",
-        "feedback_description": "Provide alternative dates or explain your availability if none of the proposed dates work for you."
+        "feedback_description": "Provide alternative dates or explain your availability if none of the proposed dates work for you.",
+        "assessor_feedback": "Assessor Feedback",
+        "accepted": "Accepted",
+        "proposed": "Proposed",
+        "rejected": "Rejected"
     },
     "http": {
         "400": "Bad Request",

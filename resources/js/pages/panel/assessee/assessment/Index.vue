@@ -14,6 +14,7 @@ import Filter from '@/components/Filter.vue';
 import Pagination from '@/components/Pagination.vue';
 import AssignmentSubmissionModal from '@/pages/panel/assessee/assessment/Index/AssignmentSubmissionModal.vue';
 import ViewModal from '@/pages/panel/assessee/assessment/Index/ViewModal.vue';
+import ScheduleDetailModal from '@/pages/panel/assessee/assessment/Index/ScheduleDetailModal.vue';
 import { dateHumanFormatWithTime } from '@/lib/utils';
 import DataTable from '@/components/ui/table/DataTable.vue';
 
@@ -36,6 +37,7 @@ const { t, locale } = useI18n();
 
 const modal = ref();
 const viewModal = ref();
+const scheduleDetailModal = ref();
 const confirm = useConfirm();
 
 const filterForm = useForm<{ [key: string]: any; filters: Record<string, FilterColumn> }>({
@@ -136,7 +138,9 @@ const searchByCode = (value: string | undefined): void => {
                 name="assessee_assessment_table" :selection="false" :items="items.data">
                 <Column field="skill_number" header="field.skill_number" :sortable="false" :visible="true">
                     <template #body="{ row }: { row: Assessment }">
-                        <button class="text-amber-500 hover:underline cursor-pointer" @click="() => viewModal?.open(row)">
+                        <button
+                            class="text-amber-500 hover:underline cursor-pointer"
+                            @click="() => ['pending', 'scheduled', 'cancelled'].includes(row.status) ? scheduleDetailModal?.open(row) : viewModal?.open(row)">
                             {{ row.guide?.skill_number }}
                         </button>
                     </template>
@@ -153,12 +157,23 @@ const searchByCode = (value: string | undefined): void => {
                 </Column>
                 <Column field="status" header="field.status" :sortable="true" :visible="true">
                     <template #body="{ row }: { row: Assessment }">
-                        <span class="px-2 py-0.5 text-xs rounded-lg font-medium" :class="{
-                            'bg-yellow-100 text-yellow-600': row.status === 'pending',
-                            'bg-blue-100 text-blue-600': row.status === 'scheduled',
-                            'bg-emerald-100 text-emerald-600': row.status === 'completed',
-                            'bg-red-100 text-red-600': row.status === 'cancelled',
-                        }">
+                        <button
+                            v-if="['pending', 'scheduled', 'cancelled'].includes(row.status)"
+                            @click="() => scheduleDetailModal?.open(row)"
+                            class="px-2 py-0.5 text-xs rounded-lg font-medium hover:opacity-80 transition-opacity cursor-pointer"
+                            :class="{
+                                'bg-yellow-100 text-yellow-600 hover:bg-yellow-200': row.status === 'pending',
+                                'bg-blue-100 text-blue-600 hover:bg-blue-200': row.status === 'scheduled',
+                                'bg-red-100 text-red-600 hover:bg-red-200': row.status === 'cancelled',
+                            }">
+                            {{ t(`label.${row.status}`) }}
+                        </button>
+                        <span
+                            v-else
+                            class="px-2 py-0.5 text-xs rounded-lg font-medium"
+                            :class="{
+                                'bg-emerald-100 text-emerald-600': row.status === 'completed',
+                            }">
                             {{ t(`label.${row.status}`) }}
                         </span>
                     </template>
@@ -170,6 +185,24 @@ const searchByCode = (value: string | undefined): void => {
                             'bg-red-100 text-red-600': row.result === 'not_competent',
                         }" v-if="row.result">
                             {{ t(`label.${row.result}`) }}
+                        </span>
+                    </template>
+                </Column>
+                <Column field="feedback" header="field.feedback" :sortable="false" :visible="true">
+                    <template #body="{ row }: { row: Assessment }">
+                        <div v-if="row.status === 'cancelled' && row.feedback" class="max-w-xs">
+                            <div class="bg-orange-50 border border-orange-200 rounded-lg p-2">
+                                <div class="flex items-start gap-2">
+                                    <i class="pi pi-info-circle text-orange-600 text-xs mt-0.5 flex-shrink-0"></i>
+                                    <p class="text-xs text-orange-800 overflow-hidden text-ellipsis line-clamp-3" :title="row.feedback"
+                                       style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                                        {{ row.feedback }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <span v-else-if="row.status === 'cancelled'" class="text-xs text-gray-400 italic">
+                            {{ t('label.no_feedback_provided') }}
                         </span>
                     </template>
                 </Column>
@@ -200,6 +233,7 @@ const searchByCode = (value: string | undefined): void => {
             <AssignmentSubmissionModal
                 :assessors :guides ref="modal" />
             <ViewModal ref="viewModal" />
+            <ScheduleDetailModal ref="scheduleDetailModal" />
         </div>
     </AppLayout>
 </template>

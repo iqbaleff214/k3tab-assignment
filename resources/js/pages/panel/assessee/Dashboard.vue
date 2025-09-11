@@ -465,9 +465,31 @@ const calendarOptions = ref({
                                             </div>
                                         </div>
                                         
+                                        <!-- Feedback Section for Cancelled Assessments -->
+                                        <div v-if="item.status === 'cancelled' && item.feedback" class="mb-3">
+                                            <div class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-3">
+                                                <div class="flex items-start gap-2">
+                                                    <i class="pi pi-info-circle text-orange-600 dark:text-orange-400 text-sm mt-0.5 flex-shrink-0"></i>
+                                                    <div>
+                                                        <p class="text-sm font-medium text-orange-800 dark:text-orange-200 mb-1">
+                                                            {{ t('field.assessor_feedback') }}:
+                                                        </p>
+                                                        <p class="text-sm text-orange-700 dark:text-orange-300">
+                                                            {{ item.feedback }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                         <div class="flex justify-between items-center">
-                                            <span class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs font-medium">
-                                                {{ item.status }}
+                                            <span class="px-2 py-1 rounded text-xs font-medium" :class="{
+                                                'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300': item.status === 'pending',
+                                                'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300': item.status === 'scheduled',
+                                                'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300': item.status === 'completed',
+                                                'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300': item.status === 'cancelled'
+                                            }">
+                                                {{ t(`label.${item.status}`) }}
                                             </span>
                                             <span class="text-xs text-gray-500">{{ new Date(item.created_at).toLocaleDateString() }}</span>
                                         </div>

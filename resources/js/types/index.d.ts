@@ -391,6 +391,7 @@ export interface Assessment {
     result: 'competent' | 'not_competent' | null;
     status: 'pending' | 'scheduled' | 'completed' | 'cancelled';
     comment: string | null;
+    feedback: string | null;
     scheduled_at: string | null;
     started_at: string | null;
     finished_at: string | null;
