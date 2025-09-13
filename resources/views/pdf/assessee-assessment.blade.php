@@ -128,25 +128,61 @@
             <p><strong>Student:</strong></p>
             <div class="line"><span class="label">Name:</span><span class="value">{{ $assessment->assessee_name }}</span></div>
             <div class="line"><span class="label">Date:</span><span class="value">{{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</span></div>
-            <div class="line"><span class="label">Signature:</span></div>
+            <div class="line" style="position: relative;">
+                <span class="label">Signature:</span>
+                @if(!empty($assessment->assessee_signature))
+                    <span class="" style="position: absolute; right: 0; z-index: 0">
+                        <img
+                            src="{{ $assessment->assessee_signature }}" height="45px"
+                            alt="assessee_signature">
+                    </span>
+                @endif
+            </div>
         </div>
         <div class="signature-block">
             <p><strong>Assessor:</strong></p>
-            <div class="line"><span class="label">Name:</span><span class="value">{{ $assessment->assessor?->name }}</span></div>
+            <div class="line"><span class="label">Name:</span><span class="value">{{ $assessment->assessor_name ?? $assessment->assessor?->name }}</span></div>
             <div class="line"><span class="label">Date:</span><span class="value">{{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</span></div>
-            <div class="line"><span class="label">Signature:</span></div>
+            <div class="line" style="position: relative;">
+                <span class="label">Signature:</span>
+                @if(!empty($assessment->assessor_signature))
+                    <span class="" style="position: absolute; right: 0; z-index: 0">
+                        <img
+                            src="{{ $assessment->assessor_signature }}" height="45px"
+                            alt="assessor_signature">
+                    </span>
+                @endif
+            </div>
         </div>
         <div class="signature-block">
             <p><strong>Supervisor:</strong></p>
-            <div class="line"><span class="label">Name:</span><span class="value">&nbsp;</span></div>
-            <div class="line"><span class="label">Date:</span><span class="value">&nbsp;</span></div>
-            <div class="line"><span class="label">Signature:</span></div>
+            <div class="line"><span class="label">Name:</span><span class="value">{{ $assessment->supervisor_name }}</span></div>
+            <div class="line"><span class="label">Date:</span><span class="value">{{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</span></div>
+            <div class="line" style="position: relative;">
+                <span class="label">Signature:</span>
+                @if(!empty($assessment->supervisor_signature))
+                    <span class="" style="position: absolute; right: 0; z-index: 0">
+                        <img
+                            src="{{ $assessment->supervisor_signature }}" height="45px"
+                            alt="supervisor_signature">
+                    </span>
+                @endif
+            </div>
         </div>
         <div class="signature-block">
             <p><strong>Data Recorded:</strong></p>
-            <div class="line"><span class="label">Name:</span><span class="value">&nbsp;</span></div>
-            <div class="line"><span class="label">Date:</span><span class="value">&nbsp;</span></div>
-            <div class="line"><span class="label">Signature:</span></div>
+            <div class="line"><span class="label">Name:</span><span class="value">{{ $assessment->data_recorder_name }}</span></div>
+            <div class="line"><span class="label">Date:</span><span class="value">{{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</span></div>
+            <div class="line" style="position: relative;">
+                <span class="label">Signature:</span>
+                @if(!empty($assessment->data_recorder_signature))
+                    <span class="" style="position: absolute; right: 0; z-index: 0">
+                        <img
+                            src="{{ $assessment->data_recorder_signature }}" height="45px"
+                            alt="data_recorder_signature">
+                    </span>
+                @endif
+            </div>
         </div>
     </div>
 

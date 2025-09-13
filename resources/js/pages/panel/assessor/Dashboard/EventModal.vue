@@ -52,6 +52,7 @@ const open = (event: CalendarEvent) => {
     form.started_at = new Date();
     form.tasks = event.extendedProps?.detail?.tasks ?? [];
     form.comment = event?.extendedProps?.detail?.comment ?? '';
+    form.result = event?.extendedProps?.detail?.result === "competent";
     form.assessor_name = event.extendedProps?.detail?.assessor_name ?? page.props.auth.user.name;
     form.assessee_name = event.extendedProps?.detail?.assessee_name ?? '';
     form.supervisor_name = event.extendedProps?.detail?.supervisor_name ?? '';
