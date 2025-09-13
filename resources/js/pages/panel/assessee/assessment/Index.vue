@@ -218,6 +218,11 @@ const searchByCode = (value: string | undefined): void => {
                 </Column>
                 <template #action="{ item }: { item: Assessment }">
                     <div class="flex gap-x-1.5">
+                        <a target="_blank" :href="route('assessee.assessment.print', item.id)">
+                            <Button
+                                v-tooltip.bottom="t('action.print')" v-if="item.status === 'completed'"
+                                icon="pi pi-print" size="small" variant="text" severity="secondary" rounded />
+                        </a>
                         <Button
                             v-tooltip.bottom="t('action.delete')" v-if="item.status === 'pending'"
                             icon="pi pi-trash" size="small" variant="text" severity="danger"
