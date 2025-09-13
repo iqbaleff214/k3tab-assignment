@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Assessment extends Model
 {
@@ -23,6 +24,10 @@ class Assessment extends Model
         'assessor_id', 'assessee_id', 'assessee_name', 'assessee_no_id',
         'assessee_school', 'performance_guide_id', 'status', 'tasks', 'result',
         'comment', 'feedback', 'scheduled_at', 'started_at', 'finished_at',
+        'assessor_name', 'assessor_signature', 'assessor_signature_date',
+        'assessee_signature', 'assessee_signature_date',
+        'supervisor_name', 'supervisor_signature', 'supervisor_signature_date',
+        'data_recorder_name', 'data_recorder_signature', 'data_recorder_signature_date',
     ];
 
     protected $casts = [
@@ -30,6 +35,10 @@ class Assessment extends Model
         'scheduled_at' => 'datetime',
         'started_at' => 'datetime',
         'finished_at' => 'datetime',
+        'assessor_signature_date' => 'datetime',
+        'assessee_signature_date' => 'datetime',
+        'supervisor_signature_date' => 'datetime',
+        'data_recorder_signature_date' => 'datetime',
     ];
 
     public function scheduledAt(): Attribute

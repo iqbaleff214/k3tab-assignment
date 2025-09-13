@@ -27,6 +27,19 @@ class EvaluateRequest extends FormRequest
             'result' => ['required', 'boolean'],
             'comment' => ['nullable', 'string'],
             'started_at' => ['required', 'date'],
+
+            'assessee_name' => ['required', 'string'],
+            'assessee_signature' => ['nullable', 'string'],
+            'assessee_signature_date' => ['nullable', 'date'],
+            'assessor_name' => ['required', 'string'],
+            'assessor_signature' => ['nullable', 'string'],
+            'assessor_signature_date' => ['nullable', 'date'],
+            'supervisor_name' => ['nullable', 'string'],
+            'supervisor_signature' => ['nullable', 'string'],
+            'supervisor_signature_date' => ['nullable', 'date'],
+            'data_recorder_name' => ['nullable', 'string'],
+            'data_recorder_signature' => ['nullable', 'string'],
+            'data_recorder_signature_date' => ['nullable', 'date'],
         ];
     }
 }

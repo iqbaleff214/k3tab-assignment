@@ -92,6 +92,8 @@
         "admin": "Administrator",
         "assessor": "Assessor",
         "assessee": "Assessee",
+        "supervisor": "Supervisor",
+        "data_recorder": "Data Recorder",
         "n_minute": "0 minute | a minute | {n} minutes",
         "n_question": "no question | a question | {n} questions",
         "no_estimation": "time estimation not provided",
@@ -136,7 +138,8 @@
         "assessment_calendar": "Assessment Calendar",
         "no_feedback_provided": "No feedback provided",
         "assessment_schedule_details": "Assessment Schedule Details",
-        "schedule_information": "Schedule Information"
+        "schedule_information": "Schedule Information",
+        "role_signature": "{role} signature"
     },
     "action": {
         "submit": "Save",
@@ -252,7 +255,9 @@
         "assessor_feedback": "Assessor Feedback",
         "accepted": "Accepted",
         "proposed": "Proposed",
-        "rejected": "Rejected"
+        "rejected": "Rejected",
+        "signature": "Signature",
+        "signature_date": "Signature Date"
     },
     "http": {
         "400": "Bad Request",

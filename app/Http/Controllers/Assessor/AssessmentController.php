@@ -57,6 +57,18 @@ class AssessmentController extends Controller
                 'comment' => $input['comment'],
                 'started_at' => $input['started_at'],
                 'finished_at' => now(),
+                'assessee_name' => $input['assessee_name'] ?? null,
+                'assessee_signature' => $input['assessee_signature'] ?? null,
+                'assessee_signature_date' => $input['assessee_signature_date'] ?? null,
+                'assessor_name' => $input['assessor_name'] ?? null,
+                'assessor_signature' => $input['assessor_signature'] ?? null,
+                'assessor_signature_date' => $input['assessor_signature_date'] ?? null,
+                'supervisor_name' => $input['supervisor_name'] ?? null,
+                'supervisor_signature' => $input['supervisor_signature'] ?? null,
+                'supervisor_signature_date' => $input['supervisor_signature_date'] ?? null,
+                'data_recorder_name' => $input['data_recorder_name'] ?? null,
+                'data_recorder_signature' => $input['data_recorder_signature'] ?? null,
+                'data_recorder_signature_date' => $input['data_recorder_signature_date'] ?? null,
             ]);
 
             $assessment->assessee->notify(new \App\Notifications\Assessment\AssessmentResult($assessment));

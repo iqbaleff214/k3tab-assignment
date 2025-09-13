@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { CalendarEvent, TaskGroup } from '@/types';
+import type { CalendarEvent, SharedData, TaskGroup } from '@/types';
 import {
     Dialog, Button, Textarea, FloatLabel, Message, InputText, RadioButton, Image
 } from 'primevue';
 import { useI18n } from 'vue-i18n';
 import { dateHumanFormat, isHttpUrl } from '@/lib/utils';
-import { useForm } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
+import SignaturePad from '@/components/SignaturePad.vue';
 
 const visible = ref<boolean>(false);
 const selectedEvent = ref<CalendarEvent>();
@@ -16,15 +17,33 @@ const emit = defineEmits<{
     (e: "submit"): void;
 }>();
 
+const page = usePage<SharedData>();
+
 const form = useForm<{
     [key: string]: any;
     tasks: TaskGroup[];
     result: boolean;
     comment: string;
     started_at: Date;
+    assessee_name: string;
+    assessor_name: string;
+    supervisor_name: string;
+    data_recorder_name: string;
+    assessee_signature: string;
+    assessor_signature: string;
+    supervisor_signature: string;
+    data_recorder_signature: string;
 }>({
     comment: '', result: false,
     started_at: new Date(), tasks: [],
+    assessee_name: '',
+    assessor_name: '',
+    supervisor_name: '',
+    data_recorder_name: '',
+    assessee_signature: '',
+    assessor_signature: '',
+    supervisor_signature: '',
+    data_recorder_signature: '',
 });
 
 const open = (event: CalendarEvent) => {
@@ -33,6 +52,14 @@ const open = (event: CalendarEvent) => {
     form.started_at = new Date();
     form.tasks = event.extendedProps?.detail?.tasks ?? [];
     form.comment = event?.extendedProps?.detail?.comment ?? '';
+    form.assessor_name = event.extendedProps?.detail?.assessor_name ?? page.props.auth.user.name;
+    form.assessee_name = event.extendedProps?.detail?.assessee_name ?? '';
+    form.supervisor_name = event.extendedProps?.detail?.supervisor_name ?? '';
+    form.data_recorder_name = event.extendedProps?.detail?.data_recorder_name ?? '';
+    form.assessor_signature = event.extendedProps?.detail?.assessor_signature ?? '';
+    form.assessee_signature = event.extendedProps?.detail?.assessee_signature ?? '';
+    form.supervisor_signature = event.extendedProps?.detail?.supervisor_signature ?? '';
+    form.data_recorder_signature = event.extendedProps?.detail?.data_recorder_signature ?? '';
 };
 
 const close = () => {
@@ -203,6 +230,29 @@ defineExpose({
                             <label for="result_incompetent">{{ t('label.not_competent') }}</label>
                         </div>
                     </div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-4">
+                    <SignaturePad
+                        v-model:name="form.assessee_name"
+                        v-model:sign="form.assessee_signature"
+                        :label="t('label.assessee')"
+                        :disabled="selectedEvent?.extendedProps?.detail.status !== 'scheduled'" />
+                    <SignaturePad
+                        v-model:name="form.assessor_name"
+                        v-model:sign="form.assessor_signature"
+                        :label="t('label.assessor')"
+                        :disabled="selectedEvent?.extendedProps?.detail.status !== 'scheduled'" />
+                    <SignaturePad
+                        v-model:name="form.supervisor_name"
+                        v-model:sign="form.supervisor_signature"
+                        :label="t('label.supervisor')"
+                        :disabled="selectedEvent?.extendedProps?.detail.status !== 'scheduled'" />
+                    <SignaturePad
+                        v-model:name="form.data_recorder_name"
+                        v-model:sign="form.data_recorder_signature"
+                        :label="t('label.data_recorder')"
+                        :disabled="selectedEvent?.extendedProps?.detail.status !== 'scheduled'" />
                 </div>
 
             </div>

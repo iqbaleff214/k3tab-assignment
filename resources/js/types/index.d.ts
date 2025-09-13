@@ -379,9 +379,20 @@ export interface Assessment {
     id: string;
     assessor_id: number;
     assessee_id: number;
-    assessee_name: string;
     assessee_no_id: string | null;
     assessee_school: string | null;
+    assessee_name: string;
+    assessee_signature: string | null; // base64 image
+    assessee_signature_date: string | null;
+    assessor_name: string;
+    assessor_signature: string | null; // base64 image
+    assessor_signature_date: string | null;
+    supervisor_name: string;
+    supervisor_signature: string | null; // base64 image
+    supervisor_signature_date: string | null;
+    data_recorder_name: string;
+    data_recorder_signature: string | null; // base64 image
+    data_recorder_signature_date: string | null;
     assessee?: User;
     assessor?: User;
     performance_guide_id: string;
