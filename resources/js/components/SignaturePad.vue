@@ -9,6 +9,7 @@ const props = defineProps<{
     sign: string;
     label?: string;
     disabled?: boolean;
+    hideNameField?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -64,7 +65,7 @@ onMounted(() => {
 
 <template>
     <div class="flex flex-col gap-3">
-        <div>
+        <div v-if="!hideNameField">
             <FloatLabel variant="on">
                 <InputText
                     :fluid="true"
@@ -77,36 +78,29 @@ onMounted(() => {
             </FloatLabel>
         </div>
 
-        <div class="border border-gray-300 rounded-lg p-4 bg-white">
-            <div class="mb-2 text-sm text-gray-600">{{ t('field.signature') }}</div>
-            <div class="border border-gray-200 rounded bg-gray-50">
-                <VueSignaturePad
-                    ref="signature"
-                    height="200px"
-                    width="100%"
-                    :maxWidth="2"
-                    :minWidth="1"
-                    :disabled="disabled"
-                    :options="{
-                        penColor: 'rgb(0, 0, 0)',
-                        backgroundColor: 'rgb(255, 255, 255)'
-                    }"
-                    @end-stroke="updateSignature" />
-            </div>
+        <div class="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 relative">
+            <VueSignaturePad
+                ref="signature"
+                height="160px"
+                width="100%"
+                :maxWidth="1"
+                :minWidth="0.5"
+                :disabled="disabled"
+                :options="{
+                    penColor: 'rgb(0, 0, 0)',
+                    backgroundColor: 'transparent'
+                }"
+                @end-stroke="updateSignature" />
 
-            <div class="flex gap-2 mt-2" v-if="!disabled">
+            <div class="absolute top-1 right-1 flex gap-1" v-if="!disabled">
                 <Button
-                    type="button"
-                    @click="handleClear"
-                    size="small"
-                    severity="secondary"
-                    :label="t('action.clear')" />
+                    type="button" icon="pi pi-eraser"
+                    @click="handleClear" severity="secondary" variant="text"
+                    rounded size="small" />
                 <Button
-                    type="button"
-                    @click="handleUndo"
-                    size="small"
-                    severity="secondary"
-                    :label="t('action.undo')" />
+                    type="button" icon="pi pi-undo"
+                    @click="handleUndo" severity="secondary" variant="text"
+                    rounded size="small" />
             </div>
         </div>
     </div>
