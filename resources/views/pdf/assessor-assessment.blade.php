@@ -33,11 +33,14 @@
         .result-options div { display: flex; align-items: center; gap: 5px; }
         .checkbox { width: 20px; height: 20px; border: 0.5px solid black; display: flex; justify-content: center; align-items: center; }
         .result-note { margin-left: auto; font-style: italic; font-size: 12px; }
-        .signature-section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; margin-top: 30px; width: 100%; }
-        .signature-block p { margin: 0 0 10px 0; }
-        .signature-block .line { border-bottom: 1px dotted black; margin-top: 20px; position: relative; height: 30px; }
-        .signature-block .line .value { position: absolute; bottom: 5px; left: 50px; }
-        .signature-block .line .label { position: absolute; bottom: 5px; left: 0; font-size: 12px; font-weight: normal; }
+        .signature-section { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 50px; margin-top: 40px; width: 100%; }
+        .signature-block { text-align: center; }
+        .signature-block p { margin: 0 0 15px 0; font-weight: bold; font-size: 13px; }
+        .signature-block .signature-area { height: 60px; margin: 15px 0; position: relative; border-bottom: 1px solid black; }
+        .signature-block .signature-image { position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); max-height: 50px; max-width: 150px; }
+        .signature-block .name-line { margin: 8px 0; text-align: center; padding-bottom: 3px; font-size: 12px; min-height: 16px; }
+        .signature-block .date-line { text-align: center; font-size: 11px; margin-top: 5px; }
+        .signature-block .role-label { font-size: 10px; color: #666; margin-top: 3px; }
         .text-center { text-align: center; vertical-align: middle; }
         /* IF YOU WANT CLEANER LOOK, COMMENT FROM HERE */
         body { background-color: white; margin: 0; }
@@ -135,64 +138,51 @@
 
     <div class="signature-section">
         <div class="signature-block">
-            <p><strong>Student:</strong></p>
-            <div class="line"><span class="label">Name:</span><span class="value">{{ $assessment->assessee_name }}</span></div>
-            <div class="line"><span class="label">Date:</span><span class="value">{{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</span></div>
-            <div class="line" style="position: relative;">
-                <span class="label">Signature:</span>
+            <p>Student</p>
+            <div class="signature-area">
                 @if(!empty($assessment->assessee_signature))
-                    <span class="" style="position: absolute; right: 0; z-index: 0">
-                        <img
-                            src="{{ $assessment->assessee_signature }}" height="45px"
-                            alt="assessee_signature">
-                    </span>
+                    <img src="{{ $assessment->assessee_signature }}" alt="Student Signature" class="signature-image">
                 @endif
             </div>
+            <div class="name-line">{{ $assessment->assessee_name }}</div>
+            <div class="role-label">Student Name</div>
+            <div class="date-line">Date: {{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</div>
         </div>
+
         <div class="signature-block">
-            <p><strong>Assessor:</strong></p>
-            <div class="line"><span class="label">Name:</span><span class="value">{{ $assessment->assessor_name ?? $assessment->assessor?->name }}</span></div>
-            <div class="line"><span class="label">Date:</span><span class="value">{{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</span></div>
-            <div class="line" style="position: relative;">
-                <span class="label">Signature:</span>
+            <p>Assessor</p>
+            <div class="signature-area">
                 @if(!empty($assessment->assessor_signature))
-                    <span class="" style="position: absolute; right: 0; z-index: 0">
-                        <img
-                            src="{{ $assessment->assessor_signature }}" height="45px"
-                            alt="assessor_signature">
-                    </span>
+                    <img src="{{ $assessment->assessor_signature }}" alt="Assessor Signature" class="signature-image">
                 @endif
             </div>
+            <div class="name-line">{{ $assessment->assessor_name ?? $assessment->assessor?->name }}</div>
+            <div class="role-label">Assessor Name</div>
+            <div class="date-line">Date: {{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</div>
         </div>
+
         <div class="signature-block">
-            <p><strong>Supervisor:</strong></p>
-            <div class="line"><span class="label">Name:</span><span class="value">{{ $assessment->supervisor_name }}</span></div>
-            <div class="line"><span class="label">Date:</span><span class="value">{{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</span></div>
-            <div class="line" style="position: relative;">
-                <span class="label">Signature:</span>
+            <p>Supervisor</p>
+            <div class="signature-area">
                 @if(!empty($assessment->supervisor_signature))
-                    <span class="" style="position: absolute; right: 0; z-index: 0">
-                        <img
-                            src="{{ $assessment->supervisor_signature }}" height="45px"
-                            alt="supervisor_signature">
-                    </span>
+                    <img src="{{ $assessment->supervisor_signature }}" alt="Supervisor Signature" class="signature-image">
                 @endif
             </div>
+            <div class="name-line">{{ $assessment->supervisor_name }}</div>
+            <div class="role-label">Supervisor Name</div>
+            <div class="date-line">Date: {{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</div>
         </div>
+
         <div class="signature-block">
-            <p><strong>Data Recorded:</strong></p>
-            <div class="line"><span class="label">Name:</span><span class="value">{{ $assessment->data_recorder_name }}</span></div>
-            <div class="line"><span class="label">Date:</span><span class="value">{{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</span></div>
-            <div class="line" style="position: relative;">
-                <span class="label">Signature:</span>
+            <p>Data Recorder</p>
+            <div class="signature-area">
                 @if(!empty($assessment->data_recorder_signature))
-                    <span class="" style="position: absolute; right: 0; z-index: 0">
-                        <img
-                            src="{{ $assessment->data_recorder_signature }}" height="45px"
-                            alt="data_recorder_signature">
-                    </span>
+                    <img src="{{ $assessment->data_recorder_signature }}" alt="Data Recorder Signature" class="signature-image">
                 @endif
             </div>
+            <div class="name-line">{{ $assessment->data_recorder_name }}</div>
+            <div class="role-label">Data Recorder Name</div>
+            <div class="date-line">Date: {{ $assessment->scheduled_at?->isoFormat('D MMMM Y') }}</div>
         </div>
     </div>
 
