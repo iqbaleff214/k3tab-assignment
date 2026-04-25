@@ -38,13 +38,27 @@
 - **Inertia.js** – Full-stack framework tanpa API
 - **Vite** – Build tool modern untuk development yang cepat
 - **Tailwind CSS 4.x** – Utility-first CSS framework
-- **MySQL/SQLite** – Database dengan Eloquent ORM
+- **PostgreSQL 16** – Database dengan Eloquent ORM
 - **Pusher/Reverb** – Real-time communication
 - **Gemini AI** – AI-powered content generation
 - **WhatsApp API** – Notification system
 - **Midtrans/Xendit** – Payment gateway integration
 
 ## 📦 Installation
+
+### 🐳 Docker (Recommended)
+
+```bash
+# Dev (with hot reload)
+docker compose -f docker-compose.yaml up -d
+
+# Production
+docker compose -f docker-compose.yml up -d
+```
+
+Database runs on PostgreSQL 16 at `localhost:5432` (`k3tab2025` / `root` / `root`).
+
+### 💻 Local
 
 ```bash
 # Install PHP dependencies
@@ -57,10 +71,13 @@ php artisan key:generate
 
 ### 🔐 Environment Configuration
 
-```
-DB_DATABASE=your_db
-DB_USERNAME=your_user
-DB_PASSWORD=your_password
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=k3tab2025
+DB_USERNAME=root
+DB_PASSWORD=root
 GEMINI_API_KEY=
 ```
 
@@ -569,7 +586,7 @@ Menciptakan platform asesmen digital yang komprehensif dan user-friendly untuk m
 ### 6.1 System Architecture
 - **Frontend**: Vue.js 3 + TypeScript + Inertia.js
 - **Backend**: Laravel 12 + PHP 8.2+
-- **Database**: MySQL dengan master-slave replication
+- **Database**: PostgreSQL 16 dengan Eloquent ORM
 - **Caching**: Redis untuk session dan application cache
 - **Queue**: Redis-based job processing
 - **Storage**: Local storage dengan S3 backup option

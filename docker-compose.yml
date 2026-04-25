@@ -1,6 +1,6 @@
 services:
   web:
-    image: laravel-vue-starter-kit
+    image: k3tab
     build:
       context: .
       dockerfile: ./.docker/php/prod.Dockerfile
@@ -8,23 +8,32 @@ services:
     volumes:
       - app_data:/var/www
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
       - .env.docker
     entrypoint: ["/usr/local/bin/entrypoint.sh"]
     command: ["php-fpm"]
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /var/www/.migrated"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 15s
   queue:
-    image: laravel-vue-starter-kit
+    image: k3tab
     build:
       context: .
       dockerfile: ./.docker/php/prod.Dockerfile
       network: host
     volumes:
-        - app_data:/var/www
+      - app_data:/var/www
     restart: always
     depends_on:
-      - db
-      - web
+      db:
+        condition: service_healthy
+      web:
+        condition: service_healthy
     command: php artisan queue:work
     env_file:
       - .env.docker
@@ -40,19 +49,22 @@ services:
     depends_on:
       - web
   db:
-    image: mysql:8.1
+    image: postgres:16-alpine
     restart: always
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - .docker/db/data:/var/lib/mysql
-      - .docker/logs:/var/log/mysql
-      - .docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - .docker/db/data:/var/lib/postgresql/data
+      - .docker/logs:/var/log/postgresql
       - .docker/db/sql:/docker-entrypoint-initdb.d
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravelvuestarterkit
-      MYSQL_USER: laravelvuestarterkit
-      MYSQL_PASSWORD: laravelvuestarterkit
+      POSTGRES_DB: k3tab2025
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d k3tab2025"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 volumes:
   app_data:

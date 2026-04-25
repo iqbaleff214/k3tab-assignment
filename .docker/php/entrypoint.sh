@@ -1,6 +1,6 @@
 #!/bin/bash
 
-until mysqladmin ping -h db --silent; do
+until pg_isready -h db -U root -d k3tab2025 --quiet; do
   echo "Waiting for database connection..."
   sleep 5
 done
@@ -8,6 +8,7 @@ done
 if [ ! -f /var/www/.migrated ]; then
   php artisan migrate:fresh --force --seed
   touch /var/www/.migrated
+  php artisan storage:link
 fi
 
 php artisan optimize
