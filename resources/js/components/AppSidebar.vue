@@ -36,7 +36,7 @@ const mainNavItems: NavItemGroup[] = [
     },
     {
         header: 'menu.assessment',
-        isAvailable: page.props.auth.user.type !== 'assessor',
+        isAvailable: true,
         items: [
             {
                 title: 'menu.module',
@@ -73,6 +73,13 @@ const mainNavItems: NavItemGroup[] = [
                 icon: BookUp2Icon,
                 isAvailable: page.props.auth.user.type === 'admin',
                 isActive: route().current('admin.post-test.index'),
+            },
+            {
+                title: 'menu.post_test',
+                href: route('assessor.post-test.index'),
+                icon: BookUp2Icon,
+                isAvailable: page.props.auth.user.type === 'assessor',
+                isActive: route().current('assessor.post-test.index'),
             },
             {
                 title: 'menu.assessment',

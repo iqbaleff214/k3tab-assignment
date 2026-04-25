@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete("/assessment/{assessment}", [\App\Http\Controllers\AssessmentController::class, 'destroy'])->name('assessment.destroy');
 
             Route::get("/post-test", [\App\Http\Controllers\PostTestController::class, 'index'])->name('post-test.index');
+            Route::put("/post-test/{test}/grade", [\App\Http\Controllers\PostTestController::class, 'grade'])->name('post-test.grade');
             Route::delete("/post-test/{test}", [\App\Http\Controllers\PostTestController::class, 'destroy'])->name('post-test.destroy');
         });
 
@@ -65,6 +66,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/assessment/{assessment}/print', [\App\Http\Controllers\Assessor\AssessmentController::class, 'downloadPrint'])->name('assessment.download-print');
         Route::post('/assessment/{assessment}', [\App\Http\Controllers\Assessor\AssessmentController::class, 'store'])->name('assessment.store');
         Route::post('/assessment/{assessment}/proposal', [\App\Http\Controllers\Assessor\AssessmentController::class, 'proposal'])->name('assessment.proposal');
+
+        Route::get('/post-test', [\App\Http\Controllers\PostTestController::class, 'index'])->name('post-test.index');
+        Route::put('/post-test/{test}/grade', [\App\Http\Controllers\PostTestController::class, 'grade'])->name('post-test.grade');
     });
 
     Route::middleware('allowed-type:assessee')->prefix('e')->name('assessee.')->group(function () {

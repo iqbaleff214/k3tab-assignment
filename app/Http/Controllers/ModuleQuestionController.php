@@ -18,24 +18,41 @@ class ModuleQuestionController extends Controller
     {
         try {
             $input = $request->validated();
+            $path = 'modules/' . $module->id . '/files';
 
-            $question = $input['question'];
-            if ($question instanceof UploadedFile) {
-                $question = Storage::url($question->storePublicly('modules/' . $module->id . '/files'));
+            $questionImage = null;
+            if (($input['question_image'] ?? null) instanceof UploadedFile) {
+                $questionImage = Storage::url($input['question_image']->storePublicly($path));
             }
 
-            $choices = $input['choices'];
-            foreach ($choices as $key => $choice) {
-                if ($choice instanceof UploadedFile) {
-                    $choices[$key] = Storage::url($choice->storePublicly('modules/' . $module->id . '/files'));
+            $choices = $input['choices'] ?? null;
+            $choicesImages = null;
+
+            if ($choices !== null) {
+                foreach ($choices as $key => $choice) {
+                    if ($choice instanceof UploadedFile) {
+                        $choices[$key] = Storage::url($choice->storePublicly($path));
+                    }
+                }
+            }
+
+            if (!empty($input['choices_images'])) {
+                $choicesImages = [];
+                foreach ($input['choices_images'] as $key => $img) {
+                    $choicesImages[$key] = ($img instanceof UploadedFile)
+                        ? Storage::url($img->storePublicly($path))
+                        : null;
                 }
             }
 
             $module->questions()->create([
-                'title' => $input['title'],
-                'question' => $question,
+                'title' => $input['title'] ?? null,
+                'type' => $input['type'],
+                'question' => $input['question'] ?? null,
+                'question_image' => $questionImage,
                 'choices' => $choices,
-                'correct_answer_index' => $input['correct_answer_index'],
+                'choices_images' => $choicesImages,
+                'correct_answer_index' => $input['correct_answer_index'] ?? null,
             ]);
 
             return back()->with('success', __('action.created', ['menu' => __('menu.module_question')]));
@@ -50,11 +67,37 @@ class ModuleQuestionController extends Controller
     {
         try {
             $input = $request->validated();
+            $path = 'modules/' . $module->id . '/files';
+
+            $questionImage = $question->question_image;
+            if (($input['question_image'] ?? null) instanceof UploadedFile) {
+                $questionImage = Storage::url($input['question_image']->storePublicly($path));
+            }
+
+            $choices = $input['choices'] ?? null;
+            $choicesImages = null;
+
+            if (isset($input['choices_images'])) {
+                $choicesImages = [];
+                foreach ($input['choices_images'] as $key => $img) {
+                    if ($img instanceof UploadedFile) {
+                        $choicesImages[$key] = Storage::url($img->storePublicly($path));
+                    } elseif (is_string($img) && $img !== '') {
+                        $choicesImages[$key] = $img;
+                    } else {
+                        $choicesImages[$key] = null;
+                    }
+                }
+            }
+
             $question->update([
-                'title' => $input['title'],
-                'question' => $input['question'],
-                'choices' => $input['choices'],
-                'correct_answer_index' => $input['correct_answer_index'],
+                'title' => $input['title'] ?? null,
+                'type' => $input['type'],
+                'question' => $input['question'] ?? null,
+                'question_image' => $questionImage,
+                'choices' => $choices,
+                'choices_images' => $choicesImages,
+                'correct_answer_index' => $input['correct_answer_index'] ?? null,
             ]);
 
             return back()->with('success', __('action.updated', ['menu' => __('menu.module_question')]));

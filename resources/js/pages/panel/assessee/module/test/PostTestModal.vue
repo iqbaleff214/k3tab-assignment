@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';
-import { Dialog, Button, Image } from 'primevue';
+import { Dialog, Button, Image, Textarea } from 'primevue';
 import type { Module, Question, Answer } from '@/types';
 import { isHttpUrl, shuffleArray } from '@/lib/utils';
 
@@ -89,47 +89,59 @@ defineExpose({
                         @click="() => currentQuestionIndex = i"
                         class="text-sm px-2 py-1 rounded-md cursor-pointer w-10 relative">
                         {{ i+1 }}
-                        <div class="absolute -top-2 -right-0.5" v-if="form.answers[i].answer_index !== null">
-                            <i class="pi pi-circle-fill text-emerald-400"
-                               title="answered" style="font-size: 0.5rem"></i>
+                        <div class="absolute -top-2 -right-0.5"
+                            v-if="q.type === 'essay' ? !!form.answers[i].answer?.trim() : form.answers[i].answer_index !== null">
+                            <i class="pi pi-circle-fill text-emerald-400" title="answered" style="font-size: 0.5rem"></i>
                         </div>
                     </button>
                 </div>
 
-                <template v-if="!isHttpUrl(selectedQuestions[currentQuestionIndex]?.question)">
-                    <p v-html="selectedQuestions[currentQuestionIndex]?.question"></p>
+                <div class="flex flex-col gap-2">
+                    <p v-if="selectedQuestions[currentQuestionIndex]?.question"
+                       v-html="selectedQuestions[currentQuestionIndex]?.question"></p>
+                    <Image
+                        v-if="selectedQuestions[currentQuestionIndex]?.question_image"
+                        :src="selectedQuestions[currentQuestionIndex]?.question_image" preview
+                        :alt="selectedQuestions[currentQuestionIndex]?.title"
+                        class="max-w-32 rounded-lg" />
+                </div>
+
+                <template v-if="selectedQuestions[currentQuestionIndex]?.type === 'essay'">
+                    <Textarea
+                        v-model="form.answers[currentQuestionIndex].answer"
+                        :rows="5" fluid
+                        :placeholder="$t('label.write_your_answer')" />
                 </template>
                 <template v-else>
-                    <Image
-                        :src="selectedQuestions[currentQuestionIndex]?.question" preview
-                        :alt="selectedQuestions[currentQuestionIndex]?.title"
-                        class="max-w-24 rounded-full" />
-                </template>
-
-                <div class="grid md:grid-cols-2 gap-4">
-                    <button
-                        type="button" :class="{ 'bg-amber-400 text-white': form.answers[currentQuestionIndex].answer_index === index, 'hover:bg-gray-100': form.answers[currentQuestionIndex].answer_index !== index }"
-                        :key="choice" class="border border-gray-200 rounded-md p-2 cursor-pointer flex items-center gap-2"
-                        @click="() => form.answers[currentQuestionIndex].answer_index = index"
-                        v-for="(choice, index) in selectedQuestions[currentQuestionIndex]?.choices">
-                        <template v-if="!isHttpUrl(choice)">
-                            <p v-html="choice"></p>
-                        </template>
-                        <template v-else>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <button
+                            type="button"
+                            :class="{ 'bg-amber-400 text-white': form.answers[currentQuestionIndex].answer_index === index, 'hover:bg-gray-100 dark:hover:bg-gray-800': form.answers[currentQuestionIndex].answer_index !== index }"
+                            :key="index"
+                            class="border border-gray-200 dark:border-gray-700 rounded-md p-2 cursor-pointer flex flex-col items-start gap-1 text-left"
+                            @click="() => form.answers[currentQuestionIndex].answer_index = index"
+                            v-for="(choice, index) in selectedQuestions[currentQuestionIndex]?.choices">
+                            <p v-if="choice" v-html="choice"></p>
                             <Image
-                                :src="choice" preview
-                                :alt="selectedQuestions[currentQuestionIndex]?.question"
-                                class="max-w-24 rounded-full" />
-                        </template>
-                    </button>
-                </div>
+                                v-if="selectedQuestions[currentQuestionIndex]?.choices_images?.[index]"
+                                :src="selectedQuestions[currentQuestionIndex]?.choices_images![index]" preview
+                                :alt="choice ?? ''"
+                                class="max-w-24 rounded" />
+                        </button>
+                    </div>
+                </template>
             </div>
 
             <div class="flex justify-end gap-2">
                 <Button type="button" size="small" :label="$t('action.cancel')" severity="secondary" @click="close"></Button>
                 <Button
                     type="submit" size="small" :label="$t('action.submit')"
-                    :loading="form.processing" :disabled="form.processing || form.answers.some(a => a.answer_index === null)" />
+                    :loading="form.processing"
+                    :disabled="form.processing || form.answers.some((a, i) =>
+                        selectedQuestions[i]?.type === 'essay'
+                            ? !a.answer?.trim()
+                            : a.answer_index === null
+                    )" />
             </div>
         </form>
     </Dialog>

@@ -139,7 +139,16 @@
         "no_feedback_provided": "No feedback provided",
         "assessment_schedule_details": "Assessment Schedule Details",
         "schedule_information": "Schedule Information",
-        "role_signature": "{role} signature"
+        "role_signature": "{role} signature",
+        "multiple_choice": "Multiple Choice",
+        "essay": "Essay",
+        "essay_graded_manually": "Essay — graded manually by the assessor",
+        "write_your_answer": "Write your answer here...",
+        "image": "Image",
+        "grade_essay": "Grade Essay Answers",
+        "grade_essay_subtitle": "Mark each essay answer as correct or incorrect.",
+        "pending_grading": "Pending Grading",
+        "graded": "Graded"
     },
     "action": {
         "submit": "Save",
@@ -177,7 +186,8 @@
         "submit_menu": "{menu} Submission",
         "process": "Process",
         "reject": "Reject",
-        "print": "Print"
+        "print": "Print",
+        "grade": "Grade"
     },
     "field": {
         "name": "Name",
@@ -245,6 +255,7 @@
         "nim": "No ID",
         "comment": "Comment",
         "is_passed": "Is Passed?",
+        "is_graded": "Grading Status",
         "feedback": "Feedback",
         "optional": "Optional",
         "information": "Information",

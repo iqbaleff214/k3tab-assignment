@@ -73,7 +73,16 @@
         "enter_email_password_reset_link": "Masukkan surel atau nomor telepon Anda untuk mendapatkan tautan untuk mereset kata sandi",
         "or_return_to": "Atau kembali",
         "enter_new_password": "Silakan masukkan kata sandi baru Anda",
-        "need_n_approval": "Butuh {total} persetujuan"
+        "need_n_approval": "Butuh {total} persetujuan",
+        "multiple_choice": "Pilihan Ganda",
+        "essay": "Esai",
+        "essay_graded_manually": "Esai — dinilai secara manual oleh asesor",
+        "write_your_answer": "Tulis jawaban Anda di sini...",
+        "image": "Gambar",
+        "grade_essay": "Nilai Jawaban Esai",
+        "grade_essay_subtitle": "Tandai setiap jawaban esai sebagai benar atau salah.",
+        "pending_grading": "Menunggu Penilaian",
+        "graded": "Sudah Dinilai"
     },
     "action": {
         "submit": "Simpan",
@@ -101,7 +110,8 @@
         "reset_password": "Reset kata sandi",
         "contact_us": "Hubungi kami",
         "preview": "Pratinjau",
-        "close": "Tutup"
+        "close": "Tutup",
+        "grade": "Nilai"
     },
     "field": {
         "name": "Nama",
@@ -124,7 +134,8 @@
         "email_or_phone": "Surel atau Nomor Telepon",
         "subject": "Subjek",
         "parent_id": "Master",
-        "role_id": "Jabatan"
+        "role_id": "Jabatan",
+        "is_graded": "Status Penilaian"
     },
     "http": {
         "400": "Permintaan Tidak Valid",

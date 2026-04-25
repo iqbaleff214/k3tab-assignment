@@ -92,6 +92,45 @@ npm install
 npm run dev
 ```
 
+## 🔄 Database Migration Notes
+
+### Question Table — Essay & Combined Media Update
+
+Migration `2026_04_25_000001_update_questions_table_add_essay_and_media.php` adds:
+- `type` column (default `multiple_choice`) — safe, all existing rows auto-filled
+- `question_image` column (nullable) — safe, existing rows get `null`
+- `choices_images` column (nullable) — safe, existing rows get `null`
+- `choices` and `correct_answer_index` made nullable — safe, existing values untouched
+
+Run the migration normally:
+
+```bash
+php artisan migrate
+```
+
+**⚠️ Image-only questions (existing data fix)**
+
+Old image-only questions stored the image URL directly in the `question` text column. After this migration, the frontend no longer detects URLs in that column — it renders `question` as plain text and `question_image` as the image.
+
+If you have existing image-only questions, run this one-time fix after migrating:
+
+```bash
+php artisan tinker --execute="
+DB::table('questions')
+    ->whereRaw(\"question LIKE 'http%'\")
+    ->update(['question_image' => DB::raw('question'), 'question' => null]);
+echo 'Done: ' . DB::table('questions')->whereNotNull('question_image')->count() . ' records fixed.';
+"
+```
+
+Or via raw SQL:
+
+```sql
+UPDATE questions
+SET question_image = question, question = NULL
+WHERE question LIKE 'http%';
+```
+
 ## 🧪 Development
 
 ```bash

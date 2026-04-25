@@ -324,9 +324,12 @@ export interface Question {
     id: number;
     module_id: string;
     title: string;
-    question: string;
-    choices: string[];
-    correct_answer_index: number;
+    type: 'multiple_choice' | 'essay';
+    question: string | null;
+    question_image: string | null;
+    choices: string[] | null;
+    choices_images: string[] | null;
+    correct_answer_index: number | null;
 }
 
 export interface PostTest {
@@ -338,7 +341,8 @@ export interface PostTest {
     minimum_score: number;
     assessee?: User;
     module?: Module;
-    is_passed: boolean;
+    is_passed: boolean | null;
+    is_graded: boolean;
     created_at: string;
     updated_at: string;
 }
@@ -348,7 +352,7 @@ export interface Answer {
     question: string;
     answer: string | null;
     answer_index: number | null;
-    is_correct: boolean;
+    is_correct: boolean | null;
 }
 
 export interface PerformanceGuide {

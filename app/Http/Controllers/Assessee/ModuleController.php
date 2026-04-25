@@ -104,29 +104,43 @@ class ModuleController extends Controller
 
             $module->load(['questions']);
 
-            $totalQuestions = count($input['answers']);
+            $hasEssay = false;
+            $totalMC = 0;
             $totalCorrect = 0;
             foreach ($input['answers'] as $index => $answer) {
                 $question = $module->questions->where('id', $answer['id'])->first();
-                $input['answers'][$index]['answer'] = $question->choices[$answer['answer_index']];
+
+                if ($question->type === 'essay') {
+                    $hasEssay = true;
+                    $input['answers'][$index]['is_correct'] = null;
+                    continue;
+                }
+
+                $input['answers'][$index]['answer'] = $question->choices[$answer['answer_index']] ?? null;
                 $isCorrect = $question->correct_answer_index == $answer['answer_index'];
                 $input['answers'][$index]['is_correct'] = $isCorrect;
-
-                if ($isCorrect) {
-                    $totalCorrect++;
-                }
+                $totalMC++;
+                if ($isCorrect) $totalCorrect++;
             }
-            $input['score'] = $totalCorrect / $totalQuestions * 100;
+
+            if ($hasEssay) {
+                $score = 0;
+                $isPassed = null;
+            } else {
+                $score = $totalMC > 0 ? (int) ($totalCorrect / $totalMC * 100) : 0;
+                $isPassed = $score >= $module->minimum_score;
+            }
 
             $module->postTests()->create([
                 'user_id' => $request->user()->id,
                 'answers' => $input['answers'],
-                'score' => (int) $input['score'],
+                'score' => $score,
                 'minimum_score' => $module->minimum_score,
-                'is_passed' => $input['score'] >= $module->minimum_score,
+                'is_passed' => $isPassed,
+                'is_graded' => !$hasEssay,
             ]);
 
-            $assessee->score = (int) $input['score'];
+            $assessee->score = $score;
             $assessee->is_doing_test = false;
             $assessee->save();
 

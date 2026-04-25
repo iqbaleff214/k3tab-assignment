@@ -240,12 +240,12 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                         </div>
                         <div class="flex flex-col gap-2">
                             <div v-for="question in item.questions" :key="question.id" class="flex flex-col gap-1.5 bg-slate-50 dark:bg-slate-900 rounded-xl py-2 px-4">
-                                <div class="flex justify-between items-center">
-                                    <div class="text-sm font-medium flex-1" v-if="!isHttpUrl(question.question)">{{ question.question }}</div>
-                                    <div v-else>
-                                        <Image :src="question.question" preview :alt="question.title" class="w-16 h-16 rounded-full mt-2" />
+                                <div class="flex justify-between items-start gap-2">
+                                    <div class="flex flex-col gap-1 flex-1">
+                                        <p class="text-sm font-medium" v-if="question.question">{{ question.question }}</p>
+                                        <Image v-if="question.question_image" :src="question.question_image" preview :alt="question.title" class="w-16 h-16 rounded-lg mt-1" />
                                     </div>
-                                    <div class="flex">
+                                    <div class="flex shrink-0">
                                         <Button
                                             v-tooltip.bottom="t('action.edit')"
                                             icon="pi pi-pencil" size="small" variant="text" severity="secondary"
@@ -259,10 +259,18 @@ const destroyMedia = (event: MouseEvent, item: Module, media: Media) => {
                                 <div class="flex flex-col">
                                     <small class="text-xs text-gray-500">{{ $t('field.answer') }}</small>
                                     <div class="my-0 py-0">
-                                        <p class="text-sm" v-if="!isHttpUrl(question.choices[question.correct_answer_index])">{{ question.choices[question.correct_answer_index] }}</p>
-                                        <div v-else>
-                                            <Image :src="question.choices[question.correct_answer_index]" preview :alt="question.title" class="w-16 h-16 rounded-full mt-2" />
-                                        </div>
+                                        <template v-if="question.type === 'essay'">
+                                            <span class="text-xs text-gray-400 italic">{{ $t('label.essay_graded_manually') }}</span>
+                                        </template>
+                                        <template v-else>
+                                            <p class="text-sm" v-if="question.choices?.[question.correct_answer_index ?? 0]">
+                                                {{ question.choices[question.correct_answer_index ?? 0] }}
+                                            </p>
+                                            <Image
+                                                v-if="question.choices_images?.[question.correct_answer_index ?? 0]"
+                                                :src="question.choices_images[question.correct_answer_index ?? 0]"
+                                                preview :alt="question.title" class="w-16 h-16 rounded-lg mt-1" />
+                                        </template>
                                     </div>
                                 </div>
                             </div>

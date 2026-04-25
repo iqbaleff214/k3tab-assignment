@@ -73,7 +73,16 @@
         "enter_email_password_reset_link": "パスワードリセット用のリンクを受け取るためにメールまたは電話番号を入力してください",
         "or_return_to": "または戻る",
         "enter_new_password": "新しいパスワードを入力してください",
-        "need_n_approval": "{total} 件の承認が必要です"
+        "need_n_approval": "{total} 件の承認が必要です",
+        "multiple_choice": "多肢選択",
+        "essay": "論述",
+        "essay_graded_manually": "論述 — 評価者が手動で採点します",
+        "write_your_answer": "ここに回答を記入してください...",
+        "image": "画像",
+        "grade_essay": "論述回答を採点する",
+        "grade_essay_subtitle": "各論述回答を正解または不正解としてマークしてください。",
+        "pending_grading": "採点待ち",
+        "graded": "採点済み"
     },
     "action": {
         "submit": "保存",
@@ -101,7 +110,8 @@
         "reset_password": "パスワードをリセット",
         "contact_us": "お問い合わせ",
         "preview": "プレビュー",
-        "close": "閉じる"
+        "close": "閉じる",
+        "grade": "採点"
     },
     "field": {
         "name": "名前",
@@ -124,7 +134,8 @@
         "email_or_phone": "メールアドレスまたは電話番号",
         "subject": "件名",
         "parent_id": "マスター",
-        "role_id": "役職"
+        "role_id": "役職",
+        "is_graded": "採点状況"
     },
     "http": {
         "400": "不正なリクエスト",

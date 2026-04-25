@@ -146,7 +146,9 @@ const downloadFile = (id: number, filename: string) => {
                             <h3 class="font-medium text-amber-600">{{ t('label.post_test_result') }}</h3>
                             <div class="flex flex-col items-end">
                                 <small class="font-light text-gray-500">{{ t('label.latest_score') }}</small>
-                                <h3 class="font-medium">{{ result_histories?.[0]?.score }}</h3>
+                                <h3 class="font-medium">
+                                    {{ result_histories?.[0]?.is_graded === false ? t('label.pending_grading') : result_histories?.[0]?.score }}
+                                </h3>
                             </div>
                         </div>
                         <div class="flex flex-col gap-2">
@@ -160,8 +162,12 @@ const downloadFile = (id: number, filename: string) => {
                                             <Image :src="answer.question" preview :alt="answer.question" class="w-16 h-16 rounded-full mt-2" />
                                         </div>
                                         <div class="flex flex-col justify-end gap-1">
-                                            <span class="px-2 py-0.5 text-xs rounded-lg" :class="{ 'bg-green-100 text-green-600': answer.is_correct, 'bg-red-100 text-red-600': !answer.is_correct }">
-                                                {{ t( answer.is_correct ? 'label.correct' : 'label.incorrect' ) }}
+                                            <span class="px-2 py-0.5 text-xs rounded-lg" :class="{
+                                                'bg-green-100 text-green-600': answer.is_correct === true,
+                                                'bg-red-100 text-red-600': answer.is_correct === false,
+                                                'bg-yellow-100 text-yellow-600': answer.is_correct === null,
+                                            }">
+                                                {{ answer.is_correct === null ? t('label.pending_grading') : t(answer.is_correct ? 'label.correct' : 'label.incorrect') }}
                                             </span>
                                         </div>
                                     </div>

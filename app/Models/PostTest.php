@@ -14,12 +14,13 @@ class PostTest extends Model
 
     protected $fillable = [
         'module_id', 'user_id', 'answers',
-        'score', 'minimum_score', 'is_passed',
+        'score', 'minimum_score', 'is_passed', 'is_graded',
     ];
 
     protected $casts = [
         'answers' => 'array',
         'is_passed' => 'boolean',
+        'is_graded' => 'boolean',
     ];
 
     public function module(): BelongsTo
