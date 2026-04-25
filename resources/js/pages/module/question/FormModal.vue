@@ -13,7 +13,7 @@ const form = useForm<{
     _method: 'POST' | 'PUT';
     id: number;
     title: string;
-    type: 'multiple_choice' | 'essay';
+    type: 'multiple_choice' | 'essay' | 'fill_in_the_blank';
     question: string;
     question_image: File | null;
     choices: string[];
@@ -94,7 +94,7 @@ defineExpose({ open });
             <div class="flex flex-col gap-5 pt-2 pb-8">
 
                 <!-- Type selector -->
-                <div class="flex gap-6">
+                <div class="flex flex-wrap gap-4">
                     <label class="flex items-center gap-2 cursor-pointer">
                         <RadioButton v-model="form.type" value="multiple_choice" input-id="type_mc" name="question_type" />
                         <span class="text-sm">{{ $t('label.multiple_choice') }}</span>
@@ -102,6 +102,10 @@ defineExpose({ open });
                     <label class="flex items-center gap-2 cursor-pointer">
                         <RadioButton v-model="form.type" value="essay" input-id="type_essay" name="question_type" />
                         <span class="text-sm">{{ $t('label.essay') }}</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <RadioButton v-model="form.type" value="fill_in_the_blank" input-id="type_fitb" name="question_type" />
+                        <span class="text-sm">{{ $t('label.fill_in_the_blank') }}</span>
                     </label>
                 </div>
 
@@ -191,6 +195,33 @@ defineExpose({ open });
                     </Message>
                 </div>
 
+                <!-- Fill in the blank variants -->
+                <div v-else-if="form.type === 'fill_in_the_blank'">
+                    <div class="flex justify-between items-center gap-2 mb-3">
+                        <label class="text-sm">
+                            {{ $t('label.fill_in_the_blank_variants') }}
+                            <i v-tooltip="$t('label.fill_in_the_blank_variants_hint')" class="pi pi-question-circle text-gray-500" style="font-size: 0.6rem" />
+                        </label>
+                        <Button icon="pi pi-plus" size="small" variant="text" severity="secondary" @click="addChoice" rounded />
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <div
+                            v-for="(_, index) in form.choices" :key="index"
+                            class="flex items-center gap-2">
+                            <Textarea
+                                class="flex-1" fluid :rows="1"
+                                v-model="form.choices[index]"
+                                :placeholder="`${$t('label.fill_in_the_blank_variant')} ${index + 1}`" />
+                            <Button
+                                icon="pi pi-trash" size="small" variant="text" severity="danger"
+                                @click="removeChoice(index)" rounded />
+                        </div>
+                    </div>
+                    <Message v-if="form.errors.choices" severity="error" size="small" variant="simple">
+                        {{ form.errors.choices }}
+                    </Message>
+                </div>
+
                 <!-- Essay notice -->
                 <div v-else class="text-sm text-gray-500 italic bg-amber-50 dark:bg-amber-950 rounded-lg px-3 py-2">
                     {{ $t('label.essay_graded_manually') }}
@@ -203,7 +234,7 @@ defineExpose({ open });
                 <Button
                     type="submit" size="small" :label="$t('action.submit')"
                     :loading="form.processing"
-                    :disabled="form.processing || (form.type === 'multiple_choice' && form.choices.length < 1)" />
+                    :disabled="form.processing || ((form.type === 'multiple_choice' || form.type === 'fill_in_the_blank') && form.choices.length < 1)" />
             </div>
         </form>
     </Dialog>

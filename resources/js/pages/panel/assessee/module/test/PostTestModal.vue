@@ -90,7 +90,7 @@ defineExpose({
                         class="text-sm px-2 py-1 rounded-md cursor-pointer w-10 relative">
                         {{ i+1 }}
                         <div class="absolute -top-2 -right-0.5"
-                            v-if="q.type === 'essay' ? !!form.answers[i].answer?.trim() : form.answers[i].answer_index !== null">
+                            v-if="(q.type === 'essay' || q.type === 'fill_in_the_blank') ? !!form.answers[i].answer?.trim() : form.answers[i].answer_index !== null">
                             <i class="pi pi-circle-fill text-emerald-400" title="answered" style="font-size: 0.5rem"></i>
                         </div>
                     </button>
@@ -110,6 +110,12 @@ defineExpose({
                     <Textarea
                         v-model="form.answers[currentQuestionIndex].answer"
                         :rows="5" fluid
+                        :placeholder="$t('label.write_your_answer')" />
+                </template>
+                <template v-else-if="selectedQuestions[currentQuestionIndex]?.type === 'fill_in_the_blank'">
+                    <input
+                        v-model="form.answers[currentQuestionIndex].answer"
+                        type="text" class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-400"
                         :placeholder="$t('label.write_your_answer')" />
                 </template>
                 <template v-else>
@@ -138,7 +144,7 @@ defineExpose({
                     type="submit" size="small" :label="$t('action.submit')"
                     :loading="form.processing"
                     :disabled="form.processing || form.answers.some((a, i) =>
-                        selectedQuestions[i]?.type === 'essay'
+                        (selectedQuestions[i]?.type === 'essay' || selectedQuestions[i]?.type === 'fill_in_the_blank')
                             ? !a.answer?.trim()
                             : a.answer_index === null
                     )" />

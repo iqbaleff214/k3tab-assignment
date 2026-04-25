@@ -116,6 +116,17 @@ class ModuleController extends Controller
                     continue;
                 }
 
+                if ($question->type === 'fill_in_the_blank') {
+                    $answerText = mb_strtolower(trim($answer['answer'] ?? ''));
+                    $isCorrect = collect($question->choices ?? [])->contains(
+                        fn($v) => mb_strtolower(trim($v)) === $answerText
+                    );
+                    $input['answers'][$index]['is_correct'] = $isCorrect;
+                    $totalMC++;
+                    if ($isCorrect) $totalCorrect++;
+                    continue;
+                }
+
                 $input['answers'][$index]['answer'] = $question->choices[$answer['answer_index']] ?? null;
                 $isCorrect = $question->correct_answer_index == $answer['answer_index'];
                 $input['answers'][$index]['is_correct'] = $isCorrect;

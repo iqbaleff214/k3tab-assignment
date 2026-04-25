@@ -324,7 +324,7 @@ export interface Question {
     id: number;
     module_id: string;
     title: string;
-    type: 'multiple_choice' | 'essay';
+    type: 'multiple_choice' | 'essay' | 'fill_in_the_blank';
     question: string | null;
     question_image: string | null;
     choices: string[] | null;

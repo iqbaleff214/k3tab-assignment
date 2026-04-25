@@ -22,17 +22,18 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $isEssay = $this->input('type') === 'essay';
+        $type = $this->input('type');
+        $needsChoices = $type === 'multiple_choice' || $type === 'fill_in_the_blank';
         return [
             'title' => ['nullable', 'string', 'max:255'],
-            'type' => ['required', 'in:multiple_choice,essay'],
+            'type' => ['required', 'in:multiple_choice,essay,fill_in_the_blank'],
             'question' => ['nullable', 'string'],
             'question_image' => ['nullable', 'file', 'image', 'max:10240'],
-            'choices' => [$isEssay ? 'nullable' : 'required', 'array'],
+            'choices' => [$needsChoices ? 'required' : 'nullable', 'array'],
             'choices.*' => ['nullable', 'string'],
             'choices_images' => ['nullable', 'array'],
             'choices_images.*' => ['nullable'],
-            'correct_answer_index' => [$isEssay ? 'nullable' : 'required', 'numeric', 'min:0'],
+            'correct_answer_index' => [$type === 'multiple_choice' ? 'required' : 'nullable', 'numeric', 'min:0'],
         ];
     }
 }
