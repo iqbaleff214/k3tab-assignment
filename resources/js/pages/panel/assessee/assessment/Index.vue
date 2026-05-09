@@ -128,7 +128,7 @@ const searchByCode = (value: string | undefined): void => {
                             type="text" autocomplete="off" @update:model-value="searchByCode" />
                     </div>
                     <Button
-                        :label="t('action.submit_menu', { menu: t('menu.assessment') })"
+                        :label="t('action.submit_menu', { menu: t('menu.validation') })"
                         @click="modal?.open" size="small" />
                     <Filter :form="filterForm" />
                 </div>

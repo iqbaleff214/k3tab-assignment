@@ -276,8 +276,8 @@ const getResultColor = (result: string | null) => {
 
 const getResultText = (result: string | null) => {
     switch (result) {
-        case 'competent': return 'Competent';
-        case 'not_competent': return 'Not Competent';
+        case 'competent': return 'Passed';
+        case 'not_competent': return 'Not Passed';
         default: return 'Pending';
     }
 };

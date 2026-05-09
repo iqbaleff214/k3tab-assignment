@@ -303,7 +303,7 @@ const calendarOptions = ref({
                                     :style="{ width: `${competencyRate}%` }"
                                 ></div>
                             </div>
-                            <div class="text-xs text-gray-500 mt-1">{{ metrics.competency.competent }}/{{ metrics.competency.total_evaluated }} Competent</div>
+                            <div class="text-xs text-gray-500 mt-1">{{ metrics.competency.competent }}/{{ metrics.competency.total_evaluated }} Passed</div>
                         </div>
                         <div class="bg-gray-100 dark:bg-gray-800 rounded-full p-3 ml-4">
                             <i class="pi pi-star text-2xl text-gray-600 dark:text-gray-400"></i>
@@ -526,7 +526,7 @@ const calendarOptions = ref({
                                             'bg-gray-700 text-white' :
                                             'bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200'"
                                           class="px-2 py-1 rounded text-xs font-medium">
-                                        {{ assessment.result === 'competent' ? 'Competent' : 'Not Competent' }}
+                                        {{ assessment.result === 'competent' ? 'Passed' : 'Not Passed' }}
                                     </span>
                                     <span v-else class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs font-medium">
                                         {{ assessment.status }}

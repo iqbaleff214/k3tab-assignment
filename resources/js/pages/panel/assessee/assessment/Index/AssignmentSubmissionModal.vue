@@ -68,7 +68,7 @@ defineExpose({
         modal
         maximizable
         @after-hide="close"
-        :header="t('action.submit_menu', { menu: t('menu.assessment') })"
+        :header="t('action.submit_menu', { menu: t('menu.validation') })"
         :style="{ width: '30rem' }">
         <form @submit.prevent="submit">
             <div class="flex flex-col gap-6 pt-2 pb-8">

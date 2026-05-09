@@ -73,7 +73,7 @@ const statusChartData = computed(() => ({
 
 // Chart data for competency results
 const competencyChartData = computed(() => ({
-    labels: ['Competent', 'Not Competent'],
+    labels: ['Passed', 'Not Passed'],
     datasets: [{
         data: [props.metrics.competency.competent, props.metrics.competency.not_competent],
         backgroundColor: ['#10b981', '#ef4444'],
