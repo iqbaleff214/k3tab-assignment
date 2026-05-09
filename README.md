@@ -22,10 +22,9 @@
 
 - **📚 Manajemen Modul**: Upload dan kelola materi pembelajaran dengan berbagai format file (PDF, DOCX, gambar)
 - **📝 Sistem Post-Test**: Kuis otomatis dengan berbagai tipe soal untuk evaluasi pemahaman
-- **📋 Performance Guide**: Panduan penilaian terstruktur yang dihasilkan dengan bantuan AI (Gemini API)
+- **📋 Performance Guide**: Panduan penilaian terstruktur
 - **📅 Jadwal Asesmen**: Sistem penjadwalan yang fleksibel dengan notifikasi real-time
 - **📊 Dashboard Interaktif**: Visualisasi data dengan kalender dan statistik komprehensif
-- **💬 Notifikasi WhatsApp**: Integrasi WhatsApp untuk komunikasi dan reminder otomatis
 - **🌐 Multi-bahasa**: Dukungan 6 bahasa (Indonesia, English, Arabic, Japanese, Korean, Chinese)
 - **📱 Responsive Design**: Antarmuka yang optimal untuk desktop dan mobile
 - **🔐 Sistem Permission**: Kontrol akses berbasis peran yang granular
@@ -39,10 +38,6 @@
 - **Vite** – Build tool modern untuk development yang cepat
 - **Tailwind CSS 4.x** – Utility-first CSS framework
 - **PostgreSQL 16** – Database dengan Eloquent ORM
-- **Pusher/Reverb** – Real-time communication
-- **Gemini AI** – AI-powered content generation
-- **WhatsApp API** – Notification system
-- **Midtrans/Xendit** – Payment gateway integration
 
 ## 📦 Installation
 
@@ -78,7 +73,6 @@ DB_PORT=5432
 DB_DATABASE=k3tab2025
 DB_USERNAME=root
 DB_PASSWORD=root
-GEMINI_API_KEY=
 ```
 
 ### ▶️ Finishing
@@ -508,7 +502,6 @@ Menciptakan platform asesmen digital yang komprehensif dan user-friendly untuk m
 
 - **Profile Management**
   - Multi-language preferences (6 bahasa)
-  - Phone number dengan WhatsApp integration
   - Avatar generation otomatis
   - Activity history tracking
 
@@ -534,7 +527,6 @@ Menciptakan platform asesmen digital yang komprehensif dan user-friendly untuk m
   - Retry mechanism dengan attempt limits
 
 - **Performance Guide Integration**
-  - AI-generated assessment criteria via Gemini API
   - Customizable rubrics
   - Scoring templates
   - Performance indicators mapping
@@ -552,19 +544,6 @@ Menciptakan platform asesmen digital yang komprehensif dan user-friendly untuk m
   - Automatic transitions dengan business rules
   - Notification triggers
 
-#### E. Communication System
-- **WhatsApp Integration**
-  - Automated notifications untuk milestones
-  - Custom message templates
-  - Delivery status tracking
-  - Bulk messaging capability
-
-- **In-app Notifications**
-  - Real-time notifications via Pusher
-  - Notification center dengan read/unread status
-  - Email fallback untuk critical notifications
-  - Notification preferences per user
-
 ### 4.2 Advanced Features
 
 #### A. Reporting & Analytics
@@ -580,14 +559,7 @@ Menciptakan platform asesmen digital yang komprehensif dan user-friendly untuk m
   - Printable assessment forms
   - Performance certificates
 
-#### B. AI Integration
-- **Gemini AI Features**
-  - Performance guide generation
-  - Content summarization
-  - Question suggestion
-  - Personalized feedback
-
-#### C. Internationalization
+#### B. Internationalization
 - **Multi-language Support**
   - 6 bahasa: ID, EN, AR, JA, KO, ZH-CN
   - RTL support untuk Arabic
@@ -631,9 +603,6 @@ Menciptakan platform asesmen digital yang komprehensif dan user-friendly untuk m
 - **Storage**: Local storage dengan S3 backup option
 
 ### 6.2 Integration Requirements
-- **WhatsApp Business API**: Untuk messaging
-- **Gemini AI API**: Untuk content generation
-- **Payment Gateway**: Midtrans/Xendit integration
 - **Email Service**: SMTP dengan queue processing
 - **Push Notifications**: Laravel Reverb dengan WebSocket
 
@@ -646,13 +615,11 @@ Menciptakan platform asesmen digital yang komprehensif dan user-friendly untuk m
 - Basic reporting
 
 ### Phase 2: Enhanced Features - 6 weeks  
-- WhatsApp integration
 - Advanced scheduling
 - Performance guide system
 - Detailed analytics
 
-### Phase 3: AI & Advanced Features - 4 weeks
-- Gemini AI integration
+### Phase 3: Advanced Features - 4 weeks
 - Advanced reporting
 - Mobile optimization
 - Performance tuning
