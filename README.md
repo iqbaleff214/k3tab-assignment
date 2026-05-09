@@ -652,6 +652,63 @@ Menciptakan platform asesmen digital yang komprehensif dan user-friendly untuk m
 
 ---
 
+## 🔨 Tahapan Pengembangan
+
+### 1. Analisis Kebutuhan
+
+Tahap pertama dilakukan identifikasi kebutuhan sistem berdasarkan proses asesmen kompetensi yang sebelumnya berjalan secara manual. Kebutuhan dikelompokkan berdasarkan tiga peran pengguna: administrator, asesor, dan asesi. Output tahap ini adalah daftar fitur dan alur kerja yang harus diakomodasi sistem.
+
+### 2. Perancangan Sistem
+
+Perancangan meliputi:
+
+- **Arsitektur aplikasi** — monolitik full-stack menggunakan Laravel (backend) dan Vue 3 via Inertia.js (frontend) tanpa REST API terpisah
+- **Skema basis data** — entitas utama: `users`, `modules`, `questions`, `post_tests`, `performance_guides`, `assessments`, `assessment_schedules`
+- **Desain antarmuka** — wireframe dan komponen UI berbasis Tailwind CSS + PrimeVue untuk ketiga panel (admin `/a/`, asesor `/r/`, asesi `/e/`)
+- **Alur otorisasi** — middleware `allowed-type` membatasi akses rute berdasarkan tipe pengguna; permission granular via Spatie Laravel Permission
+
+### 3. Implementasi
+
+Pengembangan dilakukan secara iteratif mengikuti urutan berikut:
+
+| Urutan | Komponen | Keterangan |
+|--------|----------|------------|
+| 1 | Autentikasi & manajemen pengguna | Login, register, reset password, manajemen sesi |
+| 2 | Manajemen modul & media | CRUD modul, upload file (PDF/DOCX/gambar) |
+| 3 | Bank soal | Tipe soal pilihan ganda, esai, isian singkat |
+| 4 | Sistem post-test | Pengerjaan tes, penilaian otomatis/manual, riwayat hasil |
+| 5 | Performance guide | Rubrik penilaian terstruktur berbasis nomor skill |
+| 6 | Alur asesmen | Pengajuan jadwal, penjadwalan oleh asesor, evaluasi, ekspor PDF |
+| 7 | Dashboard & laporan | Statistik, grafik tren, log aktivitas |
+
+Setiap fitur mencakup layer: migration → model → form request → controller → halaman Vue → locale.
+
+### 4. Pengujian
+
+- **Unit & feature test** — menggunakan Pest PHP; basis data SQLite in-memory untuk isolasi
+- **Pengujian manual** — setiap alur pengguna (admin, asesor, asesi) diuji end-to-end di browser
+- **Pengujian validasi** — form request Laravel memastikan data masukan valid sebelum diproses
+
+```bash
+php artisan test
+```
+
+### 5. Deployment
+
+Aplikasi dikemas menggunakan Docker dan di-deploy ke server VPS.
+
+```bash
+# Build aset frontend
+npm run build
+
+# Di server: jalankan migrasi
+php artisan migrate --force
+```
+
+Server berjalan di atas Nginx + PHP-FPM dengan PostgreSQL 16 sebagai basis data produksi.
+
+---
+
 ## Dev Notes
 
 Build asset from local and scp to server.
