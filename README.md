@@ -685,6 +685,26 @@ Menciptakan platform asesmen digital yang komprehensif dan user-friendly untuk m
 
 ---
 
+## Dev Notes
+
+Build asset from local and scp to server.
+
+### Local
+```bash
+scp -i ~/.ssh/id_rsa_air -P 22 -r public/build Corsa123@103.196.153.195:/home/Corsa123/
+```
+
+### Server
+```bash
+sudo rm -rf /var/www/k3tab-assignment/public/build/
+
+sudo mv build/ /var/www/k3tab-assignment/public/
+
+sudo chown -R www-data:www-data /var/www/k3tab-assignment/public/build/
+```
+
+---
+
 ## 📄 License
 
 This project is proprietary software.  
