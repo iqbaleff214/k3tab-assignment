@@ -125,9 +125,19 @@ const destroy = (event: MouseEvent, item: PostTest) => {
                 </Column>
                 <Column field="score" header="field.score" :sortable="true" :visible="true" />
                 <Column field="minimum_score" header="field.minimum_score" :sortable="true" :visible="true" />
+                <Column field="module_id" header="field.module" :sortable="true" :visible="true">
+                    <template #body="{ row }: { row: PostTest }">
+                        <div class="flex flex-col">
+                            <span>{{ row.assessee?.name }}</span>
+                            <a :href="route('admin.module.show', row.module_id)" class="text-gray-500 hover:underline hover:text-amber-500">
+                                {{ row.module?.name ?? row.module?.code ?? row.module_id }}
+                            </a>
+                        </div>
+                    </template>
+                </Column>
                 <Column field="is_graded" header="field.is_graded" :sortable="true" :visible="true">
                     <template #body="{ row }: { row: PostTest }">
-                        <span class="px-2 py-0.5 text-xs rounded-lg font-medium" :class="{
+                        <span class="ms-1 px-2 py-0.5 text-xs rounded-lg font-medium" :class="{
                             'bg-yellow-100 text-yellow-600': !row.is_graded,
                             'bg-emerald-100 text-emerald-600': row.is_graded,
                         }">
