@@ -88,7 +88,8 @@ class AssesseeController extends Controller
         $totalModules = $enrolledModules->count();
 
         // Post-Test Statistics
-        $postTests = \App\Models\PostTest::where('user_id', $assessee->id)->get();
+        $postTests = \App\Models\PostTest::where('user_id', $assessee->id)
+                        ->latest()->get()->unique('module_id');
         $completedPostTests = $postTests->whereNotNull('answers')->count();
         $passedPostTests = $postTests->where('is_passed', true)->count();
         $totalPostTests = $postTests->count();
